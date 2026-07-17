@@ -33,7 +33,15 @@ export const projectSchema = z.object({
   modelPath: z.string().optional(), // GLB under /public/models/<project>/
   wasmPath: z.string().optional(), // WASM under /public/wasm/<project>/
   images: z
-    .array(z.object({ src: z.string(), caption: z.string() }))
+    .array(
+      z.object({
+        src: z.string(),
+        caption: z.string(),
+        // CSS aspect-ratio override for wide renders/diagrams; photos
+        // default to the standard 3:2 frame
+        aspect: z.string().optional(),
+      }),
+    )
     .default([]),
   // main-page ordering within a wing/tier group (ascending)
   order: z.number().int(),

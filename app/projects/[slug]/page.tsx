@@ -85,6 +85,7 @@ export default async function ProjectPage({
               alt={img.caption}
               fig={String(i + 1).padStart(2, "0")}
               caption={img.caption}
+              aspect={img.aspect}
             />
           ))}
         </section>

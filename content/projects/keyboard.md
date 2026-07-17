@@ -12,6 +12,9 @@ modelPath: /models/keyboard/keyboard-pcb.glb
 images:
   - src: /photos/keyboard/gadget-v1.jpg
     caption: Where it started — the 2-key copy-paste gadget, self-designed PCB in a 3D-printed housing
+  - src: /photos/keyboard/keycaps.png
+    caption: Keycap set in design via YUZUKeycaps — Greek-letter and math-symbol sublegends
+    aspect: "2568 / 970"
 order: 4
 contentPending: false
 ---

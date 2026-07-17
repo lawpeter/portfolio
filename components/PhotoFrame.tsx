@@ -8,15 +8,18 @@ export function PhotoFrame({
   alt,
   fig,
   caption,
+  aspect = "3 / 2",
 }: {
   src?: string;
   alt: string;
   fig: string; // e.g. "01" — explicit so numbering is stable per section
   caption: string;
+  // photos keep the standard 3:2 frame; wide renders/diagrams may override
+  aspect?: string;
 }) {
   return (
     <figure className="border border-line">
-      <div className="relative aspect-3/2 w-full">
+      <div className="relative w-full" style={{ aspectRatio: aspect }}>
         {src ? (
           <Image src={src} alt={alt} fill className="object-cover" />
         ) : (
