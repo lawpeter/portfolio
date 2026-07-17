@@ -1,26 +1,60 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * Design tokens — single source of truth, values from PRD §5.
+ * The default Tailwind palette and font stacks are wiped (`initial`) so
+ * off-palette utilities (bg-purple-500, font-inter, …) don't exist in this
+ * project at all — the §5.6 guardrails are structural, not convention.
+ */
+@theme {
+  --color-*: initial;
+  --font-*: initial;
+
+  /* §5.2 color */
+  --color-graphite: #141312; /* background — warm near-black */
+  --color-panel: #1c1a18; /* raised surfaces: code blocks, readout panels */
+  --color-line: #2e2b27; /* graphite border lines */
+  --color-fg: #e9e6de; /* text primary */
+  --color-muted: #8f8b83; /* text secondary */
+  --color-accent: #e0481f; /* the single accent — borders, traces, large data */
+  --color-accent-text: #f15a2f; /* accent when rendered as small text (WCAG AA) */
+
+  /* §5.3 typography */
+  --font-sans: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), ui-monospace, monospace;
+
+  /* 13px — the minimum for any mono data/label text (§5.3) */
+  --text-data: 0.8125rem;
+  --text-data--line-height: 1.5;
+
+  /* §5.4 — 8px base spacing unit: p-1 = 8px, p-2 = 16px, … */
+  --spacing: 8px;
+
+  /* §5.4 — reading column for prose-heavy sections */
+  --container-reading: 680px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  body {
+    @apply bg-graphite font-sans text-fg antialiased;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Single-hue selection — default OS blue would introduce a second hue (§5.2) */
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-graphite);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* FIG-numbering for markdown figures (§3.5 / §5.5): each figure in a prose
+ * block increments the counter; the caption renders as "FIG 01 — <alt>". */
+.prose {
+  counter-reset: fig;
+}
+.prose figure {
+  counter-increment: fig;
+}
+.prose figcaption::before {
+  content: "FIG " counter(fig, decimal-leading-zero) " — ";
+  color: var(--color-fg);
 }
