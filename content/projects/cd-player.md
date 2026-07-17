@@ -7,6 +7,11 @@ summary: A working, to-scale Minecraft Jukebox — insert a CD into the top and 
 status: "WORKING — V2 PLANNED"
 hasInteractiveDemo: false
 hasCADReveal: false
+images:
+  - src: /photos/cd-player/jukebox.jpg
+    caption: The jukebox — plywood v1 housing with carved note pattern, CD loaded through the top
+  - src: /photos/cd-player/mechanism.jpg
+    caption: Drive mechanism beside the housing — slot-load CD drive on its mount
 order: 5
 contentPending: false
 ---

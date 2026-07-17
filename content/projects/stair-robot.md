@@ -8,6 +8,11 @@ status: "PHYSICAL BUILD / CAD"
 hasInteractiveDemo: false
 hasCADReveal: false
 modelPath: /models/stair-robot/stair-robot.glb
+images:
+  - src: /photos/stair-robot/stairmaster-side.jpg
+    caption: STAIRMASTER — lasercut side panel, chain-drive spiked tracks, team roster signed on
+  - src: /photos/stair-robot/internals.jpg
+    caption: Chassis internals — Arduino, dual Cytron MD20A drivers, drive motors and battery
 order: 3
 contentPending: false
 ---

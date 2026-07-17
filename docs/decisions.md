@@ -135,6 +135,20 @@ Peter's PDF, unmodified, linked with a `download` attribute naming it `Peter-Law
 
 Prose now drafted from facts Peter supplied directly in-session (ME213 team-of-six robot with BLE/PS2 controls; 2-key-gadget→full-keyboard arc with JLCPCB PCB, YUZUKeycaps, ZMK config repo; working Minecraft-Jukebox CD player with lasercut-housing/driver/bookshelf plans). Same review state as the repo-derived sections: real content, Peter polishes wording himself as tier-1 edits.
 
+## 2026-07-17 — Photos & About section
+
+### Photo convention: /public/photos/<project>/, sips-optimized
+
+Project photos live under `/public/photos/<project>/` (parallel to `/models/` and `/wasm/` — each asset type gets one root). Peter's camera originals (5712×4284, several MB) are resized to 1600px / JPEG q72 via macOS `sips` before entering the repo — originals stay outside git. A photo swap is tier-2: drop the file, update the `images[]` caption if needed.
+
+### images[] rendered as stacked PhotoFrames on the deep-dive route
+
+The schema's `images[]` field (waiting since Phase 0 day one) now renders: a single-column stack at reading width after the prose body, explicit FIG numbers in content order. **Vibecoded check:** photos sit in the §5.5 graphite frame with mono captions, unfiltered — the frame is the system, the pixels stay real. Portrait shots crop to the frame's 3:2 (`object-cover`); consistency of frame ratio is the §5.5 rule, and Peter curates/replaces photos later — logged as an accepted trade-off rather than letting frame ratios vary per photo.
+
+### About section: hobbies foundation text from Peter, E60 paragraph folded in
+
+Peter supplied the hobbies text directly (drift-kart plan, carspotting, snowboarding, Fuji/Yoshida, Tokyo year — selvedge denim and JDM watches). It contains the E60 color-scheme origin, so the previous standalone E60 paragraph was removed rather than telling the story twice. Used near-verbatim (§3.3 allows this section to read like a person talking); Peter polishes wording as tier-1 edits. This was the site's last `[CONTENT PENDING]` marker.
+
 ### Known non-issue: npm audit moderate advisory
 
 `npm audit` reports a moderate XSS advisory in the `postcss` copy bundled inside `next` itself. The suggested fix downgrades Next to 9.x — not a real option. Waiting on an upstream Next patch; revisit if it's still present at a later phase.

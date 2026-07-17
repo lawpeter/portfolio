@@ -79,13 +79,21 @@ export default function Home() {
             is where I&apos;m headed.
           </p>
           <p>
-            The color scheme on this site has an origin story: my first car
-            was a 2010 BMW E60, and the graphite-and-orange palette here is
-            lifted from its instrument-cluster illumination.
+            Outside of engineering, most of it still somehow involves wheels
+            or an engine: motorsport and vehicle dynamics are a long-running
+            interest — it&apos;s basically why this site looks the way it does
+            — and I hope to build an electric drift kart from a hoverboard hub
+            motor and a salvaged battery pack. My first car was a 2010 BMW
+            E60, which is where the graphite-and-orange color scheme actually
+            comes from. I carspot when I&apos;m out and about, and winters are
+            for snowboarding.
           </p>
           <p>
-            Hobbies and the rest of the personal section:{" "}
-            <PendingMarker label="CONTENT PENDING" />
+            I&apos;ll also chase an adventure on foot — a same-day summit of
+            Mt. Fuji via the Yoshida Trail — or just wander: living in Tokyo
+            this year turned into a deep dive on Japanese material culture,
+            hunting down selvedge denim and JDM watches in Harajuku and
+            Shimokitazawa.
           </p>
         </div>
       </section>

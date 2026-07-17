@@ -6,6 +6,7 @@ import { Prose } from "@/components/Prose";
 import { StatusBadge } from "@/components/StatusBadge";
 import { PendingMarker } from "@/components/PendingMarker";
 import { DevlogList } from "@/components/DevlogList";
+import { PhotoFrame } from "@/components/PhotoFrame";
 
 // Deep-dive writeup route (§3.5). Overview-depth content for Phase 0; the
 // route and rendering pipeline are the final architecture.
@@ -74,6 +75,20 @@ export default async function ProjectPage({
       <div className="mt-4">
         <Prose>{project.body}</Prose>
       </div>
+
+      {project.images.length > 0 && (
+        <section aria-label="Photos" className="mt-6 max-w-reading space-y-3">
+          {project.images.map((img, i) => (
+            <PhotoFrame
+              key={img.src}
+              src={img.src}
+              alt={img.caption}
+              fig={String(i + 1).padStart(2, "0")}
+              caption={img.caption}
+            />
+          ))}
+        </section>
+      )}
 
       {relatedDevlog.length > 0 && (
         <section aria-label="Related devlog entries" className="mt-8">

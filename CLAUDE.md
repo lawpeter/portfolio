@@ -75,9 +75,10 @@ Phase 0 (PRD §9) is built and verified: full site architecture and routing, §5
 
 All five project sections now carry real content (Peter reviewed the drafted prose and supplied facts for the rest; he polishes wording himself as tier-1 edits). Resume PDF at `/public/resume.pdf`, LinkedIn + email confirmed and linked, stair-robot GLB compressed and stored at `/public/models/stair-robot/stair-robot.glb` (see Known gotchas).
 
+About/hobbies content is in (Peter's own text, near-verbatim). Photos for the stair robot and CD player are stored under `/public/photos/<project>/` (sips-optimized to 1600px) and render on the deep-dive routes via `images[]` frontmatter.
+
 Open items on Peter, before the domain is pointed:
-- Hobbies line in the About section (last remaining `[CONTENT PENDING]`)
-- Project photos (§5.5)
-- Provision Neon Postgres (run `docs/telemetry.sql`), set `DATABASE_URL`
+- Photos still missing: robot team/action shots (not on disk when offered), FluidSim, quadrotor, keyboard; Peter intends to replace current photos during his polish pass
+- Provision Neon Postgres (run `docs/telemetry.sql`), set `DATABASE_URL` (deliberately deferred)
 
 Next phases (order not fixed, §9): hero polish, mobile-lightweight pass, embedded sim demo, CAD scroll-reveal, contact forms, visible analytics.
