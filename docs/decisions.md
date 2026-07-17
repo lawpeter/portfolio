@@ -97,6 +97,16 @@ Project prose is first-person, technical, drafted strictly from the reference re
 
 Stair robot / keyboard / CD player bodies state only what the PRD itself records (e.g. "2nd of 50+ UH ME teams", "ZMK-based") plus an explicit note of what's pending — never plausible-sounding filler (§9).
 
+## 2026-07-17 — Analytics groundwork
+
+### Client library: @neondatabase/serverless
+
+The Neon-recommended driver for serverless/edge environments (HTTP-based, no connection pooling to manage in Vercel functions). One dependency, used in exactly one route handler.
+
+### Beacon semantics
+
+One `navigator.sendBeacon` per route view from a null-rendering client component in the root layout — fire-and-forget, survives navigation, no impact on rendering. Beacons fire in dev too (the endpoint no-ops without `DATABASE_URL`), which keeps the path testable locally rather than being prod-only dead code. Every failure mode returns 204 silently: analytics must never break or slow the site. Table DDL lives in `docs/telemetry.sql`; provisioning + running it is Peter's step alongside deployment.
+
 ### Known non-issue: npm audit moderate advisory
 
 `npm audit` reports a moderate XSS advisory in the `postcss` copy bundled inside `next` itself. The suggested fix downgrades Next to 9.x — not a real option. Waiting on an upstream Next patch; revisit if it's still present at a later phase.
