@@ -77,6 +77,16 @@ Links render as small text, so the small-text accent variant applies (§5.2). Un
 
 react-markdown — render tier-1 markdown with per-element custom renderers (the §3.5 styling requirement). remark-gfm — GitHub-style tables, required by §3.5. rehype-unwrap-images — lifts images out of `<p>` so the `<figure>` treatment is valid HTML (React 19 hydration errors otherwise).
 
+## 2026-07-17 — Content schema
+
+### Schema conventions beyond §7's named fields
+
+- **Frontmatter `slug` must equal the filename** — enforced by the loader. One canonical identity per entry; a renamed file with a stale slug fails the build instead of silently forking routes.
+- **`wing: sim | cad | none`** encodes §3.1's placement rule as data (the quadrotor carries `sim` until a physical build exists); the main page groups by it rather than hardcoding which project sits where.
+- **`status` is free text**, not an enum — it renders as a mono readout badge and Peter should be able to write "SIM-ONLY / 2D / IN DEV" without a schema change (tier-1 edit).
+- **`contentPending` is schema, not prose** — the §9 requirement that placeholders be *clearly labeled* is enforced by structure: the flag drives the mono `[CONTENT PENDING]` marker in every rendering context.
+- **Devlog→project references validated at load time** — an entry tagged to a nonexistent project slug fails the build (§3.4 cross-links must never dangle).
+
 ### Known non-issue: npm audit moderate advisory
 
 `npm audit` reports a moderate XSS advisory in the `postcss` copy bundled inside `next` itself. The suggested fix downgrades Next to 9.x — not a real option. Waiting on an upstream Next patch; revisit if it's still present at a later phase.
