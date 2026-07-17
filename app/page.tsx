@@ -23,15 +23,47 @@ export default function Home() {
 
   return (
     <main className="mx-auto w-full max-w-4xl flex-1 px-2 py-8 sm:px-4">
-      {/* Hero — deliberately restrained; hero polish is a later phase (§9) */}
-      <header className="py-8">
-        <p className="font-mono text-data text-muted">PETERLAW.DEV</p>
-        <h1 className="mt-1 text-5xl font-medium">Peter Law</h1>
-        <p className="mt-2 max-w-reading text-lg leading-relaxed text-muted">
+      {/* Hero — instrument-cluster density, everything functional: identity,
+          targeting readout, full link set, and channel-list section nav */}
+      <header className="flex min-h-[70vh] flex-col justify-center py-8">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+          <p className="font-mono text-data text-muted">PETERLAW.DEV</p>
+          <div className="flex flex-wrap gap-x-3 gap-y-1 font-mono text-data">
+            <a
+              href={GITHUB}
+              className="text-accent-text underline underline-offset-2 hover:text-accent"
+            >
+              GITHUB ↗
+            </a>
+            <a
+              href={LINKEDIN}
+              className="text-accent-text underline underline-offset-2 hover:text-accent"
+            >
+              LINKEDIN ↗
+            </a>
+            <a
+              href="/resume.pdf"
+              download="Peter-Law-Resume.pdf"
+              className="text-accent-text underline underline-offset-2 hover:text-accent"
+            >
+              RESUME ↓
+            </a>
+            <a
+              href={`mailto:${EMAIL}`}
+              className="text-accent-text underline underline-offset-2 hover:text-accent"
+            >
+              EMAIL
+            </a>
+          </div>
+        </div>
+        <h1 className="mt-4 text-6xl font-medium tracking-tight sm:text-7xl">
+          Peter Law
+        </h1>
+        <p className="mt-3 max-w-reading text-lg leading-relaxed text-muted">
           CS + Mechanical Engineering double major at UH Mānoa, aimed at
           guidance, navigation &amp; control and flight software.
         </p>
-        <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1 border-y border-line py-1 font-mono text-data">
+        <div className="mt-4 flex flex-wrap gap-x-3 gap-y-1 font-mono text-data">
           <span>
             <span className="text-muted">FOCUS </span>
             <span className="text-accent-text">GNC / FLIGHT SOFTWARE</span>
@@ -40,16 +72,35 @@ export default function Home() {
             <span className="text-muted">EDU </span>
             CS + ME, UH MĀNOA
           </span>
-          <a
-            href="#contact"
-            className="text-accent-text underline underline-offset-2 hover:text-accent"
-          >
-            CONTACT ↓
-          </a>
         </div>
+        <hr className="mt-4 border-accent" />
+        <nav
+          aria-label="Sections"
+          className="mt-2 flex flex-wrap gap-x-4 gap-y-1 font-mono text-data"
+        >
+          {[
+            ["01", "SIM WING", "#sim-wing"],
+            ["02", "CAD WING", "#cad-wing"],
+            ["03", "ABOUT", "#about"],
+            ["04", "SIDE PROJECTS", "#side-projects"],
+            ["05", "DEVLOG", "#devlog"],
+            ["06", "CONTACT", "#contact"],
+          ].map(([index, label, href]) => (
+            <a
+              key={href}
+              href={href}
+              className="group whitespace-nowrap text-muted hover:text-fg"
+            >
+              <span className="text-fg group-hover:text-accent-text">
+                {index}
+              </span>{" "}
+              {label}
+            </a>
+          ))}
+        </nav>
       </header>
 
-      <section aria-label="Simulation projects" className="py-6">
+      <section id="sim-wing" aria-label="Simulation projects" className="scroll-mt-4 py-6">
         <SectionHeader index="01" label="/ SIM WING" />
         <div className="space-y-6">
           {simWing.map((p) => (
@@ -58,7 +109,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section aria-label="Hardware and CAD projects" className="py-6">
+      <section id="cad-wing" aria-label="Hardware and CAD projects" className="scroll-mt-4 py-6">
         <SectionHeader index="02" label="/ CAD WING" />
         <div className="space-y-6">
           {cadWing.map((p) => (
@@ -79,7 +130,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="about" aria-label="About" className="py-6">
+      <section id="about" aria-label="About" className="scroll-mt-4 py-6">
         <SectionHeader index="03" label="/ ABOUT" />
         <div className="max-w-reading space-y-2 leading-relaxed">
           <p>
@@ -111,7 +162,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section aria-label="Side projects" className="py-6">
+      <section id="side-projects" aria-label="Side projects" className="scroll-mt-4 py-6">
         <SectionHeader index="04" label="/ SIDE PROJECTS" />
         <div className="grid gap-2 sm:grid-cols-2">
           {sideProjects.map((p) => (
@@ -142,7 +193,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section aria-label="Devlog" className="py-6">
+      <section id="devlog" aria-label="Devlog" className="scroll-mt-4 py-6">
         <SectionHeader index="05" label="/ DEVLOG" />
         <DevlogList entries={recentDevlog} />
         <p className="mt-2">

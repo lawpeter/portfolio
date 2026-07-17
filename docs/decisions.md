@@ -197,6 +197,15 @@ Server render and non-desktop/reduced-motion clients get the FIG 00 photo in a s
 
 `frameloop="demand"` + invalidate on scroll/while unsettled → zero idle GPU. Stage chunk + GLB behind `next/dynamic` and an IntersectionObserver gate (plus a scroll-progress fallback trigger — the observer alone proved flaky in testing). `preserveDrawingBuffer: true` kept on: it enables the §10 screenshot-verification pass, negligible cost at this scene size.
 
+## 2026-07-17 — Hero polish
+
+### Instrument-cluster hero: bigger identity, channel-list nav, full link row
+
+- Name scaled to 6xl/7xl with a ~70vh hero — presence for the 30-second skim (§2) while the sim wing still peeks above the fold. **Not vibecoded**: type scale and whitespace only; no animation, no imagery, no gradient.
+- **Channel-list section nav** (`01 SIM WING … 06 CONTACT`): mono anchor links styled like a telemetry channel selector. Functional navigation, not decoration — every entry jumps to a real section. Smooth scroll behind `prefers-reduced-motion: no-preference`.
+- **Full link row in the hero** (GITHUB / LINKEDIN / RESUME ↓ / EMAIL): recruiters get every exit above the fold; the footer keeps the same set for end-of-scroll capture. Duplication is deliberate.
+- **Accent hairline rule** under the readout strip: the §5.2 accent-as-border role, one per page. FOCUS readout keeps the accent-text value (it's the one piece of data the site exists to communicate). **Not vibecoded**: single hue, flat hairline, mirrors how MoTeC pages separate the header band from channels.
+
 ### Known non-issue: npm audit moderate advisory
 
 `npm audit` reports a moderate XSS advisory in the `postcss` copy bundled inside `next` itself. The suggested fix downgrades Next to 9.x — not a real option. Waiting on an upstream Next patch; revisit if it's still present at a later phase.

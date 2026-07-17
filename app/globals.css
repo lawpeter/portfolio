@@ -43,6 +43,13 @@
 }
 
 @layer base {
+  /* channel-list nav (hero) jumps smoothly; instant for reduced-motion */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
   body {
     @apply bg-graphite font-sans text-fg antialiased;
   }
