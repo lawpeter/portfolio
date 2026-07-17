@@ -56,6 +56,7 @@ export function ModelViewer({
           src={fallbackSrc}
           alt={fallbackAlt}
           fill
+          sizes="(min-width: 640px) 50vw, 100vw"
           className="object-cover"
         />
       ) : null}

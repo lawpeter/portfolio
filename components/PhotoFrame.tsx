@@ -21,7 +21,15 @@ export function PhotoFrame({
     <figure className="border border-line">
       <div className="relative w-full" style={{ aspectRatio: aspect }}>
         {src ? (
-          <Image src={src} alt={alt} fill className="object-cover" />
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            // frames render at reading-column width on desktop, full-width
+            // minus gutters on mobile
+            sizes="(min-width: 680px) 680px, 100vw"
+            className="object-cover"
+          />
         ) : (
           <div className="flex h-full w-full items-center justify-center">
             <span className="font-mono text-data tracking-wider text-muted">

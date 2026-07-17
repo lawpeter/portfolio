@@ -220,6 +220,16 @@ Auto-rotate is motion with a job: a static render is indistinguishable from an i
 
 Wider than the 3:2 photo frame — these are landscape thumbs above a text block, and 8:5 keeps two cards' media rows aligned at the grid gap without letterboxing the wide PCB. Square corners, border-line separator; the §5.5 FIG-caption treatment stays reserved for deep-dive figures (thumbs get the mono overlay label instead).
 
+## 2026-07-17 — Mobile-lightweight pass (§9)
+
+### Findings: structure already carries the reduced-island model
+
+Surveyed 375px and 768px on every page. The §4/§9 "reduced interactive islands, same content" requirement is structural, not bolted on: below 1024px no three.js chunk and no GLB is ever fetched (verified via resource timing — zero .glb requests on mobile), islands render their photo fallbacks, all content identical. Layout survives both widths with no horizontal overflow; deep-dive tables scroll in their own container.
+
+### Fix applied: `sizes` hints on all fill images
+
+`next/image` fill defaults assume 100vw, so phones were offered desktop-sized variants (and desktop full-viewport ones). PhotoFrame now declares the reading-column cap (680px), card media and viewer fallbacks declare the grid split. Markdown `<img>` stays plain per the earlier tier-1 decision — 1600px q72 files are the accepted cost.
+
 ### Known non-issue: npm audit moderate advisory
 
 `npm audit` reports a moderate XSS advisory in the `postcss` copy bundled inside `next` itself. The suggested fix downgrades Next to 9.x — not a real option. Waiting on an upstream Next patch; revisit if it's still present at a later phase.

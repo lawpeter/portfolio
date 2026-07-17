@@ -188,6 +188,7 @@ export default function Home() {
                     src={p.images[0].src}
                     alt={p.images[0].caption}
                     fill
+                    sizes="(min-width: 640px) 50vw, 100vw"
                     className="object-cover"
                   />
                 ) : null}
