@@ -6,7 +6,7 @@ wing: cad
 summary: UH Mānoa ME213 competition robot, built with a team of six — placed 2nd of 50+ UH ME teams. Systems engineering, software, and controls.
 status: "PHYSICAL BUILD / CAD"
 hasInteractiveDemo: false
-hasCADReveal: false
+hasCADReveal: true
 modelPath: /models/stair-robot/stair-robot.glb
 images:
   - src: /photos/stair-robot/stairmaster-side.jpg

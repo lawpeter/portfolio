@@ -167,6 +167,36 @@ Peter's folder offers `model.stl` (124 MB, single fused mesh, no materials) and 
 
 BOM.csv (68× SOD-123 diodes, MCP23017), keyboard-layout.json (68-key 5×14, split space), and ZMK_Firmware_PRD.md (nice!nano v2/nRF52840, nice!view display, EC11 encoder, BLE profiles, ZMK Studio, WPM widget) — all stated in the section are verifiable from those files. Diode *placement* deliberately not attributed to hand-soldering (Peter confirmed soldering switches, not diodes).
 
+## 2026-07-17 — CAD scroll-reveal (§6.2)
+
+### Dependencies: three, @react-three/fiber, @react-three/drei
+
+The §7-specified interactive layer, installed at first need per CLAUDE.md. drei's `useGLTF` wires the meshopt decoder locally (no CDN — works offline) for our gltfpack-compressed GLBs.
+
+### (Backfill) PhotoFrame optional `aspect` override
+
+Landed with the keycap-render commit without its log entry: `images[]` and PhotoFrame accept a CSS aspect-ratio override so wide renders/diagrams (keycap set, 2.65:1) aren't destroyed by the 3:2 photo crop. Photos keep the standard frame; the §5.5 consistency rule bends only for non-photo artwork.
+
+### Scroll mechanism: native scroll + sticky pin
+
+300vh wrapper, `sticky top-0` stage, progress derived from the wrapper rect into a ref (no per-frame React state; subscribers get callbacks). drei `ScrollControls` rejected — it owns its own scroll container and breaks the single-page native scroll model (§4). No scroll hijacking anywhere.
+
+### Explosion: computed radial per part, scalar checkpoints
+
+~2300 mesh parts make hand-authored per-part transforms unworkable. Directions computed at load (part center − assembly centroid, expressed in parent space so gltfpack quantization-scale nodes don't distort it); outer parts travel further. The authored config (`components/cad-reveal/checkpoints.ts`) is scalars only — t / rotationY / explode / label — the PRD's middle tier. Motion damped (`MathUtils.damp`) so scroll jitter reads as physical settling.
+
+### Labels anchored to named nodes, not authored coordinates
+
+Onshape part names survive gltfpack `-kn`; labels resolve their anchor by name pattern at load and ride the part through explosion (portal into the node). Two gotchas discovered and handled: three's GLTFLoader sanitizes names (spaces → underscores) — matching normalizes whitespace/underscores away; and the first name match can be an empty transform leaf — resolution takes the first match with real geometry. Label = accent mono chip + hairline leader (§5.2: accent marks data; the model keeps its real CAD colors).
+
+### Fallback policy: poster below 1024px and for prefers-reduced-motion
+
+Server render and non-desktop/reduced-motion clients get the FIG 00 photo in a standard frame — mobile islands are an explicitly later phase (§4); nothing may look broken meanwhile. Media queries via `useSyncExternalStore` (hydration-safe, live-reactive — verified by resizing across the breakpoint).
+
+### Perf posture
+
+`frameloop="demand"` + invalidate on scroll/while unsettled → zero idle GPU. Stage chunk + GLB behind `next/dynamic` and an IntersectionObserver gate (plus a scroll-progress fallback trigger — the observer alone proved flaky in testing). `preserveDrawingBuffer: true` kept on: it enables the §10 screenshot-verification pass, negligible cost at this scene size.
+
 ### Known non-issue: npm audit moderate advisory
 
 `npm audit` reports a moderate XSS advisory in the `postcss` copy bundled inside `next` itself. The suggested fix downgrades Next to 9.x — not a real option. Waiting on an upstream Next patch; revisit if it's still present at a later phase.

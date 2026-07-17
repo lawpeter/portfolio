@@ -1,4 +1,5 @@
 import { getDevlogEntries, getProjects } from "@/lib/content";
+import { CadReveal } from "@/components/cad-reveal/CadReveal";
 import { ProjectOverview } from "@/components/ProjectOverview";
 import { SectionHeader } from "@/components/SectionHeader";
 import { StatusBadge } from "@/components/StatusBadge";
@@ -61,7 +62,19 @@ export default function Home() {
         <SectionHeader index="02" label="/ CAD WING" />
         <div className="space-y-6">
           {cadWing.map((p) => (
-            <ProjectOverview key={p.slug} project={p} />
+            <div key={p.slug} className="space-y-4">
+              {p.hasCADReveal && p.modelPath && (
+                <CadReveal
+                  modelPath={p.modelPath}
+                  poster={p.images[0]?.src}
+                  posterCaption={
+                    p.images[0]?.caption ?? `${p.title} — CAD assembly`
+                  }
+                  title={p.title}
+                />
+              )}
+              <ProjectOverview project={p} />
+            </div>
           ))}
         </div>
       </section>
