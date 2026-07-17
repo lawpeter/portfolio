@@ -149,6 +149,24 @@ The schema's `images[]` field (waiting since Phase 0 day one) now renders: a sin
 
 Peter supplied the hobbies text directly (drift-kart plan, carspotting, snowboarding, Fuji/Yoshida, Tokyo year — selvedge denim and JDM watches). It contains the E60 color-scheme origin, so the previous standalone E60 paragraph was removed rather than telling the story twice. Used near-verbatim (§3.3 allows this section to read like a person talking); Peter polishes wording as tier-1 edits. This was the site's last `[CONTENT PENDING]` marker.
 
+## 2026-07-17 — Photo sweep, keyboard folder, PCB model
+
+### raw-assets/ (gitignored) for Peter's unprocessed originals
+
+Peter drops camera originals into `public/photos/` root; anything there would deploy verbatim (6MB JPEGs, a 25MB video). Processed 1600px copies go into `public/photos/<project>/`; the originals move to gitignored `/raw-assets/` instead of being deleted — they're Peter's files, and the video (robot run footage, 113s) has no rendering surface yet (`images[]` is images-only; a video slot is a future decision, possibly alongside the §9-backlog photogrammetry question, which wants dynamic-vs-static footage assessed anyway).
+
+### Near-duplicate photo skipped
+
+Two CD-player mechanism shots differ only in lighting/angle; the earlier one is already placed. The alternate sits in `raw-assets/` if Peter prefers it during his polish pass.
+
+### Keyboard PCB model exported from KiCad source, not the 124MB STL
+
+Peter's folder offers `model.stl` (124 MB, single fused mesh, no materials) and the KiCad PCB source. Chose `kicad-cli pcb export glb --subst-models --include-tracks --include-zones` (KiCad is installed): a real board model with per-component nodes and materials, 18 MB raw → 1.1 MB after `gltfpack -cc -kn`. Stored at `/public/models/keyboard/keyboard-pcb.glb` for a later interactive phase; nothing renders it yet (schema `modelPath` populated, `hasCADReveal` stays false).
+
+### Keyboard content facts sourced from the project folder
+
+BOM.csv (68× SOD-123 diodes, MCP23017), keyboard-layout.json (68-key 5×14, split space), and ZMK_Firmware_PRD.md (nice!nano v2/nRF52840, nice!view display, EC11 encoder, BLE profiles, ZMK Studio, WPM widget) — all stated in the section are verifiable from those files. Diode *placement* deliberately not attributed to hand-soldering (Peter confirmed soldering switches, not diodes).
+
 ### Known non-issue: npm audit moderate advisory
 
 `npm audit` reports a moderate XSS advisory in the `postcss` copy bundled inside `next` itself. The suggested fix downgrades Next to 9.x — not a real option. Waiting on an upstream Next patch; revisit if it's still present at a later phase.

@@ -13,6 +13,10 @@ images:
     caption: STAIRMASTER — lasercut side panel, chain-drive spiked tracks, team roster signed on
   - src: /photos/stair-robot/internals.jpg
     caption: Chassis internals — Arduino, dual Cytron MD20A drivers, drive motors and battery
+  - src: /photos/stair-robot/wiring.jpg
+    caption: Power and control wiring — terminal block distribution, XT60 connectors, inline fuse
+  - src: /photos/stair-robot/team.jpg
+    caption: The team, competition day — robot on the floor, controller in hand
 order: 3
 contentPending: false
 ---

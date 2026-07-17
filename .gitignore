@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Peter's unprocessed originals (photos/video) — kept local, never deployed
+/raw-assets/
