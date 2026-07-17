@@ -107,6 +107,20 @@ The Neon-recommended driver for serverless/edge environments (HTTP-based, no con
 
 One `navigator.sendBeacon` per route view from a null-rendering client component in the root layout — fire-and-forget, survives navigation, no impact on rendering. Beacons fire in dev too (the endpoint no-ops without `DATABASE_URL`), which keeps the path testable locally rather than being prod-only dead code. Every failure mode returns 204 silently: analytics must never break or slow the site. Table DDL lives in `docs/telemetry.sql`; provisioning + running it is Peter's step alongside deployment.
 
+## 2026-07-17 — Verification-pass fixes
+
+### font-mono utility overridden to carry weight 500
+
+The §10 visual check caught mono text computing `font-weight: 400`: next/font loads the 500 file but doesn't set the property, and browsers fall back to 400 (the single 500 face still matches, but nothing guaranteed it). A custom `@utility font-mono` now bundles `font-weight: 500` with the family, so §5.3's "500, not regular 400" is inseparable from using the font at all.
+
+### FluidSim controls table added to content
+
+No Phase 0 content exercised the §3.5 table pipeline, leaving it unverified. The FluidSim README's controls table is real repo-derived content and fills the gap — verified rendering with graphite borders and mono headers.
+
+### outputFileTracingRoot pinned
+
+A stray `package-lock.json` in Peter's home directory made Next infer `~` as the workspace root (wrong file tracing, warning on every start). Pinned to the project directory in `next.config.ts`.
+
 ### Known non-issue: npm audit moderate advisory
 
 `npm audit` reports a moderate XSS advisory in the `postcss` copy bundled inside `next` itself. The suggested fix downgrades Next to 9.x — not a real option. Waiting on an upstream Next patch; revisit if it's still present at a later phase.

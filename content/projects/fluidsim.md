@@ -33,6 +33,17 @@ strength and radius, and gravity, target density, and mouse force are all
 adjustable at runtime through an ImGui panel. Frame-stepping controls allow
 pausing and advancing one frame at a time for inspecting behavior.
 
+The full control set, from the README:
+
+| Input | Action |
+| --- | --- |
+| `Space` | Pause / resume |
+| `.` | Step one frame (while paused) |
+| `,` | Step up to 10 frames (while paused) |
+| `R` | Reset particles to initial grid |
+| Left mouse | Push particles away |
+| Right mouse | Pull particles toward cursor |
+
 Known limits, honestly stated: the simulation becomes unstable and can crash
 above roughly 300,000 particles (root cause never identified), it's 2D only,
 and further GPU-side optimizations like prefix-sum compaction were scoped out.

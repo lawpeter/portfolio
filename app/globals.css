@@ -34,6 +34,14 @@
   --container-reading: 680px;
 }
 
+/* §5.3 — IBM Plex Mono renders at 500, never regular 400 (too thin at data
+ * sizes). Overrides the built-in font-mono utility so the weight is
+ * inseparable from the family. */
+@utility font-mono {
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+
 @layer base {
   body {
     @apply bg-graphite font-sans text-fg antialiased;

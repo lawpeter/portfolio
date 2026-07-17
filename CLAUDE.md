@@ -71,4 +71,12 @@ None yet — add here the moment something costs real recovery time (e.g. "never
 
 ## Current work context
 
-Not started. Phase 0 (see PRD §9) has not begun as of this document's creation.
+Phase 0 (PRD §9) is built and verified: full site architecture and routing, §5 design system, Zod-validated content schema with the complete §7 field set, FluidSim/quadrotor content drafted from their repos, placeholder sections marked `[CONTENT PENDING]`, plain email contact link, silent analytics groundwork (`docs/telemetry.sql` + `/api/telemetry`, no-op until `DATABASE_URL` is set).
+
+Open items on Peter, before the domain is pointed:
+- Review FluidSim + quadrotor section prose and the seeded devlog entry (repo-derived, unreviewed)
+- Supply real content for stair robot / keyboard / CD player, resume PDF, project photos, LinkedIn URL
+- Provision Neon Postgres (run `docs/telemetry.sql`), set `DATABASE_URL`
+- Confirm contact email (currently lawpeterp@gmail.com)
+
+Next phases (order not fixed, §9): hero polish, mobile-lightweight pass, embedded sim demo, CAD scroll-reveal, contact forms, visible analytics.
