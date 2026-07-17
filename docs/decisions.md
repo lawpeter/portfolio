@@ -87,6 +87,16 @@ react-markdown — render tier-1 markdown with per-element custom renderers (the
 - **`contentPending` is schema, not prose** — the §9 requirement that placeholders be *clearly labeled* is enforced by structure: the flag drives the mono `[CONTENT PENDING]` marker in every rendering context.
 - **Devlog→project references validated at load time** — an entry tagged to a nonexistent project slug fails the build (§3.4 cross-links must never dangle).
 
+## 2026-07-17 — Phase 0 content
+
+### Voice and sourcing
+
+Project prose is first-person, technical, drafted strictly from the reference repos (FluidSim README; quadrotor DEVLOG + session notes) — no capabilities or details asserted that the repos don't show, including FluidSim's ~300k-particle instability and the quadrotor being sim-only. The seeded devlog entry adapts Peter's own 4/14 DEVLOG text (his existing habit, §3.4) rather than inventing a new entry. **All three await Peter's review before counting as done (§9 acceptance criteria).**
+
+### Placeholder sections carry PRD-stated facts only
+
+Stair robot / keyboard / CD player bodies state only what the PRD itself records (e.g. "2nd of 50+ UH ME teams", "ZMK-based") plus an explicit note of what's pending — never plausible-sounding filler (§9).
+
 ### Known non-issue: npm audit moderate advisory
 
 `npm audit` reports a moderate XSS advisory in the `postcss` copy bundled inside `next` itself. The suggested fix downgrades Next to 9.x — not a real option. Waiting on an upstream Next patch; revisit if it's still present at a later phase.
