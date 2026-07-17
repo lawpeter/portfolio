@@ -8,6 +8,7 @@ import Link from "next/link";
 
 const EMAIL = "lawpeterp@gmail.com";
 const GITHUB = "https://github.com/lawpeter";
+const LINKEDIN = "https://www.linkedin.com/in/lawpeterp";
 
 // §4 section order: Hero → Sim wing → CAD wing → About → Side projects →
 // Devlog → Contact/footer. Generous spacing BETWEEN sections, tight spacing
@@ -148,12 +149,19 @@ export default function Home() {
           >
             GITHUB ↗
           </a>
-          <span className="text-muted">
-            LINKEDIN <PendingMarker label="PENDING" />
-          </span>
-          <span className="text-muted">
-            RESUME <PendingMarker label="PENDING" />
-          </span>
+          <a
+            href={LINKEDIN}
+            className="text-accent-text underline underline-offset-2 hover:text-accent"
+          >
+            LINKEDIN ↗
+          </a>
+          <a
+            href="/resume.pdf"
+            download="Peter-Law-Resume.pdf"
+            className="text-accent-text underline underline-offset-2 hover:text-accent"
+          >
+            RESUME ↓
+          </a>
         </div>
       </footer>
     </main>

@@ -67,16 +67,17 @@ No gradients, no glassmorphism, no mesh/noise backgrounds, no default Inter/Robo
 
 ## Known gotchas
 
-None yet — add here the moment something costs real recovery time (e.g. "never run X, it breaks Y"), don't wait to write it down.
+- **Raw Onshape GLB exports are ~15x oversized** (the stair-robot export was 110 MB — over GitHub's 100 MB hard file limit, so a push would be rejected). Run `npx gltfpack -cc -kn` on any CAD export before dropping it into `/public/models/` — `-kn` is mandatory, it preserves the per-part node structure the CAD scroll-reveal (PRD §6.2) depends on. The compressed GLBs need the meshopt decoder wired in the loader (drei's `useGLTF` handles it).
 
 ## Current work context
 
 Phase 0 (PRD §9) is built and verified: full site architecture and routing, §5 design system, Zod-validated content schema with the complete §7 field set, FluidSim/quadrotor content drafted from their repos, placeholder sections marked `[CONTENT PENDING]`, plain email contact link, silent analytics groundwork (`docs/telemetry.sql` + `/api/telemetry`, no-op until `DATABASE_URL` is set).
 
+All five project sections now carry real content (Peter reviewed the drafted prose and supplied facts for the rest; he polishes wording himself as tier-1 edits). Resume PDF at `/public/resume.pdf`, LinkedIn + email confirmed and linked, stair-robot GLB compressed and stored at `/public/models/stair-robot/stair-robot.glb` (see Known gotchas).
+
 Open items on Peter, before the domain is pointed:
-- Review FluidSim + quadrotor section prose and the seeded devlog entry (repo-derived, unreviewed)
-- Supply real content for stair robot / keyboard / CD player, resume PDF, project photos, LinkedIn URL
+- Hobbies line in the About section (last remaining `[CONTENT PENDING]`)
+- Project photos (§5.5)
 - Provision Neon Postgres (run `docs/telemetry.sql`), set `DATABASE_URL`
-- Confirm contact email (currently lawpeterp@gmail.com)
 
 Next phases (order not fixed, §9): hero polish, mobile-lightweight pass, embedded sim demo, CAD scroll-reveal, contact forms, visible analytics.

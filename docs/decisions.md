@@ -121,6 +121,20 @@ No Phase 0 content exercised the §3.5 table pipeline, leaving it unverified. Th
 
 A stray `package-lock.json` in Peter's home directory made Next infer `~` as the workspace root (wrong file tracing, warning on every start). Pinned to the project directory in `next.config.ts`.
 
+## 2026-07-17 — Peter-supplied content & assets
+
+### Stair-robot GLB: meshopt-compressed before entering the repo
+
+Peter's raw Onshape export (`V5 Assembly.glb`) is 110 MB — over GitHub's 100 MB hard file limit (a push would be rejected) and unserviceable as a page asset. Compressed with `gltfpack -cc -kn` (quantization + meshopt, **-kn preserves the per-part node structure** §6.2 depends on): 110 MB → 7.4 MB, part separation verified intact via gltf-transform inspect before and after. Two consequences documented for the later CAD-reveal phase: the loader must wire up the meshopt decoder (drei's `useGLTF` supports this natively), and §6.2's "verify parts survived export" check is already done for this asset. Original export stays outside the repo (Peter's Downloads).
+
+### Resume served verbatim at /public/resume.pdf
+
+Peter's PDF, unmodified, linked with a `download` attribute naming it `Peter-Law-Resume.pdf`. Filename in-repo kept generic (`resume.pdf`) so future resume swaps are a tier-2 file drop with no code edit.
+
+### contentPending flipped to false for robot / keyboard / CD player
+
+Prose now drafted from facts Peter supplied directly in-session (ME213 team-of-six robot with BLE/PS2 controls; 2-key-gadget→full-keyboard arc with JLCPCB PCB, YUZUKeycaps, ZMK config repo; working Minecraft-Jukebox CD player with lasercut-housing/driver/bookshelf plans). Same review state as the repo-derived sections: real content, Peter polishes wording himself as tier-1 edits.
+
 ### Known non-issue: npm audit moderate advisory
 
 `npm audit` reports a moderate XSS advisory in the `postcss` copy bundled inside `next` itself. The suggested fix downgrades Next to 9.x — not a real option. Waiting on an upstream Next patch; revisit if it's still present at a later phase.
