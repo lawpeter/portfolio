@@ -230,6 +230,12 @@ Surveyed 375px and 768px on every page. The §4/§9 "reduced interactive islands
 
 `next/image` fill defaults assume 100vw, so phones were offered desktop-sized variants (and desktop full-viewport ones). PhotoFrame now declares the reading-column cap (680px), card media and viewer fallbacks declare the grid split. Markdown `<img>` stays plain per the earlier tier-1 decision — 1600px q72 files are the accepted cost.
 
+## 2026-07-17 — WASM interface spec (§6.1 prep)
+
+### docs/wasm-interface.md: fixed methods + dynamic channel discovery
+
+The Embind contract is specified ahead of any binary so Peter's compile has a target and the tier-2/tier-3 boundary is written down: `reset/step/time/channelNames/sample/interfaceVersion` never change shape; tracked quantities are discovered by name, so adding a channel in C++ needs no JS change (stays tier-2). Two honest calls surfaced for Peter: FluidSim's GLSL-compute physics can't compile to WASM (WebGL2 has no compute) — either a reduced-scale CPU port or quadrotor-first; and the demo UI is deliberately NOT built against mock data — nothing that looks like a live sim ships until a real binary exists (§9's no-plausible-filler rule applied to interactivity).
+
 ### Known non-issue: npm audit moderate advisory
 
 `npm audit` reports a moderate XSS advisory in the `postcss` copy bundled inside `next` itself. The suggested fix downgrades Next to 9.x — not a real option. Waiting on an upstream Next patch; revisit if it's still present at a later phase.

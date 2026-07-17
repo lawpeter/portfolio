@@ -83,4 +83,6 @@ Open items on Peter, before the domain is pointed:
 
 Later-stage work shipped (2026-07-17): CAD scroll-reveal for the stair robot (§6.2 — pinned section, computed radial explode, node-anchored labels, HUD counter), instrument-cluster hero (channel-list nav, full link row above the fold), side-projects gallery with the keyboard-PCB orbit viewer.
 
-Next phases (order not fixed, §9): mobile-lightweight pass, embedded sim demo (blocked on Peter compiling FluidSim to WASM — spec the Embind interface first), contact forms (needs SMS provider decision), visible analytics (blocked on Neon provisioning). Still pending from Peter: FluidSim gif (not in either GitHub repo), FluidSim/quadrotor photos, wording polish pass.
+Mobile-lightweight pass done (§9): below 1024px no three.js/GLB ever loads (verified), `sizes` hints on all fill images. Embind contract specified in `docs/wasm-interface.md` — fixed methods + runtime channel discovery keeps recompiles tier-2; FluidSim needs a CPU-port decision from Peter (GLSL compute can't target WASM), quadrotor is the low-friction first target.
+
+Remaining phases, all blocked on Peter: sim demo (WASM binary per docs/wasm-interface.md), contact forms (SMS/email provider choice + accounts), visible analytics (Neon provisioning). Also pending from Peter: FluidSim gif (not in either GitHub repo), FluidSim/quadrotor photos, wording polish pass, push to origin.
