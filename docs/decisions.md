@@ -206,6 +206,20 @@ Server render and non-desktop/reduced-motion clients get the FIG 00 photo in a s
 - **Full link row in the hero** (GITHUB / LINKEDIN / RESUME ↓ / EMAIL): recruiters get every exit above the fold; the footer keeps the same set for end-of-scroll capture. Duplication is deliberate.
 - **Accent hairline rule** under the readout strip: the §5.2 accent-as-border role, one per page. FOCUS readout keeps the accent-text value (it's the one piece of data the site exists to communicate). **Not vibecoded**: single hue, flat hairline, mirrors how MoTeC pages separate the header band from channels.
 
+## 2026-07-17 — Side-projects gallery + PCB viewer
+
+### ModelViewer: data-driven 3D thumb for any side project with a modelPath
+
+Shared gate + canvas pair (same lazy pattern as the reveal). A side-project card whose content declares `modelPath` gets the orbit viewer; otherwise its first photo. No per-project component code — turning this on for a future model is a frontmatter edit.
+
+### Viewer interaction: slow auto-rotate + drag orbit, zoom/pan disabled
+
+Auto-rotate is motion with a job: a static render is indistinguishable from an image, and nobody drags an image — the rotation communicates "3D, touch me." Suppressed under `prefers-reduced-motion` (drag still works — user-initiated motion is fine). Zoom and pan disabled so the wheel never captures page scroll. Canvas unmounts when the card leaves the viewport (GLB stays cached); mobile/SSR render the photo fallback. **Vibecoded check:** motion is functional signaling, single slow axis, no easing theatrics; passes.
+
+### Card media block: 8:5, top of card, hairline separator
+
+Wider than the 3:2 photo frame — these are landscape thumbs above a text block, and 8:5 keeps two cards' media rows aligned at the grid gap without letterboxing the wide PCB. Square corners, border-line separator; the §5.5 FIG-caption treatment stays reserved for deep-dive figures (thumbs get the mono overlay label instead).
+
 ### Known non-issue: npm audit moderate advisory
 
 `npm audit` reports a moderate XSS advisory in the `postcss` copy bundled inside `next` itself. The suggested fix downgrades Next to 9.x — not a real option. Waiting on an upstream Next patch; revisit if it's still present at a later phase.

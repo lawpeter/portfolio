@@ -1,5 +1,7 @@
+import Image from "next/image";
 import { getDevlogEntries, getProjects } from "@/lib/content";
 import { CadReveal } from "@/components/cad-reveal/CadReveal";
+import { ModelViewer } from "@/components/ModelViewer";
 import { ProjectOverview } from "@/components/ProjectOverview";
 import { SectionHeader } from "@/components/SectionHeader";
 import { StatusBadge } from "@/components/StatusBadge";
@@ -169,8 +171,28 @@ export default function Home() {
             <article
               key={p.slug}
               id={p.slug}
-              className="border border-line p-2"
+              className="flex flex-col border border-line"
             >
+              {/* media block: 3D viewer when the project ships a model,
+                  else its first photo — data-driven, no per-project code */}
+              <div className="relative aspect-8/5 w-full border-b border-line">
+                {p.modelPath ? (
+                  <ModelViewer
+                    modelPath={p.modelPath}
+                    fallbackSrc={p.images[0]?.src}
+                    fallbackAlt={p.images[0]?.caption ?? p.title}
+                    label={`${p.title.toUpperCase()} PCB — DRAG TO ORBIT`}
+                  />
+                ) : p.images[0] ? (
+                  <Image
+                    src={p.images[0].src}
+                    alt={p.images[0].caption}
+                    fill
+                    className="object-cover"
+                  />
+                ) : null}
+              </div>
+              <div className="flex flex-1 flex-col p-2">
               <div className="flex flex-wrap items-baseline justify-between gap-1">
                 <h3 className="text-lg font-medium">{p.title}</h3>
                 <StatusBadge status={p.status} />
@@ -188,6 +210,7 @@ export default function Home() {
                   </Link>
                 )}
               </p>
+              </div>
             </article>
           ))}
         </div>

@@ -7,7 +7,7 @@ This file is a living reference, read at the start of every session. Update it w
 ## Tech stack
 
 - Next.js (App Router)
-- React Three Fiber for interactive islands (embedded sim demo, CAD scroll-reveal) — not used site-wide, only in specific components. Later-phase feature: install during Phase 0 only if genuinely required to finalize the structural skeleton; otherwise defer until the first component that needs it
+- React Three Fiber (+ drei, three) for interactive islands only — installed and live: CAD scroll-reveal (`components/cad-reveal/`, checkpoint config in `checkpoints.ts` is the tunable middle tier) and the side-project orbit viewer (`components/ModelViewer*.tsx`). Islands are desktop-only (<1024px and reduced-motion get static fallbacks); GLBs are meshopt-compressed (see Known gotchas) and lazy-loaded
 - Markdown content collections for devlog entries and project descriptions
 - Routing: single scrollable main page at overview depth; deep-dive writeups and individual devlog entries are separate routes linked from it (PRD §4)
 - Hosted on Vercel (deployment itself is out of scope for this project — see PRD §7)
@@ -81,4 +81,6 @@ Open items on Peter, before the domain is pointed:
 - Photos still missing: robot team/action shots (not on disk when offered), FluidSim, quadrotor, keyboard; Peter intends to replace current photos during his polish pass
 - Provision Neon Postgres (run `docs/telemetry.sql`), set `DATABASE_URL` (deliberately deferred)
 
-Next phases (order not fixed, §9): hero polish, mobile-lightweight pass, embedded sim demo, CAD scroll-reveal, contact forms, visible analytics.
+Later-stage work shipped (2026-07-17): CAD scroll-reveal for the stair robot (§6.2 — pinned section, computed radial explode, node-anchored labels, HUD counter), instrument-cluster hero (channel-list nav, full link row above the fold), side-projects gallery with the keyboard-PCB orbit viewer.
+
+Next phases (order not fixed, §9): mobile-lightweight pass, embedded sim demo (blocked on Peter compiling FluidSim to WASM — spec the Embind interface first), contact forms (needs SMS provider decision), visible analytics (blocked on Neon provisioning). Still pending from Peter: FluidSim gif (not in either GitHub repo), FluidSim/quadrotor photos, wording polish pass.

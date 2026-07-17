@@ -1,24 +1,10 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PhotoFrame } from "@/components/PhotoFrame";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 import { useScrollProgress } from "@/lib/useScrollProgress";
-
-// SSR renders the poster (getServerSnapshot → false); the client upgrades to
-// the 3D stage only on desktop without reduced-motion. useSyncExternalStore
-// keeps hydration consistent and tracks live media-query changes.
-function useMediaQuery(query: string): boolean {
-  return useSyncExternalStore(
-    (onChange) => {
-      const mql = window.matchMedia(query);
-      mql.addEventListener("change", onChange);
-      return () => mql.removeEventListener("change", onChange);
-    },
-    () => window.matchMedia(query).matches,
-    () => false,
-  );
-}
 
 const CadRevealStage = dynamic(() => import("./CadRevealStage"), {
   ssr: false,
