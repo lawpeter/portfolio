@@ -394,3 +394,21 @@ process, interaction and frame-stepping controls, and known limits. The
 unresolved instability near 300,000 particles remains explicit rather than
 being presented as solved. **Not vibecoded:** hierarchy improves scanning while
 preserving the supported claims and limitations.
+
+## 2026-08-29 — Keyboard and CD project pages
+
+### The keyboard model is a lazy project artifact
+
+The 1.1 MB keyboard PCB GLB mounts only when its frame nears the viewport, but
+interaction is available at phone, tablet, and desktop widths. A real project
+photo remains the server and loading fallback, with the indeterminate gauge
+over it until the model resolves. Zoom and pan remain disabled. **Not
+vibecoded:** the viewer exposes actual PCB geometry and touch orbiting without
+capturing the page's scroll gesture.
+
+### The CD player stays photo-led and short
+
+The two existing build photographs now precede the deliberately brief project
+description. No invented process copy, diagram, or feature list was added.
+**Not vibecoded:** the source material is visual and the page hierarchy follows
+that evidence instead of manufacturing depth.

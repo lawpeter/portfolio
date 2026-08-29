@@ -8,6 +8,7 @@ import { DevlogList } from "@/components/DevlogList";
 import { PhotoFrame } from "@/components/PhotoFrame";
 import { RobotWalkthrough } from "@/components/robot-walkthrough/RobotWalkthrough";
 import { FluidSimPipeline } from "@/components/FluidSimPipeline";
+import { ModelViewer } from "@/components/ModelViewer";
 
 // Deep-dive writeup route (§3.5). Overview-depth content for Phase 0; the
 // route and rendering pipeline are the final architecture.
@@ -41,6 +42,24 @@ export default async function ProjectPage({
   );
   const hasRobotWalkthrough =
     project.slug === "stair-robot" && Boolean(project.modelPath);
+  const hasKeyboardModel =
+    project.slug === "keyboard" && Boolean(project.modelPath);
+  const photosLead = project.slug === "cd-player";
+
+  const projectPhotos = (
+    <section aria-label="Photos" className="max-w-reading space-y-3">
+      {project.images.map((img, i) => (
+        <PhotoFrame
+          key={img.src}
+          src={img.src}
+          alt={img.caption}
+          fig={String(i + 1).padStart(2, "0")}
+          caption={img.caption}
+          aspect={img.aspect}
+        />
+      ))}
+    </section>
+  );
 
   return (
     <main className="mx-auto w-full max-w-4xl flex-1 px-2 py-8 sm:px-4">
@@ -69,7 +88,25 @@ export default async function ProjectPage({
         </p>
       )}
 
-      <div className="mt-4">
+      {photosLead && project.images.length > 0 && (
+        <div className="mt-4">{projectPhotos}</div>
+      )}
+
+      {hasKeyboardModel && project.modelPath && (
+        <section
+          aria-label="Interactive keyboard PCB model"
+          className="mt-4 aspect-[8/5] max-w-reading border border-line"
+        >
+          <ModelViewer
+            modelPath={project.modelPath}
+            fallbackSrc={project.images[0]?.src}
+            fallbackAlt="Interactive model of the custom keyboard PCB"
+            label="DRAG TO ORBIT / KEYBOARD PCB"
+          />
+        </section>
+      )}
+
+      <div className={photosLead ? "mt-3" : "mt-4"}>
         {hasRobotWalkthrough && project.modelPath ? (
           <RobotWalkthrough body={project.body} modelPath={project.modelPath} />
         ) : (
@@ -80,19 +117,8 @@ export default async function ProjectPage({
         )}
       </div>
 
-      {!hasRobotWalkthrough && project.images.length > 0 && (
-        <section aria-label="Photos" className="mt-6 max-w-reading space-y-3">
-          {project.images.map((img, i) => (
-            <PhotoFrame
-              key={img.src}
-              src={img.src}
-              alt={img.caption}
-              fig={String(i + 1).padStart(2, "0")}
-              caption={img.caption}
-              aspect={img.aspect}
-            />
-          ))}
-        </section>
+      {!hasRobotWalkthrough && !photosLead && project.images.length > 0 && (
+        <div className="mt-6">{projectPhotos}</div>
       )}
 
       {relatedDevlog.length > 0 && (
