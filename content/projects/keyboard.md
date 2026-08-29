@@ -1,13 +1,9 @@
 ---
 slug: keyboard
 title: Custom Keyboard
-tier: side
-wing: none
 summary: A 65% wireless keyboard with a custom PCB, nice!nano and MCP23017 matrix, ZMK firmware, display, encoder, keycaps, and a finished enclosure.
-status: "ONGOING"
+status: ongoing
 repoUrl: https://github.com/lawpeter/zmk-config
-hasInteractiveDemo: false
-hasCADReveal: false
 modelPath: /models/keyboard/keyboard-pcb.glb
 images:
   - src: /photos/keyboard/gadget-v1.jpg
@@ -15,8 +11,7 @@ images:
   - src: /photos/keyboard/keycaps.png
     caption: Keycap set designed through YUZUKeycaps with Greek-letter and math-symbol sublegends
     aspect: "2568 / 970"
-order: 4
-contentPending: false
+order: 3
 ---
 
 This started over a year ago as a 2-key keyboard, a copy-paste gadget. I

@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { getDevlogEntries, getProject, getProjects } from "@/lib/content";
 import { Prose } from "@/components/Prose";
 import { StatusBadge } from "@/components/StatusBadge";
-import { PendingMarker } from "@/components/PendingMarker";
 import { DevlogList } from "@/components/DevlogList";
 import { PhotoFrame } from "@/components/PhotoFrame";
 
@@ -52,7 +51,7 @@ export default async function ProjectPage({
 
       <header className="mt-4 flex flex-wrap items-center justify-between gap-1">
         <h1 className="text-3xl font-medium">{project.title}</h1>
-        <StatusBadge status={project.status} />
+        {project.status && <StatusBadge status={project.status} />}
       </header>
 
       {project.repoUrl && (
@@ -63,12 +62,6 @@ export default async function ProjectPage({
           >
             SOURCE ↗
           </a>
-        </p>
-      )}
-
-      {project.contentPending && (
-        <p className="mt-3">
-          <PendingMarker />
         </p>
       )}
 

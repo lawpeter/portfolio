@@ -1,12 +1,9 @@
 ---
 slug: stair-robot
 title: Stair-Climbing Robot
-tier: flagship
-wing: cad
 summary: Six-person UH Mānoa ME213 competition robot that won 1st in its Fall 2025 section. I wrote the control software and designed the electronics layout and mounting plate.
-status: "COMPLETE"
-hasInteractiveDemo: false
-hasCADReveal: true
+status: complete
+prominence: featured
 modelPath: /models/stair-robot/stair-robot.glb
 images:
   - src: /photos/stair-robot/stairmaster-side.jpg
@@ -17,8 +14,7 @@ images:
     caption: Power and control wiring with terminal-block distribution, XT60 connectors, and an inline fuse
   - src: /photos/stair-robot/team.jpg
     caption: The six-person team with the robot on competition day
-order: 3
-contentPending: false
+order: 1
 ---
 
 Built for the design competition in ME213 at UH Mānoa, this stair-climbing

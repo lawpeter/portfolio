@@ -239,3 +239,71 @@ The Embind contract is specified ahead of any binary so Peter's compile has a ta
 ### Known non-issue: npm audit moderate advisory
 
 `npm audit` reports a moderate XSS advisory in the `postcss` copy bundled inside `next` itself. The suggested fix downgrades Next to 9.x — not a real option. Waiting on an upstream Next patch; revisit if it's still present at a later phase.
+
+## 2026-08-29 — Revision 4 refactor, Phases 1 through 2
+
+### Analytics removed
+
+The Neon route, beacon, SQL file, environment placeholder, and dependency were
+removed together. `DATABASE_URL` was never provisioned, so no history existed
+to preserve. Keeping dormant collection code would imply an active product
+decision that no longer exists. This is not a visual decision.
+
+### Project status is a lowercase enum
+
+Project status is now optional and limited to `complete` or `ongoing`.
+`StatusBadge` supplies uppercase presentation. This prevents roadmap phrases
+from drifting into public status labels while keeping data independent of
+display casing. This is structural rather than visual.
+
+### Draft publication defaults closed
+
+Devlog and journal `published` fields default to `false`. Listings and static
+params include published entries only; route handlers inspect the raw entry and
+return 404 for a direct unpublished slug. A content file cannot become public
+just by appearing on disk. This is structural rather than visual.
+
+### Speculative project fields removed
+
+`wing`, `tier`, `hasInteractiveDemo`, `hasCADReveal`, `wasmPath`, and
+`contentPending` were deleted. They described the superseded information
+architecture or unused roadmap work. `prominence` replaces per-project homepage
+special casing without implying leadership. This is structural rather than
+visual.
+
+### One renderable-section array owns homepage structure
+
+Conditional Mechanical Design and Devlog sections, their nav links, and every
+section number derive from one array. Empty sections consume neither markup nor
+indices. This avoids separate UI representations drifting apart. **Not
+vibecoded:** the numbered-channel treatment is functional navigation and its
+state reflects real content availability.
+
+### Header is a full-width instrument band
+
+The primary links and numbered navigation moved out of the hero into a square,
+hairline-separated top band. **Not vibecoded:** it uses existing palette tokens,
+flat surfaces, and real navigation affordances. A floating rounded pill was
+rejected because it conflicts with both the E60 instrument language and the
+explicit square-border system.
+
+### Featured treatment is data-driven
+
+The stair robot receives a larger image-and-copy preview through
+`prominence: featured`; standard projects remain simple bordered rows. **Not
+vibecoded:** this creates an honest content hierarchy without a bento grid or
+four decorative cards, and the data field is named for visual prominence rather
+than project leadership.
+
+### Homepage CAD walkthrough removed
+
+The 300vh reveal no longer mounts on the homepage. Its code remains only until
+the ME213 page is rebuilt with normal-flow prose and a sticky sidecar. **Not
+vibecoded:** removing the oversized interactive block improves reading progress
+and avoids loading the site's largest asset on the landing page.
+
+### Structural FIG separator retained
+
+The public prose em-dash sweep leaves `FIG 01 — caption` intact. It is figure
+notation, not sentence punctuation. **Not vibecoded:** it matches technical
+documentation conventions and already carries semantic numbering.

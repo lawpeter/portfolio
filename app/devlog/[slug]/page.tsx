@@ -21,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const entry = getDevlogEntry((await params).slug);
-  if (!entry) return {};
+  if (!entry?.published) return {};
   return { title: `${entry.title} | Devlog | Peter Law` };
 }
 
@@ -32,9 +32,9 @@ export default async function DevlogEntryPage({
   params: Promise<{ slug: string }>;
 }) {
   const entry = getDevlogEntry((await params).slug);
-  if (!entry) notFound();
+  if (!entry?.published) notFound();
 
-  const project = getProject(entry.project);
+  const project = entry.project ? getProject(entry.project) : undefined;
 
   return (
     <main className="mx-auto w-full max-w-4xl flex-1 px-2 py-8 sm:px-4">

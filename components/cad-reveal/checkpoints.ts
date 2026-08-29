@@ -50,7 +50,7 @@ export const CHECKPOINTS: Checkpoint[] = [
     rotationY: 2.4,
     explode: 0.8,
     label: {
-      text: "BLE RECEIVER — PS2 CONTROL",
+      text: "PS2 CONTROLLER RECEIVER",
       nodePattern: "Bluetooth Receiver",
     },
   },

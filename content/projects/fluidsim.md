@@ -1,15 +1,10 @@
 ---
 slug: fluidsim
 title: FluidSim
-tier: flagship
-wing: sim
 summary: Real-time 2D fluid simulation using Smoothed Particle Hydrodynamics, with the physics running entirely on the GPU via OpenGL compute shaders.
-status: "COMPLETE"
+status: complete
 repoUrl: https://github.com/lawpeter/FluidSim
-hasInteractiveDemo: false
-hasCADReveal: false
-order: 1
-contentPending: false
+order: 2
 ---
 
 FluidSim is a real-time fluid simulator built in C++ around Smoothed Particle
