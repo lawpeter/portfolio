@@ -15,12 +15,12 @@ export default function DevlogArchive() {
 
   return (
     <main className="mx-auto w-full max-w-4xl flex-1 px-2 py-8 sm:px-4">
-      <nav className="font-mono text-data">
+      <nav>
         <Link
           href="/"
           className="text-accent-text underline underline-offset-2 hover:text-accent"
         >
-          ← INDEX
+          Index
         </Link>
       </nav>
       <h1 className="mt-4 text-3xl font-medium">Devlog</h1>

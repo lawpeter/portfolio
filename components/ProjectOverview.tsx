@@ -38,19 +38,19 @@ export function ProjectOverview({ project }: { project: Project }) {
         <p className="mt-2 max-w-reading leading-relaxed text-fg">
           {project.summary}
         </p>
-        <p className="mt-2 flex flex-wrap gap-3 font-mono text-data">
+        <p className="mt-2 flex flex-wrap gap-3">
           <Link
             className="text-accent-text underline underline-offset-2 hover:text-accent"
             href={`/projects/${project.slug}`}
           >
-            FULL WRITEUP →
+            Full writeup
           </Link>
           {project.repoUrl && (
             <a
               className="text-accent-text underline underline-offset-2 hover:text-accent"
               href={project.repoUrl}
             >
-              SOURCE ↗
+              Source
             </a>
           )}
         </p>

@@ -307,3 +307,29 @@ and avoids loading the site's largest asset on the landing page.
 The public prose em-dash sweep leaves `FIG 01 — caption` intact. It is figure
 notation, not sentence punctuation. **Not vibecoded:** it matches technical
 documentation conventions and already carries semantic numbering.
+
+## 2026-08-29 — Approved typography and label hierarchy
+
+### IBM Plex Sans plus IBM Plex Mono approved
+
+Peter approved the required desktop and mobile specimen. IBM Plex Sans 400/500
+replaces Space Grotesk for headings and body copy; IBM Plex Mono 500 remains for
+instrument labels and data. The 680px reading measure and hero scale remain
+comfortable in the approved specimen. **Not vibecoded:** the two faces belong to
+one family, the sans is less common than template-default Inter/Geist choices,
+and the mono use stays tied to real interface roles.
+
+### Ordinary links and navigation use prose casing
+
+Uppercase mono remains for section headers, status readouts, dates, and figure
+captions. Navigation and ordinary links now use IBM Plex Sans in normal casing,
+and decorative directional glyphs were removed except the Résumé download
+arrow. **Not vibecoded:** hierarchy follows meaning instead of applying one
+high-tracking label treatment to every clickable surface.
+
+### GaugeLoader is indeterminate
+
+The loading gauge uses a sweeping accent needle and never presents a percentage.
+Reduced-motion users receive a static needle. **Not vibecoded:** it communicates
+real loading state in the instrument language; it is not decorative progress or
+fabricated telemetry.

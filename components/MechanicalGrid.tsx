@@ -33,9 +33,9 @@ export function MechanicalGrid({ entries }: { entries: MechanicalEntry[] }) {
               <p className="mt-1">
                 <Link
                   href={`/projects/${entry.projectSlug}`}
-                  className="font-mono text-data text-accent-text underline underline-offset-2 hover:text-accent"
+                  className="text-accent-text underline underline-offset-2 hover:text-accent"
                 >
-                  PROJECT →
+                  Project
                 </Link>
               </p>
             )}

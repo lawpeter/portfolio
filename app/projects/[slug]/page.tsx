@@ -40,12 +40,12 @@ export default async function ProjectPage({
 
   return (
     <main className="mx-auto w-full max-w-4xl flex-1 px-2 py-8 sm:px-4">
-      <nav className="font-mono text-data">
+      <nav>
         <Link
           href={`/#${project.slug}`}
           className="text-accent-text underline underline-offset-2 hover:text-accent"
         >
-          ← INDEX
+          Index
         </Link>
       </nav>
 
@@ -55,12 +55,12 @@ export default async function ProjectPage({
       </header>
 
       {project.repoUrl && (
-        <p className="mt-1 font-mono text-data">
+        <p className="mt-1">
           <a
             href={project.repoUrl}
             className="text-accent-text underline underline-offset-2 hover:text-accent"
           >
-            SOURCE ↗
+            Source
           </a>
         </p>
       )}
@@ -86,7 +86,7 @@ export default async function ProjectPage({
 
       {relatedDevlog.length > 0 && (
         <section aria-label="Related devlog entries" className="mt-8">
-          <h2 className="mb-2 font-mono text-data uppercase tracking-widest text-muted">
+          <h2 className="mb-2 font-mono text-data uppercase tracking-wide text-muted">
             Devlog: {project.title}
           </h2>
           <DevlogList entries={relatedDevlog} />

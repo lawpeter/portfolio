@@ -90,10 +90,9 @@ The E60 graphite-and-orange identity remains: square borders, hairline rules,
 flat tonal surfaces, and a single accent color. No gradients, glassmorphism,
 noise backgrounds, purple, or decorative animation.
 
-IBM Plex Sans is only a candidate. Do not replace Space Grotesk or begin work
-that depends on the font until Peter approves the Phase 3 desktop/mobile
-specimen. The specimen must include the hero, long About copy, project title,
-section navigation, instrument label, and figure caption.
+IBM Plex Sans plus IBM Plex Mono is the approved site pairing. Peter approved
+the desktop/mobile specimen on 2026-08-29. Font declarations remain centralized
+in `app/layout.tsx` and `app/globals.css`.
 
 Uppercase mono is for genuine instrument labels, status readouts, and figure
 captions. Navigation and ordinary links are prose-adjacent. `FIG 01 — caption`
@@ -123,8 +122,8 @@ Build is the primary content-schema check. A malformed entry must fail loudly.
 ## Current work state
 
 - Phases 1, 1b, and 2: implemented and verified locally on 2026-08-29.
-- Phase 3: blocked on Peter's typography specimen approval.
-- Phases 4 through 8: not yet implemented. Do not bypass the Phase 3 gate.
+- Phase 3: typography approved; visual-system implementation in progress.
+- Phases 4 through 8: not yet implemented.
 - Mechanical gallery assets still needed: keyboard enclosure image and either a
   mounting-plate render or confirmation of the correct GLB node.
 - A corrected résumé is optional; `public/resume.pdf` currently resolves and is

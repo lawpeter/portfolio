@@ -27,7 +27,7 @@ export default function Home() {
   const sections: HomeSection[] = [
     {
       id: "projects",
-      label: "PROJECTS",
+      label: "Projects",
       ariaLabel: "Projects",
       content: (
         <div className="space-y-3">
@@ -41,7 +41,7 @@ export default function Home() {
       ? [
           {
             id: "mechanical-design",
-            label: "MECHANICAL DESIGN",
+            label: "Mechanical Design",
             ariaLabel: "Mechanical design",
             content: <MechanicalGrid entries={mechanicalEntries} />,
           },
@@ -49,7 +49,7 @@ export default function Home() {
       : []),
     {
       id: "about",
-      label: "ABOUT",
+      label: "About",
       ariaLabel: "About",
       content: (
         <div className="max-w-reading space-y-2 leading-relaxed">
@@ -92,7 +92,7 @@ export default function Home() {
       ? [
           {
             id: "devlog",
-            label: "DEVLOG",
+            label: "Devlog",
             ariaLabel: "Devlog",
             content: (
               <>
@@ -100,9 +100,9 @@ export default function Home() {
                 <p className="mt-2">
                   <Link
                     href="/devlog"
-                    className="font-mono text-data text-accent-text underline underline-offset-2 hover:text-accent"
+                    className="text-accent-text underline underline-offset-2 hover:text-accent"
                   >
-                    FULL ARCHIVE →
+                    Full archive
                   </Link>
                 </p>
               </>
@@ -112,28 +112,28 @@ export default function Home() {
       : []),
     {
       id: "contact",
-      label: "CONTACT",
+      label: "Contact",
       ariaLabel: "Contact",
       content: (
-        <div className="flex flex-wrap gap-x-3 gap-y-1 font-mono text-data">
+        <div className="flex flex-wrap gap-x-3 gap-y-1">
           <a
             href={`mailto:${EMAIL}`}
             className="text-accent-text underline underline-offset-2 hover:text-accent"
           >
-            EMAIL: {EMAIL}
+            Email: {EMAIL}
           </a>
           <a href={GITHUB} className="text-accent-text underline underline-offset-2 hover:text-accent">
-            GITHUB ↗
+            GitHub
           </a>
           <a href={LINKEDIN} className="text-accent-text underline underline-offset-2 hover:text-accent">
-            LINKEDIN ↗
+            LinkedIn
           </a>
           <a
             href="/resume.pdf"
             download="Peter-Law-Resume.pdf"
             className="text-accent-text underline underline-offset-2 hover:text-accent"
           >
-            RESUME ↓
+            Résumé ↓
           </a>
         </div>
       ),

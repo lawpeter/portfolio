@@ -38,19 +38,19 @@ export default async function DevlogEntryPage({
 
   return (
     <main className="mx-auto w-full max-w-4xl flex-1 px-2 py-8 sm:px-4">
-      <nav className="flex flex-wrap gap-3 font-mono text-data">
+      <nav className="flex flex-wrap gap-3">
         <Link
           href="/devlog"
           className="text-accent-text underline underline-offset-2 hover:text-accent"
         >
-          ← DEVLOG
+          Devlog
         </Link>
         {project && (
           <Link
             href={`/projects/${project.slug}`}
             className="text-accent-text underline underline-offset-2 hover:text-accent"
           >
-            PROJECT: {project.title.toUpperCase()} →
+            Project: {project.title}
           </Link>
         )}
       </nav>

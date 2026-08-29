@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
+import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 
 // §5.3 — centralized font declarations, referenced everywhere via CSS variable.
@@ -10,8 +10,9 @@ const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
 });
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const plexSans = IBM_Plex_Sans({
+  variable: "--font-ibm-plex-sans",
+  weight: ["400", "500"],
   subsets: ["latin"],
 });
 
@@ -29,7 +30,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plexMono.variable} ${spaceGrotesk.variable} h-full`}
+      className={`${plexMono.variable} ${plexSans.variable} h-full`}
     >
       <body className="flex min-h-full flex-col">{children}</body>
     </html>
