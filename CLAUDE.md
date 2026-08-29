@@ -123,8 +123,10 @@ Build is the primary content-schema check. A malformed entry must fail loudly.
 ## Current work state
 
 - Phases 1, 1b, and 2: implemented and verified locally on 2026-08-29.
-- Phases 3 and 4: implemented; final cross-phase browser sweep remains.
-- Phases 5 through 8: not yet implemented.
+- Phases 3 through 5: implemented; final cross-phase browser sweep remains.
+- Phases 6 through 8: not yet implemented.
+- FluidSim leads with a semantic GPU frame-pipeline visual and a sectioned
+  technical narrative; no live demo is implied.
 - Mechanical gallery assets still needed: keyboard enclosure image and either a
   mounting-plate render or confirmation of the correct GLB node.
 - A corrected résumé is optional; `public/resume.pdf` currently resolves and is

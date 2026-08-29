@@ -376,3 +376,21 @@ so the model hides the first geometry-bearing node matching the verified chain
 name. Real photographs carry the movement detail. No callout claims which GLB
 node is Peter's mounting plate. **Not vibecoded:** accuracy takes priority over
 showing every available mesh.
+
+## 2026-08-29 — FluidSim explanation
+
+### A semantic pipeline leads the page
+
+The page opens with a static four-stage frame pipeline: particle state, spatial
+hash, SPH compute passes, and instanced rendering. It is an ordered list in the
+document and reflows from four columns to two and then one. **Not vibecoded:**
+the diagram explains the project's core GPU data flow without decorative motion
+or an unsupported live demo.
+
+### The technical narrative is sectioned by evidence
+
+The Markdown now separates GPU implementation, the collaborative SPH research
+process, interaction and frame-stepping controls, and known limits. The
+unresolved instability near 300,000 particles remains explicit rather than
+being presented as solved. **Not vibecoded:** hierarchy improves scanning while
+preserving the supported claims and limitations.

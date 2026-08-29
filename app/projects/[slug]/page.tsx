@@ -7,6 +7,7 @@ import { StatusBadge } from "@/components/StatusBadge";
 import { DevlogList } from "@/components/DevlogList";
 import { PhotoFrame } from "@/components/PhotoFrame";
 import { RobotWalkthrough } from "@/components/robot-walkthrough/RobotWalkthrough";
+import { FluidSimPipeline } from "@/components/FluidSimPipeline";
 
 // Deep-dive writeup route (§3.5). Overview-depth content for Phase 0; the
 // route and rendering pipeline are the final architecture.
@@ -72,7 +73,10 @@ export default async function ProjectPage({
         {hasRobotWalkthrough && project.modelPath ? (
           <RobotWalkthrough body={project.body} modelPath={project.modelPath} />
         ) : (
-          <Prose>{project.body}</Prose>
+          <>
+            {project.slug === "fluidsim" && <FluidSimPipeline />}
+            <Prose>{project.body}</Prose>
+          </>
         )}
       </div>
 
