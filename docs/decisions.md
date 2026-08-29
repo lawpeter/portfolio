@@ -333,3 +333,46 @@ The loading gauge uses a sweeping accent needle and never presents a percentage.
 Reduced-motion users receive a static needle. **Not vibecoded:** it communicates
 real loading state in the instrument language; it is not decorative progress or
 fabricated telemetry.
+
+## 2026-08-29 — ME213 walkthrough
+
+### Normal-flow sections with a sticky sidecar
+
+The former 300vh reveal was replaced by three ordinary prose-and-photo sections
+with a sticky model alongside them. There is no artificial scroll spacer and no
+owned scroll container. **Not vibecoded:** the 3D view explains the system while
+the document retains native reading length and behavior.
+
+### Viewport-center occupancy drives the active subsystem
+
+The implementation uses the section whose bounds occupy the viewport center,
+not the proposed midpoint-crossing calculation. The value latches through gaps
+and before the first section defaults to Chassis. This deviation keeps an anchor
+arrival on a long section synchronized immediately; midpoint crossing could
+leave the previous subsystem active after clicking Electronics. State changes
+only at section boundaries, so both scroll directions remain stable. This is a
+behavior mechanism, not a visual choice.
+
+### Controls scroll to content
+
+Subsystem controls are ordinary anchors. They update the model only by moving
+the relevant prose through the center-line detector. This preserves keyboard
+operation, JavaScript-free navigation, and one source of truth. **Not
+vibecoded:** the selected border represents real document state rather than an
+independent decorative mode.
+
+### Viewer gate begins at 768px
+
+The walkthrough mounts only at `min-width: 768px`; smaller clients render all
+prose and photos without requesting the GLB. This is the PRD's candidate value,
+not a permanent entitlement. Raise it if representative tablet testing shows
+poor interaction quality. **Not vibecoded:** the gate is performance-driven and
+the model is progressive enhancement.
+
+### Intersecting chain meshes are hidden
+
+The exported chain meshes visibly intersect the sprockets in the default pose,
+so the model hides the first geometry-bearing node matching the verified chain
+name. Real photographs carry the movement detail. No callout claims which GLB
+node is Peter's mounting plate. **Not vibecoded:** accuracy takes priority over
+showing every available mesh.

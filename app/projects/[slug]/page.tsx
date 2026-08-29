@@ -6,6 +6,7 @@ import { Prose } from "@/components/Prose";
 import { StatusBadge } from "@/components/StatusBadge";
 import { DevlogList } from "@/components/DevlogList";
 import { PhotoFrame } from "@/components/PhotoFrame";
+import { RobotWalkthrough } from "@/components/robot-walkthrough/RobotWalkthrough";
 
 // Deep-dive writeup route (§3.5). Overview-depth content for Phase 0; the
 // route and rendering pipeline are the final architecture.
@@ -37,6 +38,8 @@ export default async function ProjectPage({
   const relatedDevlog = getDevlogEntries().filter(
     (e) => e.project === project.slug,
   );
+  const hasRobotWalkthrough =
+    project.slug === "stair-robot" && Boolean(project.modelPath);
 
   return (
     <main className="mx-auto w-full max-w-4xl flex-1 px-2 py-8 sm:px-4">
@@ -66,10 +69,14 @@ export default async function ProjectPage({
       )}
 
       <div className="mt-4">
-        <Prose>{project.body}</Prose>
+        {hasRobotWalkthrough && project.modelPath ? (
+          <RobotWalkthrough body={project.body} modelPath={project.modelPath} />
+        ) : (
+          <Prose>{project.body}</Prose>
+        )}
       </div>
 
-      {project.images.length > 0 && (
+      {!hasRobotWalkthrough && project.images.length > 0 && (
         <section aria-label="Photos" className="mt-6 max-w-reading space-y-3">
           {project.images.map((img, i) => (
             <PhotoFrame

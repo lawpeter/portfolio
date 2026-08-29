@@ -72,9 +72,10 @@ noindex is not privacy, so nothing sensitive belongs there.
 Models live under `public/models/<project>/`. Raw Onshape exports must be
 compressed with `gltfpack -cc -kn`; `-kn` preserves per-part nodes.
 
-The old homepage CAD reveal is no longer mounted. Its code remains temporarily
-under `components/cad-reveal/` until the ME213 route is rebuilt as the
-normal-flow, sticky-sidecar walkthrough specified in the PRD.
+The ME213 route uses `components/robot-walkthrough/`: ordinary prose/photo
+sections drive a sticky sidecar model at 768px and above. The active subsystem
+is the section occupying the viewport center; gaps latch the previous value.
+Controls are anchor links, and scroll position remains the source of truth.
 
 Phones must not automatically request the stair-robot GLB. `frameloop="demand"`
 must remain for the walkthrough. Static prose and photos are the complete
@@ -122,8 +123,8 @@ Build is the primary content-schema check. A malformed entry must fail loudly.
 ## Current work state
 
 - Phases 1, 1b, and 2: implemented and verified locally on 2026-08-29.
-- Phase 3: typography approved; visual-system implementation in progress.
-- Phases 4 through 8: not yet implemented.
+- Phases 3 and 4: implemented; final cross-phase browser sweep remains.
+- Phases 5 through 8: not yet implemented.
 - Mechanical gallery assets still needed: keyboard enclosure image and either a
   mounting-plate render or confirmation of the correct GLB node.
 - A corrected résumé is optional; `public/resume.pdf` currently resolves and is
