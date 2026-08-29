@@ -123,8 +123,10 @@ Build is the primary content-schema check. A malformed entry must fail loudly.
 
 ## Current work state
 
-- Phases 1, 1b, and 2: implemented and verified locally on 2026-08-29.
-- Phases 3 through 8: implemented; final cross-phase browser sweep remains.
+- PRD Phases 1 through 8: implemented and verified locally on 2026-08-29.
+- The final local sweep passed production build, lint, schema failure behavior,
+  draft/publication gates, legacy redirects, route and asset checks, and the
+  required 375, 768, 1024, 1440, and 1920 px browser widths.
 - FluidSim leads with a semantic GPU frame-pipeline visual and a sectioned
   technical narrative; no live demo is implied.
 - The keyboard page preserves its lazy orbit viewer on mobile and desktop; the
@@ -134,5 +136,7 @@ Build is the primary content-schema check. A malformed entry must fail loudly.
   mounting-plate render or confirmation of the correct GLB node.
 - Journal entries are unlinked, `noindex, follow`, and closed to drafts at the
   collection, prerender-param, and direct-route layers. This is not privacy.
+- Deployment/manual validation still remains for representative-tablet frame
+  rate and observation of the loader under a genuinely throttled network.
 - A corrected résumé is optional; `public/resume.pdf` currently resolves and is
   intentionally unchanged.

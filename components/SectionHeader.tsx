@@ -1,5 +1,5 @@
-// Mono section label in the §5.4 spirit — indexed like channels on a
-// telemetry page. Accent is reserved for data/links, so the index sits in
+// Mono section label in the §5.4 spirit, indexed like instrument channels.
+// Accent is reserved for data and links, so the index sits in
 // primary text and the label in secondary.
 export function SectionHeader({
   index,
