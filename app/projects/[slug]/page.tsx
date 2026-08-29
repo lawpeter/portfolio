@@ -22,7 +22,7 @@ export async function generateMetadata({
   const project = getProject((await params).slug);
   if (!project) return {};
   return {
-    title: `${project.title} — Peter Law`,
+    title: `${project.title} | Peter Law`,
     description: project.summary,
   };
 }
@@ -94,7 +94,7 @@ export default async function ProjectPage({
       {relatedDevlog.length > 0 && (
         <section aria-label="Related devlog entries" className="mt-8">
           <h2 className="mb-2 font-mono text-data uppercase tracking-widest text-muted">
-            Devlog — {project.title}
+            Devlog: {project.title}
           </h2>
           <DevlogList entries={relatedDevlog} />
         </section>

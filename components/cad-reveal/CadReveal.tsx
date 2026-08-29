@@ -92,7 +92,7 @@ export function CadReveal({
             <span className="text-accent-text">%</span>
           </div>
           <div className="pointer-events-none absolute bottom-1 left-1 font-mono text-data text-muted">
-            {title.toUpperCase()} — CAD / SCROLL TO EXPLODE
+            {title.toUpperCase()} / CAD / SCROLL TO EXPLODE
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ import { getDevlogEntries } from "@/lib/content";
 import { DevlogList } from "@/components/DevlogList";
 
 export const metadata: Metadata = {
-  title: "Devlog — Peter Law",
+  title: "Devlog | Peter Law",
   description:
     "Reverse-chronological development log across Peter Law's projects.",
 };
@@ -25,7 +25,7 @@ export default function DevlogArchive() {
       </nav>
       <h1 className="mt-4 text-3xl font-medium">Devlog</h1>
       <p className="mt-1 font-mono text-data text-muted">
-        {entries.length} {entries.length === 1 ? "ENTRY" : "ENTRIES"} —
+        {entries.length} {entries.length === 1 ? "ENTRY" : "ENTRIES"} /
         REVERSE-CHRONOLOGICAL
       </p>
       <div className="mt-4">

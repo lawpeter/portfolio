@@ -62,14 +62,9 @@ export default function Home() {
           Peter Law
         </h1>
         <p className="mt-3 max-w-reading text-lg leading-relaxed text-muted">
-          CS + Mechanical Engineering double major at UH Mānoa, aimed at
-          guidance, navigation &amp; control and flight software.
+          Mechanical Engineering + Computer Science at UH Mānoa. Spring 2028.
         </p>
         <div className="mt-4 flex flex-wrap gap-x-3 gap-y-1 font-mono text-data">
-          <span>
-            <span className="text-muted">FOCUS </span>
-            <span className="text-accent-text">GNC / FLIGHT SOFTWARE</span>
-          </span>
           <span>
             <span className="text-muted">EDU </span>
             CS + ME, UH MĀNOA
@@ -121,7 +116,7 @@ export default function Home() {
                   modelPath={p.modelPath}
                   poster={p.images[0]?.src}
                   posterCaption={
-                    p.images[0]?.caption ?? `${p.title} — CAD assembly`
+                    p.images[0]?.caption ?? `${p.title} CAD assembly`
                   }
                   title={p.title}
                 />
@@ -136,30 +131,36 @@ export default function Home() {
         <SectionHeader index="03" label="/ ABOUT" />
         <div className="max-w-reading space-y-2 leading-relaxed">
           <p>
-            I&apos;m a computer science and mechanical engineering double major
-            at the University of Hawaiʻi at Mānoa. The overlap is the point:
-            the math behind an F1 car&apos;s traction control, a drone&apos;s
-            EKF, and a spacecraft&apos;s attitude control is the same
-            discipline at different scales, and that discipline — guidance,
-            navigation &amp; control, and the flight software that runs it —
-            is where I&apos;m headed.
+            I&apos;m pursuing bachelor&apos;s degrees in mechanical engineering and
+            computer science at the University of Hawaiʻi at Mānoa. As far as
+            my advisors and I know, I&apos;m the first student at UH to combine
+            them as a double major. I chose both because I like working where
+            physical systems, electronics, and software meet.
+          </p>
+          <p>
+            I&apos;m interested in robotics, embedded systems, simulation, and
+            mechanical design. On team projects, I&apos;m most useful at the
+            boundaries between disciplines: writing software, integrating
+            electronics, helping with fabrication, and keeping the pieces
+            working together.
+          </p>
+          <p>
+            My first car was a 2010 BMW E60. Its graphite interior and orange
+            instrument lighting are the reason this site looks the way it does.
           </p>
           <p>
             Outside of engineering, most of it still somehow involves wheels
             or an engine: motorsport and vehicle dynamics are a long-running
-            interest — it&apos;s basically why this site looks the way it does
-            — and I hope to build an electric drift kart from a hoverboard hub
-            motor and a salvaged battery pack. My first car was a 2010 BMW
-            E60, which is where the graphite-and-orange color scheme actually
-            comes from. I carspot when I&apos;m out and about, and winters are
-            for snowboarding.
+            interest, and I hope to build an electric drift kart from a
+            hoverboard hub motor and a salvaged battery pack. I carspot when
+            I&apos;m out and about, and winters are for snowboarding.
           </p>
           <p>
-            I&apos;ll also chase an adventure on foot — a same-day summit of
-            Mt. Fuji via the Yoshida Trail — or just wander: living in Tokyo
-            this year turned into a deep dive on Japanese material culture,
-            hunting down selvedge denim and JDM watches in Harajuku and
-            Shimokitazawa.
+            I&apos;ll also chase an adventure on foot, including a same-day summit
+            of Mt. Fuji via the Yoshida Trail, or just wander. I spent Spring
+            2026 studying in Tokyo, which turned into a deep dive on Japanese
+            material culture, hunting down selvedge denim and JDM watches in
+            Harajuku and Shimokitazawa.
           </p>
         </div>
       </section>
@@ -181,7 +182,7 @@ export default function Home() {
                     modelPath={p.modelPath}
                     fallbackSrc={p.images[0]?.src}
                     fallbackAlt={p.images[0]?.caption ?? p.title}
-                    label={`${p.title.toUpperCase()} PCB — DRAG TO ORBIT`}
+                    label={`${p.title.toUpperCase()} PCB / DRAG TO ORBIT`}
                   />
                 ) : p.images[0] ? (
                   <Image

@@ -22,7 +22,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const entry = getDevlogEntry((await params).slug);
   if (!entry) return {};
-  return { title: `${entry.title} — Devlog — Peter Law` };
+  return { title: `${entry.title} | Devlog | Peter Law` };
 }
 
 // Individual devlog entry (§3.4) — cross-links back to its project.
