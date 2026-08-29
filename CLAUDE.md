@@ -47,7 +47,7 @@ separately scoped backend phase.
 ```
 content/projects/     four project writeups
 content/devlog/       published or draft devlog posts
-content/mechanical/   verified mechanical-design entries
+content/mechanical/   verified mechanical-design entries (currently one)
 content/journal/      unlinked, noindex journal posts
 ```
 
@@ -124,13 +124,14 @@ Build is the primary content-schema check. A malformed entry must fail loudly.
 ## Current work state
 
 - Phases 1, 1b, and 2: implemented and verified locally on 2026-08-29.
-- Phases 3 through 6: implemented; final cross-phase browser sweep remains.
-- Phases 7 and 8: not yet implemented.
+- Phases 3 through 7: implemented; final cross-phase browser sweep remains.
+- Phase 8: not yet implemented.
 - FluidSim leads with a semantic GPU frame-pipeline visual and a sectioned
   technical narrative; no live demo is implied.
 - The keyboard page preserves its lazy orbit viewer on mobile and desktop; the
   CD player page is intentionally short and photo-led.
-- Mechanical gallery assets still needed: keyboard enclosure image and either a
+- Mechanical Design intentionally uses a single-feature ME213 robot entry.
+  Gallery assets still needed: keyboard enclosure image and either a
   mounting-plate render or confirmation of the correct GLB node.
 - A corrected résumé is optional; `public/resume.pdf` currently resolves and is
   intentionally unchanged.

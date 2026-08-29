@@ -412,3 +412,21 @@ The two existing build photographs now precede the deliberately brief project
 description. No invented process copy, diagram, or feature list was added.
 **Not vibecoded:** the source material is visual and the page hierarchy follows
 that evidence instead of manufacturing depth.
+
+## 2026-08-29 — Mechanical Design
+
+### Ship one verified feature, not an artificial grid
+
+Mechanical Design launches with the complete ME213 robot as its only entry.
+The image caption states that Peter's teammates produced most mechanical design
+and CAD; the copy distinguishes Peter's manufacturing, integration,
+electronics-layout, mounting-plate, and controls contributions. **Not
+vibecoded:** one wide image-and-copy feature is the honest presentation for one
+verified asset, with no blank cells or speculative ownership.
+
+### Keep blocked assets out of the gallery
+
+The keyboard enclosure and standalone ME213 mounting plate remain excluded
+until a render or photograph is available. The full robot photograph provides
+system context but is not reclassified as Peter's mechanical CAD. This is a
+content-integrity decision rather than a visual choice.

@@ -3,23 +3,35 @@ import Link from "next/link";
 import type { MechanicalEntry } from "@/lib/content";
 
 export function MechanicalGrid({ entries }: { entries: MechanicalEntry[] }) {
+  const single = entries.length === 1;
+
   return (
-    <div className="grid gap-3 sm:grid-cols-2">
+    <div className={single ? "" : "grid gap-3 sm:grid-cols-2"}>
       {entries.map((entry) => (
-        <article key={entry.slug} className="border border-line">
-          <div
-            className="relative w-full border-b border-line"
-            style={{ aspectRatio: entry.image.aspect ?? "3 / 2" }}
+        <article
+          key={entry.slug}
+          className={`border border-line ${single ? "md:grid md:grid-cols-[minmax(0,1.45fr)_minmax(15rem,0.55fr)]" : ""}`}
+        >
+          <figure
+            className={single ? "md:border-r md:border-line" : undefined}
           >
-            <Image
-              src={entry.image.src}
-              alt={entry.image.caption}
-              fill
-              sizes="(min-width: 640px) 50vw, 100vw"
-              className="object-cover"
-            />
-          </div>
-          <div className="p-2">
+            <div
+              className="relative w-full"
+              style={{ aspectRatio: entry.image.aspect ?? "3 / 2" }}
+            >
+              <Image
+                src={entry.image.src}
+                alt={entry.image.caption}
+                fill
+                sizes={single ? "(min-width: 768px) 560px, 100vw" : "(min-width: 640px) 50vw, 100vw"}
+                className="object-cover"
+              />
+            </div>
+            <figcaption className="border-t border-line px-1 py-0.5 font-mono text-data text-muted">
+              <span className="text-fg">FIG MD-01</span> — {entry.image.caption}
+            </figcaption>
+          </figure>
+          <div className={`p-2 ${single ? "border-t border-line md:border-t-0 md:p-3" : ""}`}>
             <h3 className="text-xl font-medium">{entry.title}</h3>
             <p className="mt-1 leading-relaxed text-muted">
               {entry.description}
