@@ -35,8 +35,8 @@ navigation, and index numbers all derive from it. Never hardcode section numbers
 in a second place.
 
 Project pages remain at `/projects/[slug]`. Devlog remains at `/devlog` and
-`/devlog/[slug]`, even when hidden from the empty homepage. Journal is planned
-for `/journal/[slug]` and must never be linked from the public site.
+`/devlog/[slug]`, even when hidden from the empty homepage. Journal entries use
+`/journal/[slug]` and must never be linked from the public site.
 
 The former quadrotor project and devlog URLs permanently redirect to its GitHub
 repository. Analytics is removed. Contact is email and external links until the
@@ -124,8 +124,7 @@ Build is the primary content-schema check. A malformed entry must fail loudly.
 ## Current work state
 
 - Phases 1, 1b, and 2: implemented and verified locally on 2026-08-29.
-- Phases 3 through 7: implemented; final cross-phase browser sweep remains.
-- Phase 8: not yet implemented.
+- Phases 3 through 8: implemented; final cross-phase browser sweep remains.
 - FluidSim leads with a semantic GPU frame-pipeline visual and a sectioned
   technical narrative; no live demo is implied.
 - The keyboard page preserves its lazy orbit viewer on mobile and desktop; the
@@ -133,5 +132,7 @@ Build is the primary content-schema check. A malformed entry must fail loudly.
 - Mechanical Design intentionally uses a single-feature ME213 robot entry.
   Gallery assets still needed: keyboard enclosure image and either a
   mounting-plate render or confirmation of the correct GLB node.
+- Journal entries are unlinked, `noindex, follow`, and closed to drafts at the
+  collection, prerender-param, and direct-route layers. This is not privacy.
 - A corrected résumé is optional; `public/resume.pdf` currently resolves and is
   intentionally unchanged.

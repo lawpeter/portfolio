@@ -430,3 +430,20 @@ The keyboard enclosure and standalone ME213 mounting plate remain excluded
 until a render or photograph is available. The full robot photograph provides
 system context but is not reclassified as Peter's mechanical CAD. This is a
 content-integrity decision rather than a visual choice.
+
+## 2026-08-29 — Journal publication boundary
+
+### Page metadata, not robots.txt, carries noindex
+
+Published journal entries emit `noindex, follow`; there is no journal index and
+no crawlable link to an entry from the public site. `/journal` is intentionally
+absent from `robots.txt`, because a disallow would prevent compliant crawlers
+from fetching the page and seeing the metadata. This is a structural search
+boundary, not a visual choice.
+
+### Drafts are closed at three layers
+
+`published` defaults to false, the public collection and static params filter
+drafts, and the route reads the raw entry before returning `notFound()` for an
+unpublished slug. Unlinked and noindex is documented as discoverability control,
+not privacy; nothing sensitive belongs in the collection.
