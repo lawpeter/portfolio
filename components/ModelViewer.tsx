@@ -67,7 +67,7 @@ export function ModelViewer({
             onLoaded={handleLoaded}
           />
           {!loaded && (
-            <div className="absolute inset-0 bg-bg/85">
+            <div className="absolute inset-0 bg-graphite/85">
               <GaugeLoader label="Loading keyboard model" />
             </div>
           )}

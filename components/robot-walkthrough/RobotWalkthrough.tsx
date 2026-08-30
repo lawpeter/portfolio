@@ -64,8 +64,7 @@ export function RobotWalkthrough({
                 The chassis carries the drive system, electronics, and the
                 lasercut side panels that gave the finished robot its identity.
                 My teammates did most of this mechanical design and its Onshape
-                CAD. I contributed during manufacturing and integration rather
-                than presenting their work as mine.
+                CAD. I worked on manufacturing and integration.
               </p>
               <p>
                 The complete assembly is shown here as system context: six
@@ -98,11 +97,6 @@ export function RobotWalkthrough({
                 and assemble the robot and then integrated the movement hardware
                 with the electronics and controls.
               </p>
-              <p>
-                The shipped GLB has chain meshes intersecting the sprockets in
-                its default pose, so the interactive view hides those meshes.
-                The photograph shows the real chain drive accurately.
-              </p>
             </div>
             <div className="mt-3">
               <PhotoFrame
@@ -130,10 +124,9 @@ export function RobotWalkthrough({
                 commands.
               </p>
               <p>
-                This was the part of the project where my software and
-                mechanical coursework met directly: packaging the hardware,
-                making reliable connections, and tuning behavior on the physical
-                robot all affected one another.
+                Packaging the hardware, making reliable connections, and
+                tuning behavior on the physical robot all affected one another,
+                so most of my time moved between the layout and the code.
               </p>
             </div>
             <div className="mt-3 space-y-3">
@@ -156,7 +149,8 @@ export function RobotWalkthrough({
         {viewerEnabled && (
           <aside className="sticky top-2 hidden md:block">
             <p className="mb-1 font-mono text-data text-muted">
-              ACTIVE / {SUBSYSTEMS[activeIndex.current]?.label ?? "CHASSIS"}
+              ACTIVE /{" "}
+              {SUBSYSTEMS.find((subsystem) => subsystem.id === activeId)?.label}
             </p>
             <WalkthroughStage
               activeIndex={activeIndex}

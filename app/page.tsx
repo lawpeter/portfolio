@@ -55,16 +55,17 @@ export default function Home() {
         <div className="max-w-reading space-y-2 leading-relaxed">
           <p>
             I&apos;m pursuing bachelor&apos;s degrees in mechanical engineering and
-            computer science at the University of Hawaiʻi at Mānoa. As far as
-            my advisors and I know, I&apos;m the first student at UH to combine
-            them as a double major. I chose both because I like working where
-            physical systems, electronics, and software meet.
+            computer science at the University of Hawaiʻi at Mānoa. The
+            combination was unusual enough that my ICS and ME advisors had to
+            work together to get it set up. As far as my advisors and I know,
+            I&apos;m the first student to pursue it since UH started using STAR.
           </p>
           <p>
-            I&apos;m interested in robotics, embedded systems, simulation, and
-            mechanical design. On team projects, I&apos;m most useful at the
-            boundaries between disciplines: writing software, integrating
-            electronics, helping with fabrication, and keeping the pieces
+            I chose both because I like projects where the code has something
+            physical attached to it. Robotics, embedded systems, simulation, and
+            mechanical design all hold my attention for that reason. On team
+            projects I&apos;m most useful writing software, integrating
+            electronics, helping with fabrication, and keeping those pieces
             working together.
           </p>
           <p>
@@ -158,12 +159,9 @@ export default function Home() {
             Peter Law
           </h1>
           <p className="mt-3 max-w-reading text-lg leading-relaxed text-muted">
-            Mechanical Engineering + Computer Science at UH Mānoa. Spring 2028.
+            Dual major in Mechanical Engineering + Computer Science at UH
+            Mānoa. Graduating Spring 2028.
           </p>
-          <div className="mt-4 font-mono text-data">
-            <span className="text-muted">EDU </span>
-            CS + ME, UH MĀNOA
-          </div>
           <hr className="mt-4 border-accent" />
         </section>
 

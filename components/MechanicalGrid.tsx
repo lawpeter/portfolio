@@ -7,7 +7,7 @@ export function MechanicalGrid({ entries }: { entries: MechanicalEntry[] }) {
 
   return (
     <div className={single ? "" : "grid gap-3 sm:grid-cols-2"}>
-      {entries.map((entry) => (
+      {entries.map((entry, index) => (
         <article
           key={entry.slug}
           className={`border border-line ${single ? "md:grid md:grid-cols-[minmax(0,1.45fr)_minmax(15rem,0.55fr)]" : ""}`}
@@ -28,7 +28,10 @@ export function MechanicalGrid({ entries }: { entries: MechanicalEntry[] }) {
               />
             </div>
             <figcaption className="border-t border-line px-1 py-0.5 font-mono text-data text-muted">
-              <span className="text-fg">FIG MD-01</span> — {entry.image.caption}
+              <span className="text-fg">
+                FIG MD-{String(index + 1).padStart(2, "0")}
+              </span>{" "}
+              — {entry.image.caption}
             </figcaption>
           </figure>
           <div className={`p-2 ${single ? "border-t border-line md:border-t-0 md:p-3" : ""}`}>

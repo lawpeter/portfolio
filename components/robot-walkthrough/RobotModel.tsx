@@ -12,26 +12,43 @@ type MaterialState = {
   subsystem: number | null;
 };
 
+// GLTFLoader sanitizes node names, turning spaces into underscores.
 function normalizeName(value: string): string {
   return value.toLowerCase().replace(/[\s_]+/g, "");
 }
 
-function geometryNode(
+function matchesAny(node: THREE.Object3D, targets: string[]): boolean {
+  if (!node.name) return false;
+  const name = normalizeName(node.name);
+  return targets.some((target) => name.includes(target));
+}
+
+/* Every node matching a pattern contributes, not just the first. The assembly
+ * repeats parts across instances: two drive motors, many gearbox and terminal
+ * nodes. Matching once would light a single instance and leave its twin dim. */
+function collectMeshes(
   scene: THREE.Object3D,
-  pattern: string,
-): THREE.Object3D | null {
-  const target = normalizeName(pattern);
-  let found: THREE.Object3D | null = null;
+  patterns: readonly string[],
+): Set<THREE.Mesh> {
+  const targets = patterns.map(normalizeName);
+  const meshes = new Set<THREE.Mesh>();
 
   scene.traverse((node) => {
-    if (found || !node.name || !normalizeName(node.name).includes(target)) {
-      return;
-    }
-    const box = new THREE.Box3().setFromObject(node);
-    if (!box.isEmpty()) found = node;
+    if (!matchesAny(node, targets)) return;
+    node.traverse((child) => {
+      if ((child as THREE.Mesh).isMesh) meshes.add(child as THREE.Mesh);
+    });
   });
 
-  return found;
+  return meshes;
+}
+
+// Hiding a node hides its descendants, so matched ancestors are enough.
+function hideMatching(scene: THREE.Object3D, patterns: readonly string[]): void {
+  const targets = patterns.map(normalizeName);
+  scene.traverse((node) => {
+    if (matchesAny(node, targets)) node.visible = false;
+  });
 }
 
 export function RobotModel({
@@ -46,28 +63,16 @@ export function RobotModel({
   onLoaded: () => void;
 }) {
   const { scene: source } = useGLTF(modelPath);
-  const groupRef = useRef<THREE.Group>(null);
   const materialsRef = useRef<MaterialState[]>([]);
 
   const { scene, center, radius, materials } = useMemo(() => {
     const scene = source.clone(true);
 
-    for (const pattern of HIDDEN) {
-      const node = geometryNode(scene, pattern);
-      if (node) node.visible = false;
-    }
+    hideMatching(scene, HIDDEN);
 
-    const subsystemMeshes = SUBSYSTEMS.map(() => new Set<THREE.Mesh>());
-    SUBSYSTEMS.forEach((subsystem, subsystemIndex) => {
-      subsystem.nodes.forEach((pattern) => {
-        const node = geometryNode(scene, pattern);
-        node?.traverse((child) => {
-          if ((child as THREE.Mesh).isMesh) {
-            subsystemMeshes[subsystemIndex].add(child as THREE.Mesh);
-          }
-        });
-      });
-    });
+    const subsystemMeshes = SUBSYSTEMS.map((subsystem) =>
+      collectMeshes(scene, subsystem.nodes),
+    );
 
     const materials: MaterialState[] = [];
     scene.traverse((node) => {
@@ -137,7 +142,7 @@ export function RobotModel({
   const scale = 1 / radius;
 
   return (
-    <group ref={groupRef} scale={[scale, scale, scale]}>
+    <group scale={[scale, scale, scale]}>
       <primitive
         object={scene}
         position={[-center.x, -center.y, -center.z]}

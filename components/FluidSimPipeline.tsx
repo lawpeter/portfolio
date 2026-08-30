@@ -40,7 +40,7 @@ export function FluidSimPipeline() {
               {step.number}
             </span>
             <h3 className="mt-2 font-medium">{step.title}</h3>
-            <p className="mt-1 text-small leading-relaxed text-muted">
+            <p className="mt-1 text-sm leading-relaxed text-muted">
               {step.detail}
             </p>
           </li>

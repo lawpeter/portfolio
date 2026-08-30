@@ -372,10 +372,11 @@ the model is progressive enhancement.
 ### Intersecting chain meshes are hidden
 
 The exported chain meshes visibly intersect the sprockets in the default pose,
-so the model hides the first geometry-bearing node matching the verified chain
-name. Real photographs carry the movement detail. No callout claims which GLB
-node is Peter's mounting plate. **Not vibecoded:** accuracy takes priority over
-showing every available mesh.
+so the model hides every node matching the verified chain name. The assembly
+repeats that part 18 times, so matching only the first left 16 intersections on
+screen; see the 2026-08-29 remediation entry. Real photographs carry the
+movement detail. No callout claims which GLB node is Peter's mounting plate.
+**Not vibecoded:** accuracy takes priority over showing every available mesh.
 
 ## 2026-08-29 — FluidSim explanation
 
@@ -447,3 +448,38 @@ boundary, not a visual choice.
 drafts, and the route reads the raw entry before returning `notFound()` for an
 unpublished slug. Unlinked and noindex is documented as discoverability control,
 not privacy; nothing sensitive belongs in the collection.
+
+## 2026-08-29 — Pre-push review remediation
+
+### Subsystem and hidden-mesh matching collects every node, not the first
+
+`geometryNode` was carried over from the retired `checkpoints.ts`, where a
+single match was correct because it anchored one label. Subsystem isolation and
+chain hiding both need every match, and the assembly repeats parts across
+instances. Measured against the shipped GLB, the first-match version reached 2
+of 18 chain nodes and 2 of 14 drive-motor nodes, so the chain intersections
+§17.5 requires hidden stayed visible and MOVEMENT lit one of the two motors.
+Replaced with `collectMeshes` and `hideMatching`, each doing one traversal and
+deduping through a `Set`. The `Box3` emptiness check was dropped with it: it
+only ever existed to skip empty transform leaves when picking a single anchor,
+and it cost thousands of bounding-box computations at load.
+
+### Two utility classes emitted no CSS
+
+`bg-bg/85` (loading overlay) and `text-small` (pipeline detail text) are not
+tokens and not Tailwind defaults, and `--color-*: initial` removes any chance of
+a default matching. Both silently produced no rule, so the robot and keyboard
+loaders drew over a live canvas and one paragraph rendered at inherited size.
+Neither is caught by lint or the build. Corrected to `bg-graphite/85` and
+`text-sm`. A full sweep of colour and size utilities against the token set found
+no other invalid classes.
+
+### Copy corrections against the PRD
+
+The degree claim had lost the "since UH started using STAR" bound §25.2
+requires, leaving something close to the unbounded "first in UH history" form
+§25.2 prohibits; the bound and the advisors-worked-together detail are restored.
+Two reorderings of the §7.2 "where software meets" construction were rewritten.
+Three passages commenting on the site's own honesty were removed, including one
+that narrated the GLB chain defect to the visitor. §18.5 removed that register
+from FluidSim and it should not reappear anywhere else.

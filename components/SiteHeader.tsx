@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const EMAIL = "lawpeterp@gmail.com";
 export const GITHUB = "https://github.com/lawpeter";
 export const LINKEDIN = "https://www.linkedin.com/in/lawpeterp";
@@ -56,4 +58,3 @@ export function SiteHeader({ sections }: { sections: SectionLink[] }) {
     </header>
   );
 }
-import Link from "next/link";

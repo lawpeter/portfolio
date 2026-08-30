@@ -26,6 +26,4 @@ designed the electronics layout and mounting plate. I also participated in
 manufacturing and took on more coordination toward the end of the build.
 
 My teammates did most of the mechanical design and CAD, including the chassis
-and movement system. The finished project was a team effort, and this page
-keeps that division of work explicit while showing how the software,
-electronics, and mechanical pieces came together.
+and the movement system.
