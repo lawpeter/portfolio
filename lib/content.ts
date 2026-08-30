@@ -75,6 +75,11 @@ function loadCollection<S extends z.ZodTypeAny>(
   schema: S,
 ): Array<z.infer<S> & { body: string }> {
   const abs = path.join(CONTENT_ROOT, dir);
+  // An empty collection is a legitimate state: the devlog ships with no
+  // published posts and the journal starts empty. Git does not track empty
+  // directories, so a clean clone may not have the folder at all. Missing is
+  // not an error; malformed content below still fails the build loudly.
+  if (!fs.existsSync(abs)) return [];
   const files = fs
     .readdirSync(abs)
     .filter((f) => f.endsWith(".md"))
