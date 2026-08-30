@@ -1,3 +1,7 @@
+<!-- Mirror of CLAUDE.md. Codex reads AGENTS.md, Claude reads CLAUDE.md.
+     Keep the two identical below this line, or collapse them into one
+     file and leave a pointer here. -->
+
 # peterlaw.dev
 
 Personal portfolio for Peter Law, a mechanical engineering and computer science

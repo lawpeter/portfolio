@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
-import { TelemetryBeacon } from "@/components/TelemetryBeacon";
+import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 
 // §5.3 — centralized font declarations, referenced everywhere via CSS variable.
@@ -11,15 +10,16 @@ const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
 });
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const plexSans = IBM_Plex_Sans({
+  variable: "--font-ibm-plex-sans",
+  weight: ["400", "500"],
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Peter Law — GNC & Flight Software",
+  title: "Peter Law | Mechanical Engineering + Computer Science",
   description:
-    "Portfolio of Peter Law — CS + Mechanical Engineering at UH Mānoa, focused on guidance, navigation & control and flight software.",
+    "Peter Law is a mechanical engineering and computer science student at UH Mānoa building software, electronics, simulations, and physical systems.",
 };
 
 export default function RootLayout({
@@ -30,12 +30,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plexMono.variable} ${spaceGrotesk.variable} h-full`}
+      className={`${plexMono.variable} ${plexSans.variable} h-full`}
     >
-      <body className="flex min-h-full flex-col">
-        <TelemetryBeacon />
-        {children}
-      </body>
+      <body className="flex min-h-full flex-col">{children}</body>
     </html>
   );
 }

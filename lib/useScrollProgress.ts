@@ -1,47 +1,77 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type RefCallback,
+} from "react";
 
-/*
- * Maps a tall wrapper element's scroll position to 0..1 progress, written to
- * a ref — never per-frame React state. Consumers that need frame updates
- * subscribe (rAF/useFrame side); nothing re-renders on scroll.
- */
-export function useScrollProgress<T extends HTMLElement>(enabled = true) {
-  const ref = useRef<T | null>(null);
-  const progress = useRef(0);
-  const listeners = useRef(new Set<(p: number) => void>());
+/* Tracks the ordinary document-flow section occupying the viewport center.
+ * The active index lives in a ref for the 3D model and only crosses into React
+ * state when a section boundary changes. Gaps latch the prior value; before
+ * the first section, the first value remains active. It never clears to null. */
+export function useSectionProgress(ids: readonly string[]) {
+  const elements = useRef(new Map<string, HTMLElement>());
+  const activeIndex = useRef(0);
+  const [activeId, setActiveId] = useState(ids[0]);
+  const listeners = useRef(new Set<(index: number) => void>());
+  const idsKey = ids.join("|");
+
+  const registerSection = useCallback(
+    (id: string): RefCallback<HTMLElement> =>
+      (node) => {
+        if (node) elements.current.set(id, node);
+        else elements.current.delete(id);
+      },
+    [],
+  );
 
   useEffect(() => {
-    // enabled in deps: the target element may only render after a client
-    // upgrade (e.g. poster → full 3D stage), so re-attach when it flips
-    const el = ref.current;
-    if (!enabled || !el) return;
-    const update = () => {
-      const rect = el.getBoundingClientRect();
-      const total = rect.height - window.innerHeight;
-      const p =
-        total > 0 ? Math.min(1, Math.max(0, -rect.top / total)) : 0;
-      if (p !== progress.current) {
-        progress.current = p;
-        listeners.current.forEach((fn) => fn(p));
-      }
-    };
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-    };
-  }, [enabled]);
+    let frame = 0;
 
-  const subscribe = useCallback((fn: (p: number) => void) => {
-    listeners.current.add(fn);
-    return () => {
-      listeners.current.delete(fn);
+    const update = () => {
+      frame = 0;
+      const center = window.innerHeight / 2;
+      let next = 0;
+
+      for (let index = 0; index < ids.length; index += 1) {
+        const element = elements.current.get(ids[index]);
+        if (!element) continue;
+        const rect = element.getBoundingClientRect();
+        if (rect.top <= center) next = index;
+        else break;
+      }
+
+      if (next === activeIndex.current) return;
+      activeIndex.current = next;
+      setActiveId(ids[next]);
+      listeners.current.forEach((listener) => listener(next));
     };
+
+    const schedule = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    const observer = new ResizeObserver(schedule);
+    elements.current.forEach((element) => observer.observe(element));
+
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      observer.disconnect();
+    };
+  }, [ids, idsKey]);
+
+  const subscribe = useCallback((listener: (index: number) => void) => {
+    listeners.current.add(listener);
+    return () => listeners.current.delete(listener);
   }, []);
 
-  return { ref, progress, subscribe };
+  return { activeId, activeIndex, registerSection, subscribe };
 }

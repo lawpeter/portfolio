@@ -239,3 +239,247 @@ The Embind contract is specified ahead of any binary so Peter's compile has a ta
 ### Known non-issue: npm audit moderate advisory
 
 `npm audit` reports a moderate XSS advisory in the `postcss` copy bundled inside `next` itself. The suggested fix downgrades Next to 9.x — not a real option. Waiting on an upstream Next patch; revisit if it's still present at a later phase.
+
+## 2026-08-29 — Revision 4 refactor, Phases 1 through 2
+
+### Analytics removed
+
+The Neon route, beacon, SQL file, environment placeholder, and dependency were
+removed together. `DATABASE_URL` was never provisioned, so no history existed
+to preserve. Keeping dormant collection code would imply an active product
+decision that no longer exists. This is not a visual decision.
+
+### Project status is a lowercase enum
+
+Project status is now optional and limited to `complete` or `ongoing`.
+`StatusBadge` supplies uppercase presentation. This prevents roadmap phrases
+from drifting into public status labels while keeping data independent of
+display casing. This is structural rather than visual.
+
+### Draft publication defaults closed
+
+Devlog and journal `published` fields default to `false`. Listings and static
+params include published entries only; route handlers inspect the raw entry and
+return 404 for a direct unpublished slug. A content file cannot become public
+just by appearing on disk. This is structural rather than visual.
+
+### Speculative project fields removed
+
+`wing`, `tier`, `hasInteractiveDemo`, `hasCADReveal`, `wasmPath`, and
+`contentPending` were deleted. They described the superseded information
+architecture or unused roadmap work. `prominence` replaces per-project homepage
+special casing without implying leadership. This is structural rather than
+visual.
+
+### One renderable-section array owns homepage structure
+
+Conditional Mechanical Design and Devlog sections, their nav links, and every
+section number derive from one array. Empty sections consume neither markup nor
+indices. This avoids separate UI representations drifting apart. **Not
+vibecoded:** the numbered-channel treatment is functional navigation and its
+state reflects real content availability.
+
+### Header is a full-width instrument band
+
+The primary links and numbered navigation moved out of the hero into a square,
+hairline-separated top band. **Not vibecoded:** it uses existing palette tokens,
+flat surfaces, and real navigation affordances. A floating rounded pill was
+rejected because it conflicts with both the E60 instrument language and the
+explicit square-border system.
+
+### Featured treatment is data-driven
+
+The stair robot receives a larger image-and-copy preview through
+`prominence: featured`; standard projects remain simple bordered rows. **Not
+vibecoded:** this creates an honest content hierarchy without a bento grid or
+four decorative cards, and the data field is named for visual prominence rather
+than project leadership.
+
+### Homepage CAD walkthrough removed
+
+The 300vh reveal no longer mounts on the homepage. Its code remains only until
+the ME213 page is rebuilt with normal-flow prose and a sticky sidecar. **Not
+vibecoded:** removing the oversized interactive block improves reading progress
+and avoids loading the site's largest asset on the landing page.
+
+### Structural FIG separator retained
+
+The public prose em-dash sweep leaves `FIG 01 — caption` intact. It is figure
+notation, not sentence punctuation. **Not vibecoded:** it matches technical
+documentation conventions and already carries semantic numbering.
+
+## 2026-08-29 — Approved typography and label hierarchy
+
+### IBM Plex Sans plus IBM Plex Mono approved
+
+Peter approved the required desktop and mobile specimen. IBM Plex Sans 400/500
+replaces Space Grotesk for headings and body copy; IBM Plex Mono 500 remains for
+instrument labels and data. The 680px reading measure and hero scale remain
+comfortable in the approved specimen. **Not vibecoded:** the two faces belong to
+one family, the sans is less common than template-default Inter/Geist choices,
+and the mono use stays tied to real interface roles.
+
+### Ordinary links and navigation use prose casing
+
+Uppercase mono remains for section headers, status readouts, dates, and figure
+captions. Navigation and ordinary links now use IBM Plex Sans in normal casing,
+and decorative directional glyphs were removed except the Résumé download
+arrow. **Not vibecoded:** hierarchy follows meaning instead of applying one
+high-tracking label treatment to every clickable surface.
+
+### GaugeLoader is indeterminate
+
+The loading gauge uses a sweeping accent needle and never presents a percentage.
+Reduced-motion users receive a static needle. **Not vibecoded:** it communicates
+real loading state in the instrument language; it is not decorative progress or
+fabricated telemetry.
+
+## 2026-08-29 — ME213 walkthrough
+
+### Normal-flow sections with a sticky sidecar
+
+The former 300vh reveal was replaced by three ordinary prose-and-photo sections
+with a sticky model alongside them. There is no artificial scroll spacer and no
+owned scroll container. **Not vibecoded:** the 3D view explains the system while
+the document retains native reading length and behavior.
+
+### Viewport-center occupancy drives the active subsystem
+
+The implementation uses the section whose bounds occupy the viewport center,
+not the proposed midpoint-crossing calculation. The value latches through gaps
+and before the first section defaults to Chassis. This deviation keeps an anchor
+arrival on a long section synchronized immediately; midpoint crossing could
+leave the previous subsystem active after clicking Electronics. State changes
+only at section boundaries, so both scroll directions remain stable. This is a
+behavior mechanism, not a visual choice.
+
+### Controls scroll to content
+
+Subsystem controls are ordinary anchors. They update the model only by moving
+the relevant prose through the center-line detector. This preserves keyboard
+operation, JavaScript-free navigation, and one source of truth. **Not
+vibecoded:** the selected border represents real document state rather than an
+independent decorative mode.
+
+### Viewer gate begins at 768px
+
+The walkthrough mounts only at `min-width: 768px`; smaller clients render all
+prose and photos without requesting the GLB. This is the PRD's candidate value,
+not a permanent entitlement. Raise it if representative tablet testing shows
+poor interaction quality. **Not vibecoded:** the gate is performance-driven and
+the model is progressive enhancement.
+
+### Intersecting chain meshes are hidden
+
+The exported chain meshes visibly intersect the sprockets in the default pose,
+so the model hides every node matching the verified chain name. The assembly
+repeats that part 18 times, so matching only the first left 16 intersections on
+screen; see the 2026-08-29 remediation entry. Real photographs carry the
+movement detail. No callout claims which GLB node is Peter's mounting plate.
+**Not vibecoded:** accuracy takes priority over showing every available mesh.
+
+## 2026-08-29 — FluidSim explanation
+
+### A semantic pipeline leads the page
+
+The page opens with a static four-stage frame pipeline: particle state, spatial
+hash, SPH compute passes, and instanced rendering. It is an ordered list in the
+document and reflows from four columns to two and then one. **Not vibecoded:**
+the diagram explains the project's core GPU data flow without decorative motion
+or an unsupported live demo.
+
+### The technical narrative is sectioned by evidence
+
+The Markdown now separates GPU implementation, the collaborative SPH research
+process, interaction and frame-stepping controls, and known limits. The
+unresolved instability near 300,000 particles remains explicit rather than
+being presented as solved. **Not vibecoded:** hierarchy improves scanning while
+preserving the supported claims and limitations.
+
+## 2026-08-29 — Keyboard and CD project pages
+
+### The keyboard model is a lazy project artifact
+
+The 1.1 MB keyboard PCB GLB mounts only when its frame nears the viewport, but
+interaction is available at phone, tablet, and desktop widths. A real project
+photo remains the server and loading fallback, with the indeterminate gauge
+over it until the model resolves. Zoom and pan remain disabled. **Not
+vibecoded:** the viewer exposes actual PCB geometry and touch orbiting without
+capturing the page's scroll gesture.
+
+### The CD player stays photo-led and short
+
+The two existing build photographs now precede the deliberately brief project
+description. No invented process copy, diagram, or feature list was added.
+**Not vibecoded:** the source material is visual and the page hierarchy follows
+that evidence instead of manufacturing depth.
+
+## 2026-08-29 — Mechanical Design
+
+### Ship one verified feature, not an artificial grid
+
+Mechanical Design launches with the complete ME213 robot as its only entry.
+The image caption states that Peter's teammates produced most mechanical design
+and CAD; the copy distinguishes Peter's manufacturing, integration,
+electronics-layout, mounting-plate, and controls contributions. **Not
+vibecoded:** one wide image-and-copy feature is the honest presentation for one
+verified asset, with no blank cells or speculative ownership.
+
+### Keep blocked assets out of the gallery
+
+The keyboard enclosure and standalone ME213 mounting plate remain excluded
+until a render or photograph is available. The full robot photograph provides
+system context but is not reclassified as Peter's mechanical CAD. This is a
+content-integrity decision rather than a visual choice.
+
+## 2026-08-29 — Journal publication boundary
+
+### Page metadata, not robots.txt, carries noindex
+
+Published journal entries emit `noindex, follow`; there is no journal index and
+no crawlable link to an entry from the public site. `/journal` is intentionally
+absent from `robots.txt`, because a disallow would prevent compliant crawlers
+from fetching the page and seeing the metadata. This is a structural search
+boundary, not a visual choice.
+
+### Drafts are closed at three layers
+
+`published` defaults to false, the public collection and static params filter
+drafts, and the route reads the raw entry before returning `notFound()` for an
+unpublished slug. Unlinked and noindex is documented as discoverability control,
+not privacy; nothing sensitive belongs in the collection.
+
+## 2026-08-29 — Pre-push review remediation
+
+### Subsystem and hidden-mesh matching collects every node, not the first
+
+`geometryNode` was carried over from the retired `checkpoints.ts`, where a
+single match was correct because it anchored one label. Subsystem isolation and
+chain hiding both need every match, and the assembly repeats parts across
+instances. Measured against the shipped GLB, the first-match version reached 2
+of 18 chain nodes and 2 of 14 drive-motor nodes, so the chain intersections
+§17.5 requires hidden stayed visible and MOVEMENT lit one of the two motors.
+Replaced with `collectMeshes` and `hideMatching`, each doing one traversal and
+deduping through a `Set`. The `Box3` emptiness check was dropped with it: it
+only ever existed to skip empty transform leaves when picking a single anchor,
+and it cost thousands of bounding-box computations at load.
+
+### Two utility classes emitted no CSS
+
+`bg-bg/85` (loading overlay) and `text-small` (pipeline detail text) are not
+tokens and not Tailwind defaults, and `--color-*: initial` removes any chance of
+a default matching. Both silently produced no rule, so the robot and keyboard
+loaders drew over a live canvas and one paragraph rendered at inherited size.
+Neither is caught by lint or the build. Corrected to `bg-graphite/85` and
+`text-sm`. A full sweep of colour and size utilities against the token set found
+no other invalid classes.
+
+### Copy corrections against the PRD
+
+The degree claim had lost the "since UH started using STAR" bound §25.2
+requires, leaving something close to the unbounded "first in UH history" form
+§25.2 prohibits; the bound and the advisors-worked-together detail are restored.
+Two reorderings of the §7.2 "where software meets" construction were rewritten.
+Three passages commenting on the site's own honesty were removed, including one
+that narrated the GLB chain defect to the visitor. §18.5 removed that register
+from FluidSim and it should not reappear anywhere else.

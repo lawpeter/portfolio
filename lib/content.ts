@@ -3,35 +3,20 @@ import path from "node:path";
 import matter from "gray-matter";
 import { z } from "zod";
 
-/*
- * Content loader — tier-1 markdown collections (PRD §8).
- * Frontmatter is Zod-validated so a malformed entry fails the build loudly
- * (§7), with the offending file named in the error.
- *
- * The project schema deliberately carries the FULL feature set from Phase 0
- * (§7 critical requirement): hasInteractiveDemo, hasCADReveal, asset paths,
- * images — mostly false/absent today. Turning a feature on later is a content
- * edit plus component work, never a page-structure rework.
- */
+/* Frontmatter is validated so malformed content fails the build with the
+ * offending filename. Published gates are applied before public listings or
+ * prerender params are produced; dynamic routes also check the raw entry. */
 
 const CONTENT_ROOT = path.join(process.cwd(), "content");
 
 export const projectSchema = z.object({
   slug: z.string().regex(/^[a-z0-9-]+$/),
   title: z.string().min(1),
-  tier: z.enum(["flagship", "side"]),
-  // §3.1 — which wing of the main page the project lives in. The quadrotor is
-  // "sim" until a physical build exists; side projects use "none".
-  wing: z.enum(["sim", "cad", "none"]),
   summary: z.string().min(1),
-  // short mono status readout, e.g. "SIM-ONLY / 2D", "NOT IN ACTIVE DEV"
-  status: z.string().min(1),
+  status: z.enum(["complete", "ongoing"]).optional(),
+  prominence: z.enum(["featured", "standard"]).default("standard"),
   repoUrl: z.string().url().optional(),
-  // §6 features — schema anticipates them from Phase 0
-  hasInteractiveDemo: z.boolean().default(false),
-  hasCADReveal: z.boolean().default(false),
-  modelPath: z.string().optional(), // GLB under /public/models/<project>/
-  wasmPath: z.string().optional(), // WASM under /public/wasm/<project>/
+  modelPath: z.string().optional(),
   images: z
     .array(
       z.object({
@@ -43,31 +28,58 @@ export const projectSchema = z.object({
       }),
     )
     .default([]),
-  // main-page ordering within a wing/tier group (ascending)
   order: z.number().int(),
-  // true → section renders the mono [CONTENT PENDING] marker (§9); the body
-  // below it is outline/notes, never plausible-sounding description
-  contentPending: z.boolean().default(false),
 });
 
 export const devlogSchema = z.object({
   slug: z.string().regex(/^[a-z0-9-]+$/),
   title: z.string().min(1),
   date: z.coerce.date(),
-  // must reference an existing project slug — validated in getDevlogEntries
-  project: z.string().min(1),
+  project: z.string().min(1).optional(),
+  published: z.boolean().default(false),
+});
+
+export const mechanicalSchema = z.object({
+  slug: z.string().regex(/^[a-z0-9-]+$/),
+  title: z.string().min(1),
+  image: z.object({
+    src: z.string().min(1),
+    caption: z.string().min(1),
+    aspect: z.string().optional(),
+  }),
+  description: z.string().min(1),
+  software: z.string().min(1).optional(),
+  year: z.union([z.string().min(1), z.number().int()]).optional(),
+  projectSlug: z.string().min(1).optional(),
+  order: z.number().int(),
+});
+
+export const journalSchema = z.object({
+  slug: z.string().regex(/^[a-z0-9-]+$/),
+  title: z.string().min(1),
+  date: z.coerce.date(),
+  published: z.boolean().default(false),
 });
 
 export type ProjectMeta = z.infer<typeof projectSchema>;
 export type DevlogMeta = z.infer<typeof devlogSchema>;
+export type MechanicalMeta = z.infer<typeof mechanicalSchema>;
+export type JournalMeta = z.infer<typeof journalSchema>;
 export type Project = ProjectMeta & { body: string };
 export type DevlogEntry = DevlogMeta & { body: string };
+export type MechanicalEntry = MechanicalMeta & { body: string };
+export type JournalEntry = JournalMeta & { body: string };
 
 function loadCollection<S extends z.ZodTypeAny>(
   dir: string,
   schema: S,
 ): Array<z.infer<S> & { body: string }> {
   const abs = path.join(CONTENT_ROOT, dir);
+  // An empty collection is a legitimate state: the devlog ships with no
+  // published posts and the journal starts empty. Git does not track empty
+  // directories, so a clean clone may not have the folder at all. Missing is
+  // not an error; malformed content below still fails the build loudly.
+  if (!fs.existsSync(abs)) return [];
   const files = fs
     .readdirSync(abs)
     .filter((f) => f.endsWith(".md"))
@@ -104,10 +116,12 @@ export function getProject(slug: string): Project | undefined {
 }
 
 export function getDevlogEntries(): DevlogEntry[] {
-  const entries = loadCollection("devlog", devlogSchema);
+  const entries = loadCollection("devlog", devlogSchema).filter(
+    (entry) => entry.published,
+  );
   const projectSlugs = new Set(getProjects().map((p) => p.slug));
   for (const entry of entries) {
-    if (!projectSlugs.has(entry.project)) {
+    if (entry.project && !projectSlugs.has(entry.project)) {
       throw new Error(
         `Devlog entry content/devlog/${entry.slug}.md is tagged to unknown project "${entry.project}"`,
       );
@@ -118,5 +132,21 @@ export function getDevlogEntries(): DevlogEntry[] {
 }
 
 export function getDevlogEntry(slug: string): DevlogEntry | undefined {
-  return getDevlogEntries().find((e) => e.slug === slug);
+  return loadCollection("devlog", devlogSchema).find((e) => e.slug === slug);
+}
+
+export function getMechanicalEntries(): MechanicalEntry[] {
+  return loadCollection("mechanical", mechanicalSchema).sort(
+    (a, b) => a.order - b.order,
+  );
+}
+
+export function getJournalEntries(): JournalEntry[] {
+  return loadCollection("journal", journalSchema)
+    .filter((entry) => entry.published)
+    .sort((a, b) => b.date.getTime() - a.date.getTime());
+}
+
+export function getJournalEntry(slug: string): JournalEntry | undefined {
+  return loadCollection("journal", journalSchema).find((e) => e.slug === slug);
 }

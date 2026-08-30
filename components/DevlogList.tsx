@@ -30,12 +30,14 @@ export function DevlogList({ entries }: { entries: DevlogEntry[] }) {
           >
             {entry.title}
           </Link>
-          <Link
-            href={`/projects/${entry.project}`}
-            className="ml-auto font-mono text-data uppercase text-muted hover:text-accent-text"
-          >
-            [{entry.project}]
-          </Link>
+          {entry.project && (
+            <Link
+              href={`/projects/${entry.project}`}
+              className="ml-auto font-mono text-data uppercase text-muted hover:text-accent-text"
+            >
+              [{entry.project}]
+            </Link>
+          )}
         </li>
       ))}
     </ul>

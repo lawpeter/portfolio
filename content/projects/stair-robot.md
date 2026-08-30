@@ -1,36 +1,29 @@
 ---
 slug: stair-robot
 title: Stair-Climbing Robot
-tier: flagship
-wing: cad
-summary: UH Mānoa ME213 competition robot, built with a team of six — placed 2nd of 50+ UH ME teams. Systems engineering, software, and controls.
-status: "PHYSICAL BUILD / CAD"
-hasInteractiveDemo: false
-hasCADReveal: true
+summary: Six-person UH Mānoa ME213 competition robot that won 1st in its Fall 2025 section. I wrote the control software and designed the electronics layout and mounting plate.
+status: complete
+prominence: featured
 modelPath: /models/stair-robot/stair-robot.glb
 images:
   - src: /photos/stair-robot/stairmaster-side.jpg
-    caption: STAIRMASTER — lasercut side panel, chain-drive spiked tracks, team roster signed on
+    caption: STAIRMASTER with its lasercut side panel, chain-drive spiked tracks, and signed team roster
   - src: /photos/stair-robot/internals.jpg
-    caption: Chassis internals — Arduino, dual Cytron MD20A drivers, drive motors and battery
+    caption: Chassis internals with the Arduino, dual Cytron MD20A drivers, drive motors, and battery
   - src: /photos/stair-robot/wiring.jpg
-    caption: Power and control wiring — terminal block distribution, XT60 connectors, inline fuse
+    caption: Power and control wiring with terminal-block distribution, XT60 connectors, and an inline fuse
   - src: /photos/stair-robot/team.jpg
-    caption: The team, competition day — robot on the floor, controller in hand
-order: 3
-contentPending: false
+    caption: The six-person team with the robot on competition day
+order: 1
 ---
 
-Built for the design competition in ME213 at UH Mānoa: a stair-climbing robot,
-designed with a team of six to meet the class requirements on a fixed budget.
-It placed 2nd out of 50+ UH mechanical engineering teams.
+Built for the design competition in ME213 at UH Mānoa, this stair-climbing
+robot was made by a team of six to meet the class requirements on a fixed
+budget. It won 1st in its Fall 2025 section.
 
-My role sat at two levels. At the team level, I led the group and did the
-systems engineering — keeping the design coherent against the requirements
-and the budget. At the subsystem level, I owned the software and controls,
-implementing a BLE receiver so the robot could be driven with a PS2
-controller.
+I wrote the control software, integrated the PS2 controller receiver, and
+designed the electronics layout and mounting plate. I also participated in
+manufacturing and took on more coordination toward the end of the build.
 
-The full CAD assembly (modeled in Onshape) is part of this site's roadmap: a
-scroll-driven exploded view of the robot is planned for a later phase, built
-from the same GLB export stored with this project.
+My teammates did most of the mechanical design and CAD, including the chassis
+and the movement system.

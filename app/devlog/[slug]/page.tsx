@@ -21,8 +21,8 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const entry = getDevlogEntry((await params).slug);
-  if (!entry) return {};
-  return { title: `${entry.title} — Devlog — Peter Law` };
+  if (!entry?.published) return {};
+  return { title: `${entry.title} | Devlog | Peter Law` };
 }
 
 // Individual devlog entry (§3.4) — cross-links back to its project.
@@ -32,25 +32,25 @@ export default async function DevlogEntryPage({
   params: Promise<{ slug: string }>;
 }) {
   const entry = getDevlogEntry((await params).slug);
-  if (!entry) notFound();
+  if (!entry?.published) notFound();
 
-  const project = getProject(entry.project);
+  const project = entry.project ? getProject(entry.project) : undefined;
 
   return (
     <main className="mx-auto w-full max-w-4xl flex-1 px-2 py-8 sm:px-4">
-      <nav className="flex flex-wrap gap-3 font-mono text-data">
+      <nav className="flex flex-wrap gap-3">
         <Link
           href="/devlog"
           className="text-accent-text underline underline-offset-2 hover:text-accent"
         >
-          ← DEVLOG
+          Devlog
         </Link>
         {project && (
           <Link
             href={`/projects/${project.slug}`}
             className="text-accent-text underline underline-offset-2 hover:text-accent"
           >
-            PROJECT: {project.title.toUpperCase()} →
+            Project: {project.title}
           </Link>
         )}
       </nav>
