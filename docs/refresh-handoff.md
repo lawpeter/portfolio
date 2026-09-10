@@ -21,15 +21,17 @@ Optional: FluidSim capture and quadrotor screenshot. No additional CAD export is
 
 ## Repository audit
 
-- Live FluidSim README has all-GPU and unconditional O(n) claims. Live src/main.cpp was read through GitHub API: runFrame reads particleSSBO through glGetNamedBufferSubData, rebuilds/flattens the grid CPU-side, uploads indices, and dispatches compute stages. Portfolio wording matches that hybrid pipeline.
-- Local FluidSim checkout has uncommitted code and differs from live main. It was not edited.
-- Live quadrotor README retrieved through GitHub API is empty. A scoped replacement is staged in docs/repository-updates/quadrotor-README.md.
+- Live FluidSim README has all-GPU and unconditional O(n) claims. Live src/main.cpp was read through GitHub API: runFrame reads particleSSBO through glGetNamedBufferSubData, rebuilds/flattens the grid CPU-side, uploads indices, and dispatches compute stages. The corrected replacement is in docs/repository-updates/FluidSim-README.md.
+- Local FluidSim checkout has uncommitted source changes and was not otherwise edited. Its README still needs the reviewed replacement applied and committed separately.
+- Live quadrotor README is empty. The scoped replacement is in docs/repository-updates/quadrotor-README.md and still needs to be applied and committed in quadrotor-sim.
 - The zmk-config link resolves to the firmware repository. The site labels it Firmware Source and does not claim public KiCad/CAD sources.
 - Repository update files here are reviewable drafts, not applied or published changes. Deployment readiness requires applying the relevant README corrections to the linked repositories.
 
 ## Release state
 
-This branch is not deployed. Resume is intentionally unavailable until a corrected copy is supplied. Keyboard assembly and mounting-plate models plus CAD previews are integrated. Physical iteration photos remain pending. Final deployed-site content review remains outstanding.
+The site-side quadrotor route fix is implemented: /projects/quadrotor is internal, and /devlog/quadrotor-phase-1-physics redirects there. Resume is intentionally unavailable until a corrected copy is supplied. Keyboard assembly and mounting-plate models plus CAD previews are integrated. Physical iteration photos remain pending. The latest site changes still require deployment and a final deployed-site content review.
+
+The repository README applications remain pending because the host currently cannot write outside this workspace. Apply each reviewed file from docs/repository-updates/ to its matching local repository, commit, and push when repository write access is available.
 
 ## Verification performed
 
