@@ -1,142 +1,78 @@
 # peterlaw.dev
 
-Personal portfolio for Peter Law, a mechanical engineering and computer science
-student at UH Mānoa. The current requirements live in `docs/PRD.md`; the old
-GNC-focused direction is archived in `docs/PRD-v1.md`. Record implementation
-judgment in `docs/decisions.md`.
+Personal portfolio website for Peter Law — cross-disciplinary ME + CS engineering portfolio, vehicle-dynamics/telemetry visual theme. Full requirements: `/docs/PRD.md`. Rationale for anything not explicitly in the PRD: `/docs/decisions.md`.
 
-This is a living reference. If it disagrees with the repository, verify the
-repository and update this file.
+This file is a living reference, read at the start of every session. Update it when the architecture changes meaningfully — it should describe current reality, not history. If this file and the actual repository disagree, the repository is correct; fix this file to match, don't assume this file is right.
 
-## Stack
+## Tech stack
 
-- Next.js App Router, React, TypeScript
-- Tailwind CSS v4 with CSS-first tokens in `app/globals.css`
-- Markdown collections loaded with `gray-matter` and validated with Zod
-- `react-markdown`, GFM, and custom figure/table rendering
-- React Three Fiber, drei, and three for lazy interactive model viewers
-- Hosted on Vercel; deployment and DNS remain out of scope
+- Next.js (App Router)
+- React Three Fiber (+ drei, three) for interactive islands only — installed and live: CAD scroll-reveal (`components/cad-reveal/`, checkpoint config in `checkpoints.ts` is the tunable middle tier) and the side-project orbit viewer (`components/ModelViewer*.tsx`). Islands are desktop-only (<1024px and reduced-motion get static fallbacks); GLBs are meshopt-compressed (see Known gotchas) and lazy-loaded
+- Markdown content collections for devlog entries and project descriptions
+- Routing: single scrollable main page at overview depth; deep-dive writeups and individual devlog entries are separate routes linked from it (PRD §4)
+- Hosted on Vercel (deployment itself is out of scope for this project — see PRD §7)
+- Styling: Tailwind CSS v4, CSS-first config — all §5 design tokens live in a `@theme` block in `app/globals.css`, default palette replaced (rationale in `/docs/decisions.md`)
+- TypeScript; content frontmatter validated with Zod (`gray-matter` + `zod` + `react-markdown` pipeline)
 
-## Current information architecture
-
-The homepage is one scrollable overview:
-
-1. Header
-2. Hero
-3. Projects
-4. Mechanical Design, only when entries exist
-5. About
-6. Devlog, only when published entries exist
-7. Contact
-8. Footer
-
-`app/page.tsx` owns one renderable-section array. Section markup, header
-navigation, and index numbers all derive from it. Never hardcode section numbers
-in a second place.
-
-Project pages remain at `/projects/[slug]`. Devlog remains at `/devlog` and
-`/devlog/[slug]`, even when hidden from the empty homepage. Journal entries use
-`/journal/[slug]` and must never be linked from the public site.
-
-The former quadrotor project and devlog URLs permanently redirect to its GitHub
-repository. Analytics is removed. Contact is email and external links until the
-separately scoped backend phase.
-
-## Content
+## Structure
 
 ```
-content/projects/     four project writeups
-content/devlog/       published or draft devlog posts
-content/mechanical/   verified mechanical-design entries (currently one)
-content/journal/      unlinked, noindex journal posts
+/app                 App Router: layout, main page, projects/[slug], devlog, devlog/[slug], api/telemetry
+/components          React components, including (later) the R3F interactive pieces
+/content/projects/   markdown project descriptions, one file per project
+/content/devlog/     markdown devlog entries
+/lib                 content loader (gray-matter + zod), analytics helper
+/public/models/<project>/   GLB CAD exports — always swappable, no build session needed
+/public/wasm/<project>/     compiled WASM sim binaries — swappable only if the exposed interface is unchanged
+/docs/PRD.md         requirements — what to build and why
+/docs/decisions.md   decision log — why anything not in the PRD was done the way it was
 ```
-
-Project status is optional and limited to lowercase `complete` or `ongoing`;
-`StatusBadge` handles uppercase presentation. `prominence` is `featured` or
-`standard` and defaults to `standard`.
-
-Devlog and journal `published` defaults to `false`. Publication gates apply to
-listings, static params, and the route handler. A direct draft URL must return
-404.
-
-Mechanical ownership is never inferred from CAD nodes. The complete ME213 robot
-may be shown as system context only if the copy states that teammates produced
-most mechanical CAD.
-
-Journal uses page-level `noindex, follow`. Do not add `/journal` to robots.txt;
-blocking crawl prevents compliant bots from seeing `noindex`. Unlinked and
-noindex is not privacy, so nothing sensitive belongs there.
-
-## Interactive assets
-
-Models live under `public/models/<project>/`. Raw Onshape exports must be
-compressed with `gltfpack -cc -kn`; `-kn` preserves per-part nodes.
-
-The ME213 route uses `components/robot-walkthrough/`: ordinary prose/photo
-sections drive a sticky sidecar model at 768px and above. The active subsystem
-is the section occupying the viewport center; gaps latch the previous value.
-Controls are anchor links, and scroll position remains the source of truth.
-
-Phones must not automatically request the stair-robot GLB. `frameloop="demand"`
-must remain for the walkthrough. Static prose and photos are the complete
-fallback when JavaScript or WebGL is unavailable.
-
-The keyboard model viewer is lazy but touch-capable at every width. It keeps
-zoom and pan disabled so page scroll is never captured, and preserves a real
-project photo as its server/loading fallback. Loading indicators are
-indeterminate unless byte-accurate deployed progress has been proven.
-
-## Visual system
-
-The E60 graphite-and-orange identity remains: square borders, hairline rules,
-flat tonal surfaces, and a single accent color. No gradients, glassmorphism,
-noise backgrounds, purple, or decorative animation.
-
-IBM Plex Sans plus IBM Plex Mono is the approved site pairing. Peter approved
-the desktop/mobile specimen on 2026-08-29. Font declarations remain centralized
-in `app/layout.tsx` and `app/globals.css`.
-
-Uppercase mono is for genuine instrument labels, status readouts, and figure
-captions. Navigation and ordinary links are prose-adjacent. `FIG 01 — caption`
-uses an intentional structural separator and is exempt from the public prose
-em-dash sweep.
 
 ## Commands
 
-- `npm run dev`
-- `npm run build`
-- `npm run lint`
-
-Build is the primary content-schema check. A malformed entry must fail loudly.
+- `npm run dev` — dev server
+- `npm run build` — production build (also where malformed content fails loudly)
+- `npm run lint` — ESLint
 
 ## Working principles
 
-1. Plan non-trivial work and verify repository reality before editing.
-2. Prefer the simplest mechanism that satisfies product behavior. Record any
-   mechanism deviation from the PRD in `docs/decisions.md`.
-3. Keep edits scoped and preserve user work.
-4. Verify with real command output, not assertions.
-5. Use one branch per phase or cohesive aspect; never merge a non-working branch.
-6. Make no ownership claim that is not confirmed by Peter or explicit in the
-   current PRD.
-7. Log each non-trivial visual choice with a vibecoded-or-not assessment.
+1. **Think before coding.** Plan first — state what you're building and how you'll verify it before writing implementation code. Solving the wrong problem is the most common failure mode here, not writing bad code.
+2. **Simplicity first.** Minimum code for the actual current requirement. No speculative abstractions, no unrequested features, no "while I'm here" additions.
+3. **Surgical changes.** Touch only what the task requires. Don't refactor adjacent code. Match existing style and patterns already in the codebase rather than introducing a new one.
+4. **Verify, don't assert.** "Done" requires evidence — actual command output, an actual passing check — not a claim that something should work.
 
-## Current work state
+## Content tiers
 
-- PRD Phases 1 through 8: implemented and verified locally on 2026-08-29.
-- The final local sweep passed production build, lint, schema failure behavior,
-  draft/publication gates, legacy redirects, route and asset checks, and the
-  required 375, 768, 1024, 1440, and 1920 px browser widths.
-- FluidSim leads with a semantic GPU frame-pipeline visual and a sectioned
-  technical narrative; no live demo is implied.
-- The keyboard page preserves its lazy orbit viewer on mobile and desktop; the
-  CD player page is intentionally short and photo-led.
-- Mechanical Design intentionally uses a single-feature ME213 robot entry.
-  Gallery assets still needed: keyboard enclosure image and either a
-  mounting-plate render or confirmation of the correct GLB node.
-- Journal entries are unlinked, `noindex, follow`, and closed to drafts at the
-  collection, prerender-param, and direct-route layers. This is not privacy.
-- Deployment/manual validation still remains for representative-tablet frame
-  rate and observation of the loader under a genuinely throttled network.
-- A corrected résumé is optional; `public/resume.pdf` currently resolves and is
-  intentionally unchanged.
+1. **Markdown edits** (devlog, project descriptions) — no build session. Schema-validated; a malformed entry should fail loudly at build time.
+2. **Asset swaps** — GLB models: always a drop-in replacement. WASM binaries: a drop-in replacement only if the exposed interface hasn't changed; otherwise this is tier 3.
+3. **Code changes** (new components, new interactive pieces, anything touching C++/WASM source) — needs an actual session.
+
+## Governance
+
+- Log anything not explicitly specified in the PRD to `/docs/decisions.md`, with justification, at the time the decision is made. If it can't be justified in writing, reconsider it.
+- Dependencies may be added freely given the above — one line of justification per addition.
+- For non-trivial pieces (WASM embedding, scroll-driven R3F, CAD/glTF loading), reference established real-world patterns rather than improvising. May reference Peter's FluidSim and quadrotor GitHub repos, read-only.
+- File writes confined to this project directory.
+- Secrets via environment variables only, never committed. `.env.example` as the template.
+- Git: never merge a non-working branch. One branch per feature/aspect. Commit frequently — as soon as a task completes, not batched.
+- Ask Peter more often than not when genuinely uncertain — but self-review in a code-review style first, before escalating.
+- Overriding a PRD requirement: self-check first, then check with Peter directly with the justification stated, before proceeding.
+- Every non-trivial visual decision gets a logged vibecoded-or-not justification in the decision log, whether it was included or excluded.
+- Aim for WCAG AA and good performance (see PRD §7) — goals, not hard gates; trade-offs are your judgment call.
+- Full visual design system (colors, type, spacing) is specified in PRD §5 — reference it there rather than duplicating values here, to avoid the two documents drifting apart.
+
+## Anti-vibecoding checklist
+
+No gradients, no glassmorphism, no mesh/noise backgrounds, no default Inter/Roboto, no purple, no decorative animation without functional purpose, no rounded corners on single-sided borders. The accent color marks data — it doesn't decorate large surfaces. If a UI choice can't be explained by "this is how real telemetry/dashboard software actually looks," it doesn't belong. Full rationale: PRD §5.6.
+
+## Known gotchas
+
+- **Raw Onshape GLB exports are ~15x oversized** (the stair-robot export was 110 MB — over GitHub's 100 MB hard file limit, so a push would be rejected). Run `npx gltfpack -cc -kn` on any CAD export before dropping it into `/public/models/` — `-kn` is mandatory, it preserves the per-part node structure the CAD scroll-reveal (PRD §6.2) depends on. The compressed GLBs need the meshopt decoder wired in the loader (drei's `useGLTF` handles it).
+
+## Current work context
+
+The current content and presentation requirements supersede the original PRD. The local source brief is retained outside version control. Project Markdown is canonical: collection, order, status, source label, mechanical facet, assets, and long-form prose live together. `projectPath` derives routes from canonical slugs.
+
+The homepage uses Selected Projects, Additional / Earlier Work, Mechanical Design + Fabrication, Hobby Builds, About, and Contact. The robot uses a conventional orbit viewer on its detail page; the old scroll reveal is no longer mounted. The supplied four-part keyboard STEP assembly now replaces the old PCB-only viewer; converted mounting-plate geometry is shown in the robot mechanical facet. CAD sources remain local and ignored. Resume links and the obsolete public PDF are removed pending Peter's corrected file.
+
+See `docs/refresh-handoff.md` for asset destinations, factual questions, repository alignment, and release checks. Do not describe this refresh as deployed until deployment is actually verified.

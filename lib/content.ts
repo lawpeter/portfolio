@@ -3,20 +3,39 @@ import path from "node:path";
 import matter from "gray-matter";
 import { z } from "zod";
 
-/* Frontmatter is validated so malformed content fails the build with the
- * offending filename. Published gates are applied before public listings or
- * prerender params are produced; dynamic routes also check the raw entry. */
+/*
+ * Content loader — tier-1 markdown collections (PRD §8).
+ * Frontmatter is Zod-validated so a malformed entry fails the build loudly
+ * (§7), with the offending file named in the error.
+ *
+ * The project schema deliberately carries the FULL feature set from Phase 0
+ * (§7 critical requirement): hasInteractiveDemo, hasCADReveal, asset paths,
+ * images — mostly false/absent today. Turning a feature on later is a content
+ * edit plus component work, never a page-structure rework.
+ */
 
 const CONTENT_ROOT = path.join(process.cwd(), "content");
 
 export const projectSchema = z.object({
   slug: z.string().regex(/^[a-z0-9-]+$/),
   title: z.string().min(1),
+  collection: z.enum(["selected", "earlier", "hobby"]),
   summary: z.string().min(1),
-  status: z.enum(["complete", "ongoing"]).optional(),
-  prominence: z.enum(["featured", "standard"]).default("standard"),
+  status: z.enum(["COMPLETE", "ONGOING", "SHELVED"]),
+  sourceLabel: z.string().default("Source"),
+  mechanical: z.object({
+    title: z.string(),
+    summary: z.string(),
+    order: z.number().int(),
+    modelPath: z.string().optional(),
+    imageIndex: z.number().int().nonnegative().optional(),
+  }).optional(),
   repoUrl: z.string().url().optional(),
-  modelPath: z.string().optional(),
+  // §6 features — schema anticipates them from Phase 0
+  hasInteractiveDemo: z.boolean().default(false),
+  hasCADReveal: z.boolean().default(false),
+  modelPath: z.string().optional(), // GLB under /public/models/<project>/
+  wasmPath: z.string().optional(), // WASM under /public/wasm/<project>/
   images: z
     .array(
       z.object({
@@ -28,30 +47,19 @@ export const projectSchema = z.object({
       }),
     )
     .default([]),
+  // main-page ordering within a wing/tier group (ascending)
   order: z.number().int(),
+  // true → section renders the mono [CONTENT PENDING] marker (§9); the body
+  // below it is outline/notes, never plausible-sounding description
+  contentPending: z.boolean().default(false),
 });
 
 export const devlogSchema = z.object({
   slug: z.string().regex(/^[a-z0-9-]+$/),
   title: z.string().min(1),
   date: z.coerce.date(),
-  project: z.string().min(1).optional(),
-  published: z.boolean().default(false),
-});
-
-export const mechanicalSchema = z.object({
-  slug: z.string().regex(/^[a-z0-9-]+$/),
-  title: z.string().min(1),
-  image: z.object({
-    src: z.string().min(1),
-    caption: z.string().min(1),
-    aspect: z.string().optional(),
-  }),
-  description: z.string().min(1),
-  software: z.string().min(1).optional(),
-  year: z.union([z.string().min(1), z.number().int()]).optional(),
-  projectSlug: z.string().min(1).optional(),
-  order: z.number().int(),
+  // must reference an existing project slug — validated in getDevlogEntries
+  project: z.string().min(1),
 });
 
 export const journalSchema = z.object({
@@ -63,23 +71,15 @@ export const journalSchema = z.object({
 
 export type ProjectMeta = z.infer<typeof projectSchema>;
 export type DevlogMeta = z.infer<typeof devlogSchema>;
-export type MechanicalMeta = z.infer<typeof mechanicalSchema>;
-export type JournalMeta = z.infer<typeof journalSchema>;
 export type Project = ProjectMeta & { body: string };
 export type DevlogEntry = DevlogMeta & { body: string };
-export type MechanicalEntry = MechanicalMeta & { body: string };
-export type JournalEntry = JournalMeta & { body: string };
+export type JournalEntry = z.infer<typeof journalSchema> & { body: string };
 
 function loadCollection<S extends z.ZodTypeAny>(
   dir: string,
   schema: S,
 ): Array<z.infer<S> & { body: string }> {
   const abs = path.join(CONTENT_ROOT, dir);
-  // An empty collection is a legitimate state: the devlog ships with no
-  // published posts and the journal starts empty. Git does not track empty
-  // directories, so a clean clone may not have the folder at all. Missing is
-  // not an error; malformed content below still fails the build loudly.
-  if (!fs.existsSync(abs)) return [];
   const files = fs
     .readdirSync(abs)
     .filter((f) => f.endsWith(".md"))
@@ -116,12 +116,10 @@ export function getProject(slug: string): Project | undefined {
 }
 
 export function getDevlogEntries(): DevlogEntry[] {
-  const entries = loadCollection("devlog", devlogSchema).filter(
-    (entry) => entry.published,
-  );
+  const entries = loadCollection("devlog", devlogSchema);
   const projectSlugs = new Set(getProjects().map((p) => p.slug));
   for (const entry of entries) {
-    if (entry.project && !projectSlugs.has(entry.project)) {
+    if (!projectSlugs.has(entry.project)) {
       throw new Error(
         `Devlog entry content/devlog/${entry.slug}.md is tagged to unknown project "${entry.project}"`,
       );
@@ -132,21 +130,19 @@ export function getDevlogEntries(): DevlogEntry[] {
 }
 
 export function getDevlogEntry(slug: string): DevlogEntry | undefined {
-  return loadCollection("devlog", devlogSchema).find((e) => e.slug === slug);
-}
-
-export function getMechanicalEntries(): MechanicalEntry[] {
-  return loadCollection("mechanical", mechanicalSchema).sort(
-    (a, b) => a.order - b.order,
-  );
+  return getDevlogEntries().find((e) => e.slug === slug);
 }
 
 export function getJournalEntries(): JournalEntry[] {
-  return loadCollection("journal", journalSchema)
-    .filter((entry) => entry.published)
-    .sort((a, b) => b.date.getTime() - a.date.getTime());
+  return loadCollection("journal", journalSchema).sort(
+    (a, b) => b.date.getTime() - a.date.getTime(),
+  );
 }
 
 export function getJournalEntry(slug: string): JournalEntry | undefined {
-  return loadCollection("journal", journalSchema).find((e) => e.slug === slug);
+  return getJournalEntries().find((entry) => entry.slug === slug);
+}
+
+export function projectPath(project: Pick<ProjectMeta, "slug">): string {
+  return `/projects/${project.slug}`;
 }

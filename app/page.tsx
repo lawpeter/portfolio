@@ -1,188 +1,70 @@
-import type { ReactNode } from "react";
 import Link from "next/link";
-import { DevlogList } from "@/components/DevlogList";
-import { MechanicalGrid } from "@/components/MechanicalGrid";
+import { ModelViewer } from "@/components/ModelViewer";
+import { getProjects, projectPath } from "@/lib/content";
 import { ProjectOverview } from "@/components/ProjectOverview";
 import { SectionHeader } from "@/components/SectionHeader";
-import { SiteHeader, EMAIL, GITHUB, LINKEDIN } from "@/components/SiteHeader";
-import {
-  getDevlogEntries,
-  getMechanicalEntries,
-  getProjects,
-} from "@/lib/content";
+import { StatusBadge } from "@/components/StatusBadge";
+import { PhotoFrame } from "@/components/PhotoFrame";
 
-type HomeSection = {
-  id: string;
-  label: string;
-  ariaLabel: string;
-  content: ReactNode;
-};
+const links = [["GITHUB ↗", "https://github.com/lawpeter"], ["LINKEDIN ↗", "https://www.linkedin.com/in/lawpeterp"], ["EMAIL", "mailto:lawpeterp@gmail.com"]];
+const sections = [["01", "SELECTED PROJECTS", "selected-projects"], ["02", "ADDITIONAL / EARLIER WORK", "earlier-work"], ["03", "MECHANICAL DESIGN + FABRICATION", "mechanical-design"], ["04", "HOBBY BUILDS", "hobby-builds"], ["05", "ABOUT", "about"], ["06", "CONTACT", "contact"]];
+const linkStyle = "text-accent-text underline underline-offset-2 hover:text-accent";
 
 export default function Home() {
   const projects = getProjects();
-  const mechanicalEntries = getMechanicalEntries();
-  const recentDevlog = getDevlogEntries().slice(0, 5);
-
-  // Visibility, navigation, and numbering all derive from this one list.
-  const sections: HomeSection[] = [
-    {
-      id: "projects",
-      label: "Projects",
-      ariaLabel: "Projects",
-      content: (
-        <div className="space-y-3">
-          {projects.map((project) => (
-            <ProjectOverview key={project.slug} project={project} />
-          ))}
-        </div>
-      ),
-    },
-    ...(mechanicalEntries.length > 0
-      ? [
-          {
-            id: "mechanical-design",
-            label: "Mechanical Design",
-            ariaLabel: "Mechanical design",
-            content: <MechanicalGrid entries={mechanicalEntries} />,
-          },
-        ]
-      : []),
-    {
-      id: "about",
-      label: "About",
-      ariaLabel: "About",
-      content: (
-        <div className="max-w-reading space-y-2 leading-relaxed">
-          <p>
-            I&apos;m pursuing bachelor&apos;s degrees in mechanical engineering and
-            computer science at the University of Hawaiʻi at Mānoa. The
-            combination was unusual enough that my ICS and ME advisors had to
-            work together to get it set up. As far as my advisors and I know,
-            I&apos;m the first student to pursue it since UH started using STAR.
-          </p>
-          <p>
-            I chose both because I like projects where the code has something
-            physical attached to it. Robotics, embedded systems, simulation, and
-            mechanical design all hold my attention for that reason. On team
-            projects I&apos;m most useful writing software, integrating
-            electronics, helping with fabrication, and keeping those pieces
-            working together.
-          </p>
-          <p>
-            My first car was a 2010 BMW E60. Its graphite interior and orange
-            instrument lighting are the reason this site looks the way it does.
-          </p>
-          <p>
-            Outside of engineering, most of it still somehow involves wheels
-            or an engine: motorsport and vehicle dynamics are a long-running
-            interest, and I hope to build an electric drift kart from a
-            hoverboard hub motor and a salvaged battery pack. I carspot when
-            I&apos;m out and about, and winters are for snowboarding.
-          </p>
-          <p>
-            I&apos;ll also chase an adventure on foot, including a same-day summit
-            of Mt. Fuji via the Yoshida Trail, or just wander. I spent Spring
-            2026 studying in Tokyo, which turned into a deep dive on Japanese
-            material culture, hunting down selvedge denim and JDM watches in
-            Harajuku and Shimokitazawa.
-          </p>
-        </div>
-      ),
-    },
-    ...(recentDevlog.length > 0
-      ? [
-          {
-            id: "devlog",
-            label: "Devlog",
-            ariaLabel: "Devlog",
-            content: (
-              <>
-                <DevlogList entries={recentDevlog} />
-                <p className="mt-2">
-                  <Link
-                    href="/devlog"
-                    className="text-accent-text underline underline-offset-2 hover:text-accent"
-                  >
-                    Full archive
-                  </Link>
-                </p>
-              </>
-            ),
-          },
-        ]
-      : []),
-    {
-      id: "contact",
-      label: "Contact",
-      ariaLabel: "Contact",
-      content: (
-        <div className="flex flex-wrap gap-x-3 gap-y-1">
-          <a
-            href={`mailto:${EMAIL}`}
-            className="text-accent-text underline underline-offset-2 hover:text-accent"
-          >
-            Email: {EMAIL}
-          </a>
-          <a href={GITHUB} className="text-accent-text underline underline-offset-2 hover:text-accent">
-            GitHub
-          </a>
-          <a href={LINKEDIN} className="text-accent-text underline underline-offset-2 hover:text-accent">
-            LinkedIn
-          </a>
-          <a
-            href="/resume.pdf"
-            download="Peter-Law-Resume.pdf"
-            className="text-accent-text underline underline-offset-2 hover:text-accent"
-          >
-            Résumé ↓
-          </a>
-        </div>
-      ),
-    },
-  ];
-
-  const navigation = sections.map(({ id, label }, index) => ({
-    id,
-    label,
-    index: String(index + 1).padStart(2, "0"),
-  }));
-
+  const mechanical = projects.filter(p => p.mechanical).sort((a,b) => a.mechanical!.order - b.mechanical!.order);
   return (
-    <>
-      <SiteHeader sections={navigation} />
-      <main className="mx-auto w-full max-w-4xl flex-1 px-2 sm:px-4">
-        <section
-          aria-labelledby="home-title"
-          className="flex min-h-[70vh] flex-col justify-center py-8"
-        >
-          <h1 id="home-title" className="text-6xl font-medium tracking-tight sm:text-7xl">
-            Peter Law
-          </h1>
-          <p className="mt-3 max-w-reading text-lg leading-relaxed text-muted">
-            Dual major in Mechanical Engineering + Computer Science at UH
-            Mānoa. Graduating Spring 2028.
-          </p>
-          <hr className="mt-4 border-accent" />
-        </section>
-
-        {sections.map((section, index) => (
-          <section
-            key={section.id}
-            id={section.id}
-            aria-label={section.ariaLabel}
-            className="scroll-mt-16 py-6"
-          >
-            <SectionHeader
-              index={String(index + 1).padStart(2, "0")}
-              label={`/ ${section.label}`}
-            />
-            {section.content}
-          </section>
-        ))}
-      </main>
-      <footer className="mx-auto w-full max-w-4xl border-t border-line px-2 py-2 font-mono text-data text-muted sm:px-4">
-        PETERLAW.DEV / HONOLULU, HAWAIʻI
+    <main id="main-content" className="mx-auto w-full max-w-4xl flex-1 px-2 py-8 sm:px-4">
+      <header className="flex min-h-[60vh] flex-col justify-center py-8">
+        <div className="flex flex-wrap items-baseline justify-between gap-2">
+          <p className="font-mono text-data text-muted">PETERLAW.DEV</p>
+          <div className="flex flex-wrap gap-3 font-mono text-data">{links.map(([label,href]) => <a key={href} href={href} className={linkStyle}>{label}</a>)}</div>
+        </div>
+        <h1 className="mt-4 text-6xl font-medium tracking-tight sm:text-7xl">Peter Law</h1>
+        <p className="mt-3 max-w-reading text-lg leading-relaxed text-muted">Mechanical Engineering + Computer Science at UH Mānoa. I work on projects connecting software, electronics, and physical systems.</p>
+        <p className="mt-4 font-mono text-data text-accent-text">SIMULATION / EMBEDDED SYSTEMS / INTEGRATION</p>
+        <hr className="mt-4 border-accent" />
+        <nav aria-label="Sections" className="mt-2 flex flex-wrap gap-x-4 gap-y-1 font-mono text-data">
+          {sections.map(([index,label,id]) => <a key={id} href={`#${id}`} className="text-muted hover:text-fg"><span className="text-fg">{index}</span> {label}</a>)}
+        </nav>
+      </header>
+      <section id="selected-projects" aria-label="Selected Projects" className="scroll-mt-4 py-6">
+        <SectionHeader index="01" label="/ SELECTED PROJECTS" />
+        <div className="space-y-6">{projects.filter(p => p.collection === "selected").map(p => <ProjectOverview key={p.slug} project={p} />)}</div>
+      </section>
+      <section id="earlier-work" aria-label="Additional / Earlier Work" className="scroll-mt-4 py-6">
+        <SectionHeader index="02" label="/ ADDITIONAL / EARLIER WORK" />
+        {projects.filter(p => p.collection === "earlier").map(p => <ProjectOverview key={p.slug} project={p} compact />)}
+      </section>
+      <section id="mechanical-design" aria-label="Mechanical Design + Fabrication" className="scroll-mt-4 py-6">
+        <SectionHeader index="03" label="/ MECHANICAL DESIGN + FABRICATION" />
+        <div className="space-y-4">{mechanical.map(p => {
+          const facet = p.mechanical!;
+          const img = facet.imageIndex === undefined ? undefined : p.images[facet.imageIndex];
+          return <article key={p.slug} className="border border-line p-2 sm:p-3">
+            <div className="flex flex-wrap items-baseline justify-between gap-1"><h3 className="text-xl font-medium">{facet.title}</h3><StatusBadge status={p.status} /></div>
+            <p className="mt-2 max-w-reading leading-relaxed text-muted">{facet.summary}</p>
+            {img && <div className="mt-2">{facet.modelPath ? <figure><div className="aspect-12/7 border border-line"><ModelViewer modelPath={facet.modelPath} fallbackSrc={img.src} fallbackAlt={img.caption} label="ELECTRONICS MOUNT / DRAG TO ORBIT" /></div><figcaption className="mt-1 text-sm text-muted">{img.caption}</figcaption></figure> : <PhotoFrame src={img.src} alt={img.caption} caption={img.caption} aspect={img.aspect} fig="01" />}</div>}
+            <Link href={projectPath(p)} className={`mt-2 inline-block font-mono text-data ${linkStyle}`}>{p.title} →</Link>
+          </article>;
+        })}</div>
+      </section>
+      <section id="hobby-builds" aria-label="Hobby Builds" className="scroll-mt-4 py-6">
+        <SectionHeader index="04" label="/ HOBBY BUILDS" />
+        {projects.filter(p => p.collection === "hobby").map(p => <div key={p.slug} className="max-w-reading space-y-3">{p.images[0] && <PhotoFrame src={p.images[0].src} alt={p.images[0].caption} caption={p.images[0].caption} fig="01" />}<ProjectOverview project={p} compact /></div>)}
+      </section>
+      <section id="about" aria-label="About" className="scroll-mt-4 py-6">
+        <SectionHeader index="05" label="/ ABOUT" />
+        <div className="max-w-reading space-y-2 leading-relaxed">
+          <p>I&apos;m a Mechanical Engineering and Computer Science student at the University of Hawaiʻi at Mānoa. I enjoy hands-on building and working through problems with other people. On teams, I often work across software, electronics, and integration.</p>
+          <p>Outside engineering, I follow motorsport and enjoy vehicles, snowboarding, hiking, video games, and time with friends. My first car was a 2010 BMW E60; its graphite-and-orange dashboard inspired this site.</p>
+        </div>
+        <Link href="/devlog" className={`mt-3 inline-block font-mono text-data ${linkStyle}`}>DEVELOPMENT NOTES →</Link>
+      </section>
+      <footer id="contact" className="py-6">
+        <SectionHeader index="06" label="/ CONTACT" />
+        <div className="flex flex-wrap gap-3 font-mono text-data">{links.map(([label,href]) => <a key={href} href={href} className={linkStyle}>{label === "EMAIL" ? "EMAIL: lawpeterp@gmail.com" : label}</a>)}</div>
       </footer>
-    </>
+    </main>
   );
 }

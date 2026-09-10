@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
+import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 // §5.3 — centralized font declarations, referenced everywhere via CSS variable.
@@ -10,16 +10,18 @@ const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
 });
 
-const plexSans = IBM_Plex_Sans({
-  variable: "--font-ibm-plex-sans",
-  weight: ["400", "500"],
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://peterlaw.dev"),
   title: "Peter Law | Mechanical Engineering + Computer Science",
+  alternates: { canonical: "/" },
+  openGraph: { type: "website", siteName: "Peter Law", images: ["/opengraph-image"] },
   description:
-    "Peter Law is a mechanical engineering and computer science student at UH Mānoa building software, electronics, simulations, and physical systems.",
+    "Peter Law: Mechanical Engineering + Computer Science at UH Mānoa. Simulation, embedded systems, physical builds, and integration.",
 };
 
 export default function RootLayout({
@@ -30,9 +32,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plexMono.variable} ${plexSans.variable} h-full`}
+      className={`${plexMono.variable} ${spaceGrotesk.variable} h-full`}
     >
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        {children}
+      </body>
     </html>
   );
 }
