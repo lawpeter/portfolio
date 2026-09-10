@@ -7,13 +7,8 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: "/projects/quadrotor",
-        destination: "https://github.com/lawpeter/quadrotor-sim",
-        permanent: true,
-      },
-      {
         source: "/devlog/quadrotor-phase-1-physics",
-        destination: "https://github.com/lawpeter/quadrotor-sim",
+        destination: "/projects/quadrotor",
         permanent: true,
       },
     ];

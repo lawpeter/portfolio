@@ -5,8 +5,9 @@ built in C++ with OpenGL compute shaders for GPU-accelerated physics.
 
 ## Overview
 
-This project implements SPH fluid dynamics entirely on the GPU using GLSL
-compute shaders and OpenGL Shader Storage Buffer Objects (SSBOs). Particles
+This project uses a hybrid CPU/GPU pipeline: particle state is read back to
+the CPU for spatial-grid construction, index data is uploaded, and SPH work is
+dispatched through GLSL compute shaders using OpenGL Shader Storage Buffer Objects (SSBOs). Particles
 are color-coded by velocity, giving a vivid visual sense of fluid behavior —
 from tight, pressurized splashes to slow gas-like expansion.
 
