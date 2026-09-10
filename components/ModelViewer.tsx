@@ -54,7 +54,7 @@ export function ModelViewer({
       {desktop && visible && !reduced ? (
         <>
           <ViewerBoundary key={modelPath} fallback={fallbackSrc ? <Image src={fallbackSrc} alt={fallbackAlt} fill sizes="(min-width: 1024px) 832px, 100vw" className="object-contain" /> : <p className="p-2 text-muted">CAD view unavailable.</p>}>
-            <ModelViewerCanvas modelPath={modelPath} autoRotate={false} />
+            <ModelViewerCanvas modelPath={modelPath} autoRotate={false} onLoaded={() => undefined} />
           </ViewerBoundary>
           <span className="pointer-events-none absolute bottom-0.5 left-0.5 font-mono text-data text-muted">
             {label}
