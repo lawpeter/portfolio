@@ -69,11 +69,27 @@ export const journalSchema = z.object({
   published: z.boolean().default(false),
 });
 
+export const mechanicalSchema = z.object({
+  slug: z.string().regex(/^[a-z0-9-]+$/),
+  title: z.string().min(1),
+  image: z.object({
+    src: z.string(),
+    caption: z.string(),
+    aspect: z.string().optional(),
+  }),
+  description: z.string().min(1),
+  software: z.string().optional(),
+  year: z.string().optional(),
+  projectSlug: z.string().optional(),
+  order: z.number().int(),
+});
+
 export type ProjectMeta = z.infer<typeof projectSchema>;
 export type DevlogMeta = z.infer<typeof devlogSchema>;
 export type Project = ProjectMeta & { body: string };
 export type DevlogEntry = DevlogMeta & { body: string };
 export type JournalEntry = z.infer<typeof journalSchema> & { body: string };
+export type MechanicalEntry = z.infer<typeof mechanicalSchema> & { body: string };
 
 function loadCollection<S extends z.ZodTypeAny>(
   dir: string,
@@ -141,6 +157,12 @@ export function getJournalEntries(): JournalEntry[] {
 
 export function getJournalEntry(slug: string): JournalEntry | undefined {
   return getJournalEntries().find((entry) => entry.slug === slug);
+}
+
+export function getMechanicalEntries(): MechanicalEntry[] {
+  return loadCollection("mechanical", mechanicalSchema).sort(
+    (a, b) => a.order - b.order,
+  );
 }
 
 export function projectPath(project: Pick<ProjectMeta, "slug">): string {
