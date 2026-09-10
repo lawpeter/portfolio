@@ -1,4 +1,7 @@
-# WASM Sim Interface — the Embind contract (§6.1)
+# WASM Sim Interface — the Embind contract (§6.1, archived)
+
+> Archived on 2026-08-29. The current product direction does not include an
+> embedded simulation demo, so this is not an active roadmap specification.
 
 This is the interface the site's telemetry demo will be built against, and the
 contract that decides content tiers (§8): a recompiled binary that keeps this

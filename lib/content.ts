@@ -62,10 +62,18 @@ export const devlogSchema = z.object({
   project: z.string().min(1),
 });
 
+export const journalSchema = z.object({
+  slug: z.string().regex(/^[a-z0-9-]+$/),
+  title: z.string().min(1),
+  date: z.coerce.date(),
+  published: z.boolean().default(false),
+});
+
 export type ProjectMeta = z.infer<typeof projectSchema>;
 export type DevlogMeta = z.infer<typeof devlogSchema>;
 export type Project = ProjectMeta & { body: string };
 export type DevlogEntry = DevlogMeta & { body: string };
+export type JournalEntry = z.infer<typeof journalSchema> & { body: string };
 
 function loadCollection<S extends z.ZodTypeAny>(
   dir: string,
@@ -123,6 +131,16 @@ export function getDevlogEntries(): DevlogEntry[] {
 
 export function getDevlogEntry(slug: string): DevlogEntry | undefined {
   return getDevlogEntries().find((e) => e.slug === slug);
+}
+
+export function getJournalEntries(): JournalEntry[] {
+  return loadCollection("journal", journalSchema).sort(
+    (a, b) => b.date.getTime() - a.date.getTime(),
+  );
+}
+
+export function getJournalEntry(slug: string): JournalEntry | undefined {
+  return getJournalEntries().find((entry) => entry.slug === slug);
 }
 
 export function projectPath(project: Pick<ProjectMeta, "slug">): string {

@@ -66,6 +66,9 @@ if __name__ == '__main__':
     base.visual.face_colors=[173,169,160,255]
     render([base],ROOT/'public/photos/keyboard/enclosure-base.webp',elev=45)
     mount=trimesh.load(ROOT/'raw-assets/stair-robot/electronics-mount.stl')
+    # The supplied STL is exported with its underside facing up. Flip it
+    # before generating either the static preview or the interactive model.
+    mount.apply_transform(trimesh.transformations.rotation_matrix(np.pi,[1,0,0]))
     mount.visual.face_colors=[173,169,160,255]
     render([mount],ROOT/'public/photos/stair-robot/electronics-mount.webp',elev=-30)
     web_model([mount],ROOT/'public/models/stair-robot/electronics-mount.glb')

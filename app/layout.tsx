@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
-import { TelemetryBeacon } from "@/components/TelemetryBeacon";
 import "./globals.css";
 
 // §5.3 — centralized font declarations, referenced everywhere via CSS variable.
@@ -36,7 +35,6 @@ export default function RootLayout({
       className={`${plexMono.variable} ${spaceGrotesk.variable} h-full`}
     >
       <body className="flex min-h-full flex-col">
-        <TelemetryBeacon />
         {children}
       </body>
     </html>

@@ -1,11 +1,16 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Bounds, Html, OrbitControls, useGLTF } from "@react-three/drei";
 
-function Model({ path }: { path: string }) {
+function Model({ path, onLoaded }: { path: string; onLoaded: () => void }) {
   const { scene } = useGLTF(path);
+
+  useEffect(() => {
+    onLoaded();
+  }, [onLoaded, scene]);
+
   return <primitive object={scene} />;
 }
 
@@ -15,13 +20,16 @@ function Model({ path }: { path: string }) {
 export default function ModelViewerCanvas({
   modelPath,
   autoRotate,
+  onLoaded,
 }: {
   modelPath: string;
   autoRotate: boolean;
+  onLoaded: () => void;
 }) {
   return (
     <Canvas
-      dpr={[1, 2]}
+      dpr={[1, 1.75]}
+      frameloop={autoRotate ? "always" : "demand"}
       camera={{ position: [0.9, 0.7, 0.9], fov: 35 }}
       gl={{ preserveDrawingBuffer: true, antialias: true }}
     >
@@ -30,7 +38,7 @@ export default function ModelViewerCanvas({
       <directionalLight position={[-2, 1, -1]} intensity={0.4} />
       <Suspense fallback={<Html center><span role="status" className="whitespace-nowrap font-mono text-data text-muted">Loading CAD assembly…</span></Html>}>
         <Bounds fit clip observe margin={1.15}>
-          <Model path={modelPath} />
+          <Model path={modelPath} onLoaded={onLoaded} />
         </Bounds>
       </Suspense>
       <OrbitControls
