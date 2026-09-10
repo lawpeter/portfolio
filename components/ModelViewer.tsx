@@ -2,12 +2,19 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { Component, type ReactNode, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 
 const ModelViewerCanvas = dynamic(() => import("./ModelViewerCanvas"), {
   ssr: false,
 });
+
+// A failed model load must not take down the project writeup.
+class ViewerBoundary extends Component<{ children: ReactNode; fallback: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() { return { failed: true }; }
+  render() { return this.state.failed ? this.props.fallback : this.props.children; }
+}
 
 /*
  * Data-driven 3D thumb for side-project cards: desktop viewports get the
@@ -44,9 +51,11 @@ export function ModelViewer({
 
   return (
     <div ref={ref} className="relative h-full w-full">
-      {desktop && visible ? (
+      {desktop && visible && !reduced ? (
         <>
-          <ModelViewerCanvas modelPath={modelPath} autoRotate={!reduced} />
+          <ViewerBoundary key={modelPath} fallback={fallbackSrc ? <Image src={fallbackSrc} alt={fallbackAlt} fill sizes="(min-width: 1024px) 832px, 100vw" className="object-contain" /> : <p className="p-2 text-muted">CAD view unavailable.</p>}>
+            <ModelViewerCanvas modelPath={modelPath} autoRotate={false} />
+          </ViewerBoundary>
           <span className="pointer-events-none absolute bottom-0.5 left-0.5 font-mono text-data text-muted">
             {label}
           </span>

@@ -5,6 +5,7 @@ import { DevlogList } from "@/components/DevlogList";
 
 export const metadata: Metadata = {
   title: "Devlog — Peter Law",
+  alternates: { canonical: "/devlog" },
   description:
     "Reverse-chronological development log across Peter Law's projects.",
 };

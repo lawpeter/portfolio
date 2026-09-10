@@ -1,25 +1,25 @@
 ---
 slug: cd-player
-title: Custom CD Player
-tier: side
-wing: none
-summary: A working, to-scale Minecraft Jukebox — insert a CD into the top and it plays music.
-status: "WORKING — V2 PLANNED"
-hasInteractiveDemo: false
-hasCADReveal: false
+title: Minecraft CD Player
+collection: hobby
+status: COMPLETE
+summary: A working scale model of the Minecraft jukebox, with a real top-loading CD mechanism inside a fabricated plywood enclosure.
+order: 5
 images:
   - src: /photos/cd-player/jukebox.jpg
     caption: The jukebox — plywood v1 housing with carved note pattern, CD loaded through the top
   - src: /photos/cd-player/mechanism.jpg
     caption: Drive mechanism beside the housing — slot-load CD drive on its mount
-order: 5
-contentPending: false
 ---
 
-An attempt at making a to-scale version of the Minecraft Jukebox that
-actually works: insert a CD into the top and it plays music. It does.
+## The Build
 
-Two improvements are planned: replacing the crude plywood walls with a
-lasercut housing, and better drivers for the whole system. After that, the
-companion piece — a separate scale model of the Minecraft bookshelf block,
-to hold the CDs.
+A working scale model of the Minecraft jukebox: insert a CD into the top and it plays music. I made it as a physical build for fun, combining the game's recognizable block form with a real CD player.
+
+## Mechanism / Enclosure
+
+A slot-loading CD mechanism sits on a mount inside a plywood housing. The top opening provides access to the disc slot, so the enclosure and drive placement have to preserve the insertion path. The exterior uses a carved note pattern to carry the jukebox appearance into the physical build.
+
+## Current State
+
+The assembled player plays music from CDs. This build is complete.

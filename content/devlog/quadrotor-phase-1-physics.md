@@ -5,6 +5,8 @@ date: 2026-04-14
 project: quadrotor
 ---
 
+> Historical entry. This project is now shelved. Control and estimation were never implemented; see the project page for current scope.
+
 Phase 1 of the quadrotor sim is physics plus a bare renderer, and I decided to
 work through the theory before writing any of it. That started with RK4 — a
 Wikipedia-level foundation first, then deep enough to write the integrator

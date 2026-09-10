@@ -239,3 +239,13 @@ The Embind contract is specified ahead of any binary so Peter's compile has a ta
 ### Known non-issue: npm audit moderate advisory
 
 `npm audit` reports a moderate XSS advisory in the `postcss` copy bundled inside `next` itself. The suggested fix downgrades Next to 9.x — not a real option. Waiting on an upstream Next patch; revisit if it's still present at a later phase.
+
+
+## Project content and CAD refresh (2026-09-09)
+
+- Preserve the existing graphite/orange tokens and typography. Use restrained section headers and quieter earlier-work cards to express the PRD hierarchy; no new visual identity.
+- Keep each project's canonical metadata, mechanical facet, and prose in its existing Markdown record. Derive project routes through `projectPath`; no duplicate mechanical detail pages.
+- Remove the robot scroll-reveal from public routes in favor of the existing bounded orbit viewer, with no auto-rotation and static mobile/reduced-motion fallback. This removes scroll-dependent scale and framing changes.
+- Do not mount the keyboard PCB viewer as an assembly. Add the complete assembly only when supplied, with centralized asset references.
+- Remove the known-obsolete public resume and links; Git history retains the previous file. A corrected resume is required to restore links.
+- Keep historical devlogs with an explicit current-scope notice. The homepage links the archive from About, maintaining the requested six-section hierarchy.

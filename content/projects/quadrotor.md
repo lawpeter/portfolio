@@ -1,34 +1,27 @@
 ---
 slug: quadrotor
-title: Quadrotor Sim
-tier: flagship
-wing: sim
-summary: A planar quadrotor flight-dynamics simulator in C++ — RK4 rigid-body physics written by hand, with control, sensor models, and a Kalman filter on the roadmap.
-status: "C++ — SIM-ONLY / 2D / IN DEV"
+title: Planar Quadrotor Simulator
+collection: earlier
+status: SHELVED
+summary: A C++ planar dynamics simulator with a six-state model, rotor-thrust inputs, fixed-step RK4 integration, and OpenGL / ImGui visualization. Controls and estimation were not implemented.
+order: 4
 repoUrl: https://github.com/lawpeter/quadrotor-sim
-hasInteractiveDemo: false
-hasCADReveal: false
-order: 2
-contentPending: false
 ---
 
-The quadrotor project is a ground-up flight-dynamics simulator, currently in
-its 2D simulation phase — there is no physical build yet, deliberately. The
-simulator models a planar quadrotor in the XZ plane with a six-component state
-vector — position, attitude, and their rates, as an Eigen matrix — driven by
-two raw rotor thrust inputs in Newtons and integrated with a fixed-timestep
-RK4 integrator.
+## Implemented Scope
 
-The physics core is written by hand, on purpose. The equations of motion and
-the RK4 step came from working through the math first — understanding the
-theory before writing the functions — rather than pasting in a reference
-implementation. AI assistance is used for scaffolding, build tooling, and
-rendering code, under a discipline documented in the project's devlog: every
-generated line gets read and understood before it's kept, and physics stays
-handwritten.
+I implemented a 2D planar quadrotor dynamics model in C++ using Eigen. The six-state representation contains horizontal and vertical position, attitude, and their rates. Two rotor-thrust inputs drive the equations of motion, and a fixed-step fourth-order Runge–Kutta (RK4) integrator advances the state.
 
-The roadmap runs in phases: rigid-body physics and a bare renderer, then
-control, then sensor models with a Kalman filter for state estimation — the
-full GNC loop in miniature, at which point the noisy-measurement /
-true-state / estimate distinction becomes the interesting part. Development
-is active and logged as it happens in the devlog below.
+OpenGL and ImGui provide visualization. This artifact is a dynamics simulator, with the physics and numerical integration forming the core of the work.
+
+## Not Implemented
+
+Linearization, state-space A/B matrices, an LQR controller, sensor models, and a Kalman filter / estimator were planned but never implemented. The historical devlog records the original direction, not completed controls or estimation capability.
+
+## Why It Was Shelved
+
+Development paused while I was studying abroad in Tokyo. Other priorities took precedence, and I did not resume the project afterward. Upcoming work on Team RoSE's URC simulator covers related simulation problems in a more relevant team context; that simulator work is still ahead.
+
+## Retrospective
+
+The project taught me the importance of keeping dynamics, visualization, controls, and estimation as clearly bounded scopes. In a future simulator I would establish those subsystem boundaries early, with each implemented stage understandable on its own.

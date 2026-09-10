@@ -17,9 +17,12 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Peter Law — GNC & Flight Software",
+  metadataBase: new URL("https://peterlaw.dev"),
+  title: "Peter Law | Mechanical Engineering + Computer Science",
+  alternates: { canonical: "/" },
+  openGraph: { type: "website", siteName: "Peter Law", images: ["/opengraph-image"] },
   description:
-    "Portfolio of Peter Law — CS + Mechanical Engineering at UH Mānoa, focused on guidance, navigation & control and flight software.",
+    "Peter Law: Mechanical Engineering + Computer Science at UH Mānoa. Simulation, embedded systems, physical builds, and integration.",
 };
 
 export default function RootLayout({

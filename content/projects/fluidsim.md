@@ -1,51 +1,53 @@
 ---
 slug: fluidsim
 title: FluidSim
-tier: flagship
-wing: sim
-summary: Real-time 2D fluid simulation using Smoothed Particle Hydrodynamics, with the physics running entirely on the GPU via OpenGL compute shaders.
-status: "C++ / GLSL — NOT IN ACTIVE DEV"
+collection: selected
+status: COMPLETE
+summary: Interactive GPU-accelerated 2D SPH fluid simulation, co-developed with Owen Poole using CPU spatial indexing and GLSL compute shaders.
+order: 2
 repoUrl: https://github.com/lawpeter/FluidSim
-hasInteractiveDemo: false
-hasCADReveal: false
-order: 1
-contentPending: false
 ---
 
-FluidSim is a real-time fluid simulator built in C++ around Smoothed Particle
-Hydrodynamics (SPH), with the entire physics step — density, pressure,
-viscosity, and gravity — executing on the GPU as GLSL compute shaders backed
-by OpenGL Shader Storage Buffer Objects. Spatial hashing keeps neighbor
-queries at O(n), and particles render as instanced quads, color-coded by
-velocity: tight pressurized splashes read differently than slow, gas-like
-expansion at a glance.
+## Overview
 
-The project was built collaboratively with [Owen
-Poole](https://github.com/owendpoole), as much a GPGPU learning exercise as a
-fluid simulator. We took Sebastian Lague's fluid-simulation video as the
-starting point, read the same papers he referenced — Müller et al. (2003) and
-Monaghan (1992) — and derived the SPH math ourselves. His implementation is
-HLSL; we deliberately chose GLSL to learn a different shader pipeline rather
-than transliterate.
+FluidSim is an interactive GPU-accelerated 2D Smoothed Particle Hydrodynamics (SPH) simulation in C++. It was a learning project in SPH and GPGPU programming, built collaboratively with Owen Poole.
 
-The sim is interactive: mouse forces push or pull particles with configurable
-strength and radius, and gravity, target density, and mouse force are all
-adjustable at runtime through an ImGui panel. Frame-stepping controls allow
-pausing and advancing one frame at a time for inspecting behavior.
+I initiated the project and got the initial foundation running. We then worked closely and simultaneously, discussing and developing many later technical decisions together.
 
-The full control set, from the README:
+## SPH Model
 
-| Input | Action |
-| --- | --- |
-| `Space` | Pause / resume |
-| `.` | Step one frame (while paused) |
-| `,` | Step up to 10 frames (while paused) |
-| `R` | Reset particles to initial grid |
-| Left mouse | Push particles away |
-| Right mouse | Pull particles toward cursor |
+The fluid is represented by particles. Interactions with nearby particles contribute to density estimates, pressure forces, and viscosity. These neighborhood interactions produce the collective fluid behavior seen on screen.
 
-Known limits, honestly stated: the simulation becomes unstable and can crash
-above roughly 300,000 particles (root cause never identified), it's 2D only,
-and further GPU-side optimizations like prefix-sum compaction were scoped out.
-The project isn't in active development — it stands as finished work, not
-abandoned work.
+## Architecture
+
+The implementation is hybrid. Particle state needed for spatial indexing is read back to the CPU. The CPU constructs the spatial-grid indexing, uploads that data, and dispatches the SPH compute work on the GPU.
+
+1. **Particle state → CPU readback**
+2. **CPU → spatial-grid / neighbor indexing**
+3. **Index data → GPU upload**
+4. **GLSL compute shaders → particle update**
+5. **Updated particles → rendering**
+
+This division introduces CPU/GPU synchronization and transfer costs alongside the compute work.
+
+## GPU Compute
+
+GLSL compute shaders operate on particle data through OpenGL Shader Storage Buffer Objects (SSBOs). The compute work includes density, pressure, viscosity, and particle updates. Spatial indexing remains CPU-side.
+
+## Neighbor Search
+
+A uniform spatial grid restricts neighbor searches to nearby cells instead of testing every particle pair. Its effectiveness depends on how many particles occupy those cells; dense clusters increase the amount of work per query.
+
+## Performance
+
+In repeated runs on an NVIDIA RTX 5070 Ti and AMD Ryzen 9 9950X desktop, I observed roughly 290,000 particles at around 35 FPS. This was an informal performance measurement, not a controlled benchmark. Frame rate does not establish synchronization between simulation time and wall-clock time.
+
+## Limitations
+
+Behavior was evaluated qualitatively during development. We did not perform quantitative validation against analytical, experimental, or validated CFD reference cases.
+
+The simulation is 2D. CPU-side indexing introduces synchronization overhead, and very high particle counts can cause instability or crashes; the root cause was not identified.
+
+## What Would Change
+
+Moving more grid construction and binning onto the GPU could reduce transfers and synchronization. That would be an architectural change to investigate, not an implemented feature. The project is complete, with no active development planned.

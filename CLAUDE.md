@@ -1,6 +1,6 @@
 # peterlaw.dev
 
-Personal portfolio website for Peter Law — GNC/flight-software focused resume site, vehicle-dynamics/telemetry visual theme. Full requirements: `/docs/PRD.md`. Rationale for anything not explicitly in the PRD: `/docs/decisions.md`.
+Personal portfolio website for Peter Law — cross-disciplinary ME + CS engineering portfolio, vehicle-dynamics/telemetry visual theme. Full requirements: `/docs/PRD.md`. Rationale for anything not explicitly in the PRD: `/docs/decisions.md`.
 
 This file is a living reference, read at the start of every session. Update it when the architecture changes meaningfully — it should describe current reality, not history. If this file and the actual repository disagree, the repository is correct; fix this file to match, don't assume this file is right.
 
@@ -71,18 +71,8 @@ No gradients, no glassmorphism, no mesh/noise backgrounds, no default Inter/Robo
 
 ## Current work context
 
-Phase 0 (PRD §9) is built and verified: full site architecture and routing, §5 design system, Zod-validated content schema with the complete §7 field set, FluidSim/quadrotor content drafted from their repos, placeholder sections marked `[CONTENT PENDING]`, plain email contact link, silent analytics groundwork (`docs/telemetry.sql` + `/api/telemetry`, no-op until `DATABASE_URL` is set).
+The current content and presentation requirements supersede the original PRD. The local source brief is retained outside version control. Project Markdown is canonical: collection, order, status, source label, mechanical facet, assets, and long-form prose live together. `projectPath` derives routes from canonical slugs.
 
-All five project sections now carry real content (Peter reviewed the drafted prose and supplied facts for the rest; he polishes wording himself as tier-1 edits). Resume PDF at `/public/resume.pdf`, LinkedIn + email confirmed and linked, stair-robot GLB compressed and stored at `/public/models/stair-robot/stair-robot.glb` (see Known gotchas).
+The homepage uses Selected Projects, Additional / Earlier Work, Mechanical Design + Fabrication, Hobby Builds, About, and Contact. The robot uses a conventional orbit viewer on its detail page; the old scroll reveal is no longer mounted. The keyboard PCB model is not presented as an assembly. Resume links and the obsolete public PDF are removed pending Peter's corrected file.
 
-About/hobbies content is in (Peter's own text, near-verbatim). Photos for the stair robot and CD player are stored under `/public/photos/<project>/` (sips-optimized to 1600px) and render on the deep-dive routes via `images[]` frontmatter.
-
-Open items on Peter, before the domain is pointed:
-- Photos still missing: robot team/action shots (not on disk when offered), FluidSim, quadrotor, keyboard; Peter intends to replace current photos during his polish pass
-- Provision Neon Postgres (run `docs/telemetry.sql`), set `DATABASE_URL` (deliberately deferred)
-
-Later-stage work shipped (2026-07-17): CAD scroll-reveal for the stair robot (§6.2 — pinned section, computed radial explode, node-anchored labels, HUD counter), instrument-cluster hero (channel-list nav, full link row above the fold), side-projects gallery with the keyboard-PCB orbit viewer.
-
-Mobile-lightweight pass done (§9): below 1024px no three.js/GLB ever loads (verified), `sizes` hints on all fill images. Embind contract specified in `docs/wasm-interface.md` — fixed methods + runtime channel discovery keeps recompiles tier-2; FluidSim needs a CPU-port decision from Peter (GLSL compute can't target WASM), quadrotor is the low-friction first target.
-
-Remaining phases, all blocked on Peter: sim demo (WASM binary per docs/wasm-interface.md), contact forms (SMS/email provider choice + accounts), visible analytics (Neon provisioning). Also pending from Peter: FluidSim gif (not in either GitHub repo), FluidSim/quadrotor photos, wording polish pass, push to origin.
+See `docs/refresh-handoff.md` for asset destinations, factual questions, repository alignment, and release checks. Do not describe this refresh as deployed until deployment is actually verified.

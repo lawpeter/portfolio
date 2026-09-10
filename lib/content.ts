@@ -19,13 +19,16 @@ const CONTENT_ROOT = path.join(process.cwd(), "content");
 export const projectSchema = z.object({
   slug: z.string().regex(/^[a-z0-9-]+$/),
   title: z.string().min(1),
-  tier: z.enum(["flagship", "side"]),
-  // §3.1 — which wing of the main page the project lives in. The quadrotor is
-  // "sim" until a physical build exists; side projects use "none".
-  wing: z.enum(["sim", "cad", "none"]),
+  collection: z.enum(["selected", "earlier", "hobby"]),
   summary: z.string().min(1),
-  // short mono status readout, e.g. "SIM-ONLY / 2D", "NOT IN ACTIVE DEV"
-  status: z.string().min(1),
+  status: z.enum(["COMPLETE", "ONGOING", "SHELVED"]),
+  sourceLabel: z.string().default("Source"),
+  mechanical: z.object({
+    title: z.string(),
+    summary: z.string(),
+    order: z.number().int(),
+    imageIndex: z.number().int().nonnegative().optional(),
+  }).optional(),
   repoUrl: z.string().url().optional(),
   // §6 features — schema anticipates them from Phase 0
   hasInteractiveDemo: z.boolean().default(false),
@@ -119,4 +122,8 @@ export function getDevlogEntries(): DevlogEntry[] {
 
 export function getDevlogEntry(slug: string): DevlogEntry | undefined {
   return getDevlogEntries().find((e) => e.slug === slug);
+}
+
+export function projectPath(project: Pick<ProjectMeta, "slug">): string {
+  return `/projects/${project.slug}`;
 }
