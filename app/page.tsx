@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ModelViewer } from "@/components/ModelViewer";
 import { getProjects, projectPath } from "@/lib/content";
 import { ProjectOverview } from "@/components/ProjectOverview";
 import { SectionHeader } from "@/components/SectionHeader";
@@ -43,7 +44,7 @@ export default function Home() {
           return <article key={p.slug} className="border border-line p-2 sm:p-3">
             <div className="flex flex-wrap items-baseline justify-between gap-1"><h3 className="text-xl font-medium">{facet.title}</h3><StatusBadge status={p.status} /></div>
             <p className="mt-2 max-w-reading leading-relaxed text-muted">{facet.summary}</p>
-            {img && <div className="mt-2"><PhotoFrame src={img.src} alt={img.caption} caption={img.caption} fig="01" /></div>}
+            {img && <div className="mt-2">{facet.modelPath ? <figure><div className="aspect-12/7 border border-line"><ModelViewer modelPath={facet.modelPath} fallbackSrc={img.src} fallbackAlt={img.caption} label="ELECTRONICS MOUNT / DRAG TO ORBIT" /></div><figcaption className="mt-1 text-sm text-muted">{img.caption}</figcaption></figure> : <PhotoFrame src={img.src} alt={img.caption} caption={img.caption} aspect={img.aspect} fig="01" />}</div>}
             <Link href={projectPath(p)} className={`mt-2 inline-block font-mono text-data ${linkStyle}`}>{p.title} →</Link>
           </article>;
         })}</div>

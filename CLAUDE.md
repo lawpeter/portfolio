@@ -73,6 +73,6 @@ No gradients, no glassmorphism, no mesh/noise backgrounds, no default Inter/Robo
 
 The current content and presentation requirements supersede the original PRD. The local source brief is retained outside version control. Project Markdown is canonical: collection, order, status, source label, mechanical facet, assets, and long-form prose live together. `projectPath` derives routes from canonical slugs.
 
-The homepage uses Selected Projects, Additional / Earlier Work, Mechanical Design + Fabrication, Hobby Builds, About, and Contact. The robot uses a conventional orbit viewer on its detail page; the old scroll reveal is no longer mounted. The keyboard PCB model is not presented as an assembly. Resume links and the obsolete public PDF are removed pending Peter's corrected file.
+The homepage uses Selected Projects, Additional / Earlier Work, Mechanical Design + Fabrication, Hobby Builds, About, and Contact. The robot uses a conventional orbit viewer on its detail page; the old scroll reveal is no longer mounted. The supplied four-part keyboard STEP assembly now replaces the old PCB-only viewer; converted mounting-plate geometry is shown in the robot mechanical facet. CAD sources remain local and ignored. Resume links and the obsolete public PDF are removed pending Peter's corrected file.
 
 See `docs/refresh-handoff.md` for asset destinations, factual questions, repository alignment, and release checks. Do not describe this refresh as deployed until deployment is actually verified.

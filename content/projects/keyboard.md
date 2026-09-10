@@ -11,9 +11,15 @@ mechanical:
   title: Custom Keyboard Enclosure
   summary: I designed the complete enclosure around KiCad-derived PCB and switch-plate geometry, then iterated through multiple physical 3D prints. Development is ongoing.
   order: 1
-# TODO: Add modelPath only after the complete enclosure/assembly GLB is supplied.
-# Existing keyboard-pcb.glb is a PCB asset, not the keyboard assembly.
+  imageIndex: 0
+modelPath: /models/keyboard/keyboard-assembly.glb
 images:
+  - src: /photos/keyboard/enclosure-assembly.webp
+    caption: Enclosure assembly from my CAD export, including top, base, switch plate, and PCB reference geometry. Active iteration; display colors are illustrative.
+    aspect: "12 / 7"
+  - src: /photos/keyboard/enclosure-base.webp
+    caption: Current base geometry from the supplied STL. Incline angle, USB-C access, and display-window integration are still being refined.
+    aspect: "12 / 7"
   - src: /photos/keyboard/gadget-v1.jpg
     caption: Where it started — the 2-key copy-paste gadget, self-designed PCB in a 3D-printed housing
   - src: /photos/keyboard/keycaps.png
@@ -35,7 +41,7 @@ I designed the schematic and PCB in KiCad and had the board fabricated by JLCPCB
 
 ## Firmware
 
-I work on the ZMK firmware and configuration for this hardware. The linked repository is **Firmware Source**; the KiCad and enclosure CAD files are not publicly hosted there.
+All of the current ZMK firmware works on the keyboard. The configuration includes multiple BLE host profiles, ZMK Studio remapping, encoder-controlled display modes, and a WPM typing test. The linked repository is **Firmware Source**; the KiCad and enclosure CAD files are not publicly hosted there.
 
 ## Enclosure / Mechanical Integration
 
@@ -45,8 +51,8 @@ The enclosure itself is my design. I have produced multiple 3D-print iterations 
 
 ## Iteration / Debugging
 
-Physical prints provide a way to check how the enclosure, PCB, and plate come together outside CAD. Multiple enclosure versions have been printed as part of this ongoing integration work.
+Multiple enclosure versions have been printed to check the PCB and plate interfaces in physical parts. Current refinements focus on the base incline, USB-C access, and the nice!view viewing window.
 
 ## Current State
 
-The keyboard hardware and firmware remain an ongoing project. The enclosure has reached physical prototypes and is still being iterated.
+The keyboard is operational and all current firmware works. I am finalizing the base layout, including the incline angle and USB-C port location, as well as the viewing window for the nice!view display. These mechanical details are being refined before casting or milling; that fabrication has not happened yet.

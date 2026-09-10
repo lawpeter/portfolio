@@ -20,6 +20,10 @@ A working scale model of the Minecraft jukebox: insert a CD into the top and it 
 
 A slot-loading CD mechanism sits on a mount inside a plywood housing. The top opening provides access to the disc slot, so the enclosure and drive placement have to preserve the insertion path. The exterior uses a carved note pattern to carry the jukebox appearance into the physical build.
 
+## Playback / Audio
+
+The build uses an SMSL PL100 CD player feeding a Clyxgs TPA3116D2 amplifier board, with two Dayton ND65-8 drivers. A PB240A1 power bank supplies the portable system. Integrating the playback hardware into the jukebox housing connects the visual design to a working audio system.
+
 ## Current State
 
 The assembled player plays music from CDs. This build is complete.

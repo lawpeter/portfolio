@@ -1,27 +1,23 @@
 # Project content and CAD handoff
 
-## Files to supply
+## Supplied CAD and current state
 
-Send originals as attachments; no need to rename them first. These are intended deployment destinations, not currently present assets.
+- Keyboard assembly STEP: four solids (top, switch plate, base, PCB), kept in their supplied relative positions. Web model: public/models/keyboard/keyboard-assembly.glb.
+- Individual base, top, and switch plate STLs are retained locally under ignored raw-assets/keyboard. Base STL provides the separate base preview.
+- Electronics Mount STL: web model public/models/stair-robot/electronics-mount.glb and a static preview, used in the robot mechanical facet. Full robot CAD remains team context.
+- Raw engineering sources and the source preparation brief are ignored local files, not published sources.
+- Static previews use the actual supplied geometry and illustrative colors, rendered with a depth buffer. scripts/prepare-cad-assets.py documents conversion; after generation, compress each GLB using gltfpack -cc -kn before deployment.
+- Onshape document was supplied but could not be independently loaded; exports were sufficient. No unverified public CAD link was added.
+- Peter confirms all current keyboard firmware works. Remaining mechanical iteration includes base incline, USB-C location, and nice!view window before casting/milling.
+- CD player components confirmed: SMSL PL100 CD player, Clyxgs TPA3116D2 amplifier board, PB240A1 power bank, and two Dayton ND65-8 drivers.
 
-| Priority | File | Destination / use |
-| --- | --- | --- |
-| Required to restore resume | Corrected resume.pdf, personally reviewed including HSFL bullets | public/resume.pdf; restore hero/footer links only after review |
-| Keyboard visual priority | Complete keyboard assembly STEP, or enclosure STEP/STL; GLB is also welcome | Keep source in raw-assets/keyboard; convert/optimize to public/models/keyboard/keyboard-assembly.glb; set modelPath in keyboard.md |
-| Keyboard visual priority | Isometric enclosure screenshot/render; ideally one view with PCB and plate visible | public/photos/keyboard/enclosure-isometric.webp; add once to keyboard.md images; use its imageIndex in mechanical facet |
-| Keyboard visual priority | Photo of multiple printed enclosure iterations | public/photos/keyboard/enclosure-iterations.jpg; caption with version order and actual changes |
-| Helpful | Top/bottom or exploded CAD view | public/photos/keyboard/enclosure-exploded.webp |
-| Optional | KiCad .kicad_pcb and .kicad_sch, plus project-local libraries if necessary | raw-assets/keyboard only; use for factual checks or PCB render generation, not automatic public source publication |
-| Helpful | Robot mounting-plate close-up or CAD export of Peter-owned plate | public/photos/stair-robot/electronics-mounting-plate.jpg; replace mechanical facet image reference |
-| Optional | FluidSim screenshot or short capture, plus quadrotor screenshot | public/photos/fluidsim and public/photos/quadrotor |
+## Files still needed
 
-Do not publish raw engineering sources merely because they are supplied. The existing keyboard-pcb.glb remains a PCB asset and is not mounted as a full assembly. Existing keyboard photos show an earlier two-key gadget and keycap design, clearly captioned; neither is an enclosure substitute.
+1. Corrected resume.pdf. Supplied PETER_LAW.pdf still contains the old robot result, Bluetooth wording, GPU-resident language, and active quadrotor entry. It was inspected, not rewritten or published; resume links remain disabled.
+2. Photos of printed enclosure iterations, with short notes about changes between versions, when available.
+3. Photo of the physical robot mounting plate, when available.
 
-## Details needed to deepen copy
-
-- Keyboard: what currently works on the assembled board, what remains untested, and 1–2 specific enclosure changes between print iterations (with the reason). Confirm which display/encoder firmware features work on hardware.
-- CD player: drive/player model, power supply, audio output/speaker arrangement, and how the drive mount was made. Current copy stops at supported enclosure and mechanism facts.
-- Robot: a mounting-plate close-up and a short description of fabrication method would improve the mechanical section.
+Optional: FluidSim capture and quadrotor screenshot. No additional CAD export is needed for the current viewer.
 
 ## Repository audit
 
@@ -33,7 +29,7 @@ Do not publish raw engineering sources merely because they are supplied. The exi
 
 ## Release state
 
-This branch is not deployed. Resume is intentionally unavailable until a corrected copy is supplied. Keyboard assembly viewer and new enclosure imagery await supplied files; public missing-asset placeholders are not rendered. Final deployed-site content review remains outstanding.
+This branch is not deployed. Resume is intentionally unavailable until a corrected copy is supplied. Keyboard assembly and mounting-plate models plus CAD previews are integrated. Physical iteration photos remain pending. Final deployed-site content review remains outstanding.
 
 ## Verification performed
 

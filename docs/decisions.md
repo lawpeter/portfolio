@@ -249,3 +249,10 @@ The Embind contract is specified ahead of any binary so Peter's compile has a ta
 - Do not mount the keyboard PCB viewer as an assembly. Add the complete assembly only when supplied, with centralized asset references.
 - Remove the known-obsolete public resume and links; Git history retains the previous file. A corrected resume is required to restore links.
 - Keep historical devlogs with an explicit current-scope notice. The homepage links the archive from About, maintaining the requested six-section hierarchy.
+
+## Supplied CAD integration (2026-09-09)
+
+- Convert the supplied STEP assembly with its original part placements, then compress to meshopt GLB. Render genuine CAD geometry for static fallbacks; use illustrative neutral part colors, not claimed material finishes.
+- Show Peter's electronics mount separately in Mechanical Design + Fabrication. Its canonical model and preview references live on the robot project, without a duplicate route.
+- Keep raw engineering exports and the source preparation brief outside version control. Neutral branch and commit language describes the work itself.
+- Supplied resume still contains identified stale statements; keep links disabled. Firmware functionality and mechanical refinement details were confirmed directly by Peter.

@@ -10,7 +10,8 @@ mechanical:
   title: Robot Electronics Mounting / Packaging
   summary: Electronics layout, mounting plate, and integration within our six-person team's stair-climbing robot. Most overall mechanical design and CAD were owned by teammates.
   order: 2
-  imageIndex: 1
+  imageIndex: 4
+  modelPath: /models/stair-robot/electronics-mount.glb
 images:
   - src: /photos/stair-robot/stairmaster-side.jpg
     caption: STAIRMASTER — lasercut side panel, chain-drive spiked tracks, team roster signed on
@@ -20,6 +21,9 @@ images:
     caption: Power and control wiring — terminal block distribution, XT60 connectors, inline fuse
   - src: /photos/stair-robot/team.jpg
     caption: The team, competition day — robot on the floor, controller in hand
+  - src: /photos/stair-robot/electronics-mount.webp
+    caption: My electronics mounting plate, rendered from the supplied STL. Shown separately from the team-designed robot assembly.
+    aspect: "12 / 7"
 ---
 
 ## Overview

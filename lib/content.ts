@@ -27,6 +27,7 @@ export const projectSchema = z.object({
     title: z.string(),
     summary: z.string(),
     order: z.number().int(),
+    modelPath: z.string().optional(),
     imageIndex: z.number().int().nonnegative().optional(),
   }).optional(),
   repoUrl: z.string().url().optional(),
