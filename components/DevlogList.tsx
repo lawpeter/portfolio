@@ -27,7 +27,7 @@ export function DevlogList({ entries }: { entries: DevlogEntry[] }) {
           <Link
             href={
               entry.project === "quadrotor"
-                ? "https://github.com/lawpeter/quadrotor-sim"
+                ? "https://github.com/lawpeter/quadrotor-sim/blob/main/DEVLOG.md"
                 : `/devlog/${entry.slug}`}
             className="underline underline-offset-2 hover:text-accent-text"
           >
