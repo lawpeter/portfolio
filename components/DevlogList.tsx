@@ -25,7 +25,10 @@ export function DevlogList({ entries }: { entries: DevlogEntry[] }) {
             {formatDate(entry.date)}
           </time>
           <Link
-            href={`/devlog/${entry.slug}`}
+            href={
+              entry.project === "quadrotor"
+                ? "https://github.com/lawpeter/quadrotor-sim"
+                : `/devlog/${entry.slug}`}
             className="underline underline-offset-2 hover:text-accent-text"
           >
             {entry.title}
